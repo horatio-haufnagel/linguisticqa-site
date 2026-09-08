@@ -14,7 +14,7 @@ import { useState, useEffect, useMemo } from "react";
    No analytics on purpose: no cookie banner. Count Calendly bookings instead.
    ========================================================================= */
 
-const CALENDLY_URL = ""; // TODO
+const CALENDLY_URL = "https://calendly.com/d/d2nc-6w9-njv"; // TODO
 const SITE_URL = "https://tradotext.com"; // TODO: confirm canonical domain
 const PHOTO_SRC = "/alessio.jpg";    // TODO: e.g. "/alessio.jpg"
 const LOGO_SRC  = "";    // TODO: header logo, e.g. "/logo.svg" (SVG or 2x PNG, ~28px tall).
