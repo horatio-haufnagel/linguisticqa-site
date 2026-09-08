@@ -268,6 +268,39 @@ const T = {
           note: "Available only as an add-on to a completed core service, not as a standalone engagement.",
         },
       },
+      form: {
+        nameLabel: "Name",
+        emailLabel: "Email",
+        messageLabel: "Anything else",
+        messagePlaceholder: "Optional — deadline, context, or a specific question",
+        submit: "Send request",
+        submitting: "Sending…",
+        success: "Received. I'll be in touch within one working day.",
+        error: "Something went wrong — write to me directly:",
+        ctaAsync: ["Request an audit", "Request a QA review", "Request prompt work", "Add monitoring"],
+        ctaCalendly: "Prefer a call?",
+        s01: [
+          { name: "context", label: "Deployment context", options: ["Customer support", "Onboarding", "UI copy", "Other"] },
+          { name: "volume", label: "Estimated volume", options: ["Under 100 conversations", "100–500", "Over 500"] },
+          { name: "phase", label: "Project phase", options: ["Pre-launch", "Already in production"] },
+        ],
+        s02: [
+          { name: "content-type", label: "Content type", options: ["UI strings", "Onboarding", "Email", "Legal text", "Mix"] },
+          { name: "string-count", label: "Estimated string count", options: ["Under 300", "300–700", "Over 700"] },
+          { name: "go-live", label: "Go-live timeline", options: ["Under 2 weeks", "2–4 weeks", "Over 4 weeks"] },
+          { name: "compliance", label: "Formal sign-off needed?", options: ["Yes", "No", "Not sure"] },
+        ],
+        s03: [
+          { name: "product-type", label: "Product type", options: ["Customer service bot", "AI assistant", "Other"] },
+          { name: "prompt-status", label: "English prompt status", options: ["Already written", "In progress", "Not yet started"] },
+          { name: "user-volume", label: "Target user volume", options: ["Internal tool", "Under 10k users", "10k+ users"] },
+        ],
+        retainer: [
+          { name: "prior-service", label: "Prior or planned core service", options: ["Italian Model Output Audit", "Localization QA", "Prompt Localization & Testing", "None yet"] },
+          { name: "cadence", label: "Release cadence", options: ["Continuous / daily", "Weekly", "Monthly", "Variable"] },
+          { name: "monthly-volume", label: "Conversations per month", options: ["Under 500", "500–2,000", "Over 2,000"] },
+        ],
+      },
     },
     about: {
       title: "Who's reviewing",
@@ -480,6 +513,7 @@ const T = {
           ],
           what: [
             "75 conversazioni campionate al mese",
+
             "Report mensile rispetto alla baseline del Mese 0",
             "Alert di deriva quando una categoria scende o emerge un nuovo pattern",
           ],
@@ -490,6 +524,39 @@ const T = {
           ],
           note: "Disponibile solo come aggiunta a un servizio principale completato, non come incarico autonomo.",
         },
+      },
+      form: {
+        nameLabel: "Nome",
+        emailLabel: "Email",
+        messageLabel: "Altro",
+        messagePlaceholder: "Facoltativo — scadenza, contesto o una domanda specifica",
+        submit: "Invia richiesta",
+        submitting: "Invio in corso…",
+        success: "Ricevuto. Ti rispondo entro un giorno lavorativo.",
+        error: "Qualcosa è andato storto — scrivimi direttamente:",
+        ctaAsync: ["Richiedi un audit", "Richiedi una QA review", "Richiedi il lavoro sul prompt", "Aggiungi il monitoraggio"],
+        ctaCalendly: "Preferisci una call?",
+        s01: [
+          { name: "context", label: "Contesto di deployment", options: ["Assistenza clienti", "Onboarding", "UI copy", "Altro"] },
+          { name: "volume", label: "Volume stimato", options: ["Meno di 100 conversazioni", "100–500", "Oltre 500"] },
+          { name: "phase", label: "Fase del progetto", options: ["Pre-lancio", "Già in produzione"] },
+        ],
+        s02: [
+          { name: "content-type", label: "Tipo di contenuto", options: ["Stringhe UI", "Onboarding", "Email", "Testi legali", "Mix"] },
+          { name: "string-count", label: "N° stringhe stimato", options: ["Meno di 300", "300–700", "Oltre 700"] },
+          { name: "go-live", label: "Scadenza go-live", options: ["Meno di 2 settimane", "2–4 settimane", "Oltre 4 settimane"] },
+          { name: "compliance", label: "Serve approvazione formale per compliance?", options: ["Sì", "No", "Non lo so"] },
+        ],
+        s03: [
+          { name: "product-type", label: "Tipo di prodotto", options: ["Bot per customer service", "Assistente AI", "Altro"] },
+          { name: "prompt-status", label: "Stato del prompt in inglese", options: ["Già scritto", "In corso", "Non ancora iniziato"] },
+          { name: "user-volume", label: "Volume utenti target", options: ["Tool interno", "Meno di 10k utenti", "10k+ utenti"] },
+        ],
+        retainer: [
+          { name: "prior-service", label: "Servizio principale già completato o pianificato", options: ["Italian Model Output Audit", "Localization QA", "Prompt Localization & Testing", "Nessuno ancora"] },
+          { name: "cadence", label: "Cadenza di rilascio", options: ["Continuous / quotidiana", "Settimanale", "Mensile", "Variabile"] },
+          { name: "monthly-volume", label: "Conversazioni italiane al mese", options: ["Meno di 500", "500–2.000", "Oltre 2.000"] },
+        ],
       },
     },
     about: {
@@ -714,6 +781,39 @@ const T = {
           note: "Nur als Ergänzung zu einer abgeschlossenen Kernleistung buchbar, nicht als eigenständiger Auftrag.",
         },
       },
+      form: {
+        nameLabel: "Name",
+        emailLabel: "E-Mail",
+        messageLabel: "Sonstiges",
+        messagePlaceholder: "Optional — Deadline, Kontext oder eine konkrete Frage",
+        submit: "Anfrage senden",
+        submitting: "Wird gesendet…",
+        success: "Erhalten. Ich melde mich innerhalb eines Arbeitstages.",
+        error: "Etwas ist schiefgelaufen — schreiben Sie mir direkt:",
+        ctaAsync: ["Audit anfragen", "QA-Prüfung anfragen", "Prompt-Arbeit anfragen", "Monitoring hinzufügen"],
+        ctaCalendly: "Lieber ein Gespräch?",
+        s01: [
+          { name: "context", label: "Deployment-Kontext", options: ["Kundensupport", "Onboarding", "UI-Texte", "Anderes"] },
+          { name: "volume", label: "Geschätztes Volumen", options: ["Unter 100 Konversationen", "100–500", "Über 500"] },
+          { name: "phase", label: "Projektphase", options: ["Vor dem Launch", "Bereits in Produktion"] },
+        ],
+        s02: [
+          { name: "content-type", label: "Inhaltstyp", options: ["UI-Strings", "Onboarding", "E-Mail", "Rechtstexte", "Mix"] },
+          { name: "string-count", label: "Geschätzte Stringanzahl", options: ["Unter 300", "300–700", "Über 700"] },
+          { name: "go-live", label: "Go-live-Zeitplan", options: ["Unter 2 Wochen", "2–4 Wochen", "Über 4 Wochen"] },
+          { name: "compliance", label: "Formale Freigabe für Compliance nötig?", options: ["Ja", "Nein", "Nicht sicher"] },
+        ],
+        s03: [
+          { name: "product-type", label: "Produkttyp", options: ["Kundenservice-Bot", "KI-Assistent", "Anderes"] },
+          { name: "prompt-status", label: "Status des englischen Prompts", options: ["Bereits geschrieben", "In Bearbeitung", "Noch nicht begonnen"] },
+          { name: "user-volume", label: "Ziel-Nutzervolumen", options: ["Internes Tool", "Unter 10k Nutzer", "10k+ Nutzer"] },
+        ],
+        retainer: [
+          { name: "prior-service", label: "Abgeschlossener oder geplanter Kernauftrag", options: ["Italian Model Output Audit", "Localization QA", "Prompt Localization & Testing", "Noch keiner"] },
+          { name: "cadence", label: "Release-Kadenz", options: ["Continuous / täglich", "Wöchentlich", "Monatlich", "Variabel"] },
+          { name: "monthly-volume", label: "Konversationen pro Monat", options: ["Unter 500", "500–2.000", "Über 2.000"] },
+        ],
+      },
     },
     about: {
       title: "Wer prüft",
@@ -930,6 +1030,27 @@ const CSS = `
   .svc-steps li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
   .svc-detail-note{margin-top:1.2rem;font-size:.82rem;font-family:var(--mono);color:var(--ink-2);
        border-left:2px solid var(--rule);padding-left:.75rem;line-height:1.5}
+
+  /* intake form */
+  .svc-form-cta{margin-top:1.8rem;padding-top:1.5rem;border-top:1px solid var(--rule)}
+  .svc-form{margin-top:1.5rem}
+  .svc-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
+  @media(max-width:640px){.svc-form-grid{grid-template-columns:1fr}}
+  .svc-form-field{margin-bottom:1.1rem}
+  .svc-form-field label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
+       text-transform:uppercase;color:var(--ink-2);margin-bottom:.35rem;font-weight:500}
+  .svc-form-field input[type="text"],.svc-form-field input[type="email"],
+  .svc-form-field select,.svc-form-field textarea{
+       display:block;width:100%;background:transparent;border:none;
+       border-bottom:1px solid var(--rule);padding:.4rem 0;font-family:var(--sans);
+       font-size:.95rem;color:var(--ink);outline:none;border-radius:0;
+       -webkit-appearance:none;appearance:none;line-height:1.5}
+  .svc-form-field input:focus,.svc-form-field select:focus,.svc-form-field textarea:focus{border-bottom-color:var(--ink)}
+  .svc-form-field textarea{resize:vertical;min-height:72px}
+  .svc-form-field select{cursor:pointer}
+  .svc-form-success{font-family:var(--mono);font-size:.88rem;color:var(--ok);
+       border-left:2px solid var(--ok);padding-left:.75rem;line-height:1.5}
+  .svc-form-error{font-size:.88rem;color:var(--pen);margin-top:.75rem}
 `;
 
 
@@ -1055,7 +1176,106 @@ function Finding({ f, t }) {
   );
 }
 
-function ServiceDetail({ svc, t }) {
+function encode(data) {
+  return Object.keys(data)
+    .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(data[k] ?? ""))
+    .join("&");
+}
+
+function ServiceForm({ svcKey, formName, ctaLabel, t }) {
+  const [open, setOpen] = useState(false);
+  const [values, setValues] = useState({});
+  const [status, setStatus] = useState("idle");
+
+  const f = t.form;
+  const fields = f[svcKey];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues(v => ({ ...v, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus("submitting");
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": formName, ...values }),
+    })
+      .then(() => setStatus("success"))
+      .catch(() => setStatus("error"));
+  };
+
+  if (status === "success") {
+    return (
+      <div className="svc-form-cta">
+        <p className="svc-form-success">{f.success}</p>
+      </div>
+    );
+  }
+
+  if (!open) {
+    return (
+      <div className="svc-form-cta flex flex-wrap items-center gap-5">
+        <button type="button" className="btn" style={{ padding: ".65rem 1.2rem", fontSize: ".95rem" }}
+                onClick={() => setOpen(true)}>
+          {ctaLabel}
+        </button>
+        <span className="cap ink2">
+          {f.ctaCalendly}{" "}
+          <a href={CALENDLY_URL} className="u" target="_blank" rel="noopener noreferrer">Calendly</a>
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <form className="svc-form" name={formName} onSubmit={handleSubmit}>
+      <input type="hidden" name="form-name" value={formName} />
+      <input type="hidden" name="bot-field" />
+      <div className="svc-form-grid">
+        <div className="svc-form-field">
+          <label htmlFor={`${formName}-name`}>{f.nameLabel} *</label>
+          <input id={`${formName}-name`} type="text" name="name" required onChange={handleChange} />
+        </div>
+        <div className="svc-form-field">
+          <label htmlFor={`${formName}-email`}>{f.emailLabel} *</label>
+          <input id={`${formName}-email`} type="email" name="email" required onChange={handleChange} />
+        </div>
+        {fields.map(field => (
+          <div key={field.name} className="svc-form-field">
+            <label htmlFor={`${formName}-${field.name}`}>{field.label}</label>
+            <select id={`${formName}-${field.name}`} name={field.name} defaultValue="" onChange={handleChange}>
+              <option value="" disabled>—</option>
+              {field.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+            </select>
+          </div>
+        ))}
+      </div>
+      <div className="svc-form-field" style={{ marginTop: ".25rem" }}>
+        <label htmlFor={`${formName}-message`}>{f.messageLabel}</label>
+        <textarea id={`${formName}-message`} name="message" placeholder={f.messagePlaceholder} onChange={handleChange} />
+      </div>
+      <div style={{ marginTop: "1rem" }} className="flex flex-wrap items-center gap-5">
+        <button type="submit" className="btn" style={{ padding: ".65rem 1.2rem", fontSize: ".95rem" }}
+                disabled={status === "submitting"}>
+          {status === "submitting" ? f.submitting : f.submit}
+        </button>
+        <button type="button" className="svc-toggle" onClick={() => setOpen(false)}>
+          {t.close}
+        </button>
+      </div>
+      {status === "error" && (
+        <p className="svc-form-error">
+          {f.error}{" "}<a href={`mailto:${EMAIL}`} className="u">{EMAIL}</a>
+        </p>
+      )}
+    </form>
+  );
+}
+
+function ServiceDetail({ svc, t, svcKey, formName, ctaLabel }) {
   const d = svc.detail;
   const monoLabel = { fontSize: ".72rem", letterSpacing: ".12em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 500, marginBottom: ".75rem" };
   return (
@@ -1068,35 +1288,36 @@ function ServiceDetail({ svc, t }) {
           </ul>
         </div>
       )}
-    <div className="grid md:grid-cols-5 gap-8 md:gap-12">
-      <div className="md:col-span-2">
-        <div className="mono" style={monoLabel}>{t.headDeliverables}</div>
-        <ul className="svc-what-list">
-          {d.what.map((w, i) => <li key={i}>{w}</li>)}
-        </ul>
-        {d.timeline && (
-          <div style={{ marginTop: "1.4rem" }}>
-            <div className="mono" style={{ ...monoLabel, marginBottom: ".5rem" }}>{t.headTimeline}</div>
-            <p className="mono" style={{ fontSize: ".88rem", lineHeight: 1.5 }}>{d.timeline}</p>
-          </div>
-        )}
-        {d.note && <p className="svc-detail-note">{d.note}</p>}
+      <div className="grid md:grid-cols-5 gap-8 md:gap-12">
+        <div className="md:col-span-2">
+          <div className="mono" style={monoLabel}>{t.headDeliverables}</div>
+          <ul className="svc-what-list">
+            {d.what.map((w, i) => <li key={i}>{w}</li>)}
+          </ul>
+          {d.timeline && (
+            <div style={{ marginTop: "1.4rem" }}>
+              <div className="mono" style={{ ...monoLabel, marginBottom: ".5rem" }}>{t.headTimeline}</div>
+              <p className="mono" style={{ fontSize: ".88rem", lineHeight: 1.5 }}>{d.timeline}</p>
+            </div>
+          )}
+          {d.note && <p className="svc-detail-note">{d.note}</p>}
+        </div>
+        <div className="md:col-span-3">
+          <div className="mono" style={monoLabel}>{t.headProcess}</div>
+          <ol className="svc-steps">
+            {d.steps.map((s, i) => (
+              <li key={i}>
+                <span className="step-n" aria-hidden="true" style={{ paddingTop: 0, minWidth: "1.5ch" }}>{i + 1}</span>
+                <div>
+                  <div style={{ fontWeight: 500, lineHeight: 1.3, marginBottom: ".25rem" }}>{s.h}</div>
+                  <p className="ink2" style={{ fontSize: ".95rem", lineHeight: 1.6, margin: 0 }}>{s.p}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
-      <div className="md:col-span-3">
-        <div className="mono" style={monoLabel}>{t.headProcess}</div>
-        <ol className="svc-steps">
-          {d.steps.map((s, i) => (
-            <li key={i}>
-              <span className="step-n" aria-hidden="true" style={{ paddingTop: 0, minWidth: "1.5ch" }}>{i + 1}</span>
-              <div>
-                <div style={{ fontWeight: 500, lineHeight: 1.3, marginBottom: ".25rem" }}>{s.h}</div>
-                <p className="ink2" style={{ fontSize: ".95rem", lineHeight: 1.6, margin: 0 }}>{s.p}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
+      <ServiceForm svcKey={svcKey} formName={formName} ctaLabel={ctaLabel} t={t} />
     </div>
   );
 }
@@ -1326,7 +1547,13 @@ export default function App() {
                   <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--pen)", textTransform: "uppercase", fontWeight: 500, marginBottom: "1rem" }}>
                     {t.services.items[selectedSvc].n} / {t.services.items[selectedSvc].h}
                   </div>
-                  <ServiceDetail svc={t.services.items[selectedSvc]} t={t.services} />
+                  <ServiceDetail
+                    svc={t.services.items[selectedSvc]}
+                    t={t.services}
+                    svcKey={["s01","s02","s03"][selectedSvc]}
+                    formName={["audit-brief","localization-qa-brief","prompt-brief"][selectedSvc]}
+                    ctaLabel={t.services.form.ctaAsync[selectedSvc]}
+                  />
                 </div>
               )}
               <div className="border-t rule pt-8 pb-2 flex gap-5 flex-wrap">
@@ -1346,7 +1573,13 @@ export default function App() {
                   </button>
                   {selectedRetainer && (
                     <div id="retainer-detail-panel" className="mt-6" role="region" aria-label={t.services.retainer.h}>
-                      <ServiceDetail svc={t.services.retainer} t={t.services} />
+                      <ServiceDetail
+                        svc={t.services.retainer}
+                        t={t.services}
+                        svcKey="retainer"
+                        formName="retainer-brief"
+                        ctaLabel={t.services.form.ctaAsync[3]}
+                      />
                     </div>
                   )}
                 </div>

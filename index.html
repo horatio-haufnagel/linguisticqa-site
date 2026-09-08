@@ -53,5 +53,31 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/index.jsx"></script>
+
+    <!-- Netlify Forms detection — do not remove; these are never visible but must be in the HTML -->
+    <form name="audit-brief" netlify netlify-honeypot="bot-field" hidden>
+      <input name="form-name" /><input name="bot-field" />
+      <input name="name" /><input name="email" />
+      <input name="context" /><input name="volume" /><input name="phase" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="localization-qa-brief" netlify netlify-honeypot="bot-field" hidden>
+      <input name="form-name" /><input name="bot-field" />
+      <input name="name" /><input name="email" />
+      <input name="content-type" /><input name="string-count" /><input name="go-live" /><input name="compliance" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="prompt-brief" netlify netlify-honeypot="bot-field" hidden>
+      <input name="form-name" /><input name="bot-field" />
+      <input name="name" /><input name="email" />
+      <input name="product-type" /><input name="prompt-status" /><input name="user-volume" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="retainer-brief" netlify netlify-honeypot="bot-field" hidden>
+      <input name="form-name" /><input name="bot-field" />
+      <input name="name" /><input name="email" />
+      <input name="prior-service" /><input name="cadence" /><input name="monthly-volume" />
+      <textarea name="message"></textarea>
+    </form>
   </body>
 </html>
