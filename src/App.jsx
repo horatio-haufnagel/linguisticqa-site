@@ -15,7 +15,7 @@ import { useState, useEffect, useMemo } from "react";
    ========================================================================= */
 
 const CALENDLY_URL = "https://calendly.com/d/d2nc-6w9-njv"; // TODO
-const SITE_URL = "https://tradotext.com"; // TODO: confirm canonical domain
+const SITE_URL = "https://linguisticqa.com"; // TODO: confirm canonical domain
 const PHOTO_SRC = "/alessio.jpg";    // TODO: e.g. "/alessio.jpg"
 const LOGO_SRC  = "";    // TODO: header logo, e.g. "/logo.svg" (SVG or 2x PNG, ~28px tall).
                          // Empty = no mark; the navigation moves left to keep the bar balanced.
@@ -943,7 +943,7 @@ export default function App() {
         <div className={`${wrap} py-8 flex flex-wrap items-center justify-between gap-4 cap ink2`} style={page}>
           <span>© {new Date().getFullYear()} {t.footer.rights}</span>
           <span className="flex items-center gap-4">
-            <a href="https://tradotext.com" className="u">tradotext.com</a>
+            <a href="https://linguisticqa.com" className="u">tradotext.com</a>
             <a href={LINKEDIN} className="u" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </span>
         </div>
