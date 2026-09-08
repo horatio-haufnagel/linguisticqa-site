@@ -943,7 +943,7 @@ export default function App() {
         <div className={`${wrap} py-8 flex flex-wrap items-center justify-between gap-4 cap ink2`} style={page}>
           <span>© {new Date().getFullYear()} {t.footer.rights}</span>
           <span className="flex items-center gap-4">
-            <a href="https://linguisticqa.com" className="u">tradotext.com</a>
+            <a href="https://linguisticqa.com" className="u">linguisticqa.com</a>
             <a href={LINKEDIN} className="u" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </span>
         </div>
