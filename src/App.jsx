@@ -61,8 +61,8 @@ const T = {
     htmlLang: "en",
     metaTitle: "Alessio Di Rubbo — Linguistic QA for AI teams (Italian)",
     metaDesc: "Error analysis for Italian model output. I find where your model gets Italian wrong before your users do: audits, evaluation data, launch QA.",
-    nav: { audit: "Sample audit", findings: "Findings", notes: "Notes", about: "About", cta: "Book a free audit", menu: "Menu" },
-    eyebrow: { audit: "audit", findings: "findings", notes: "notes", process: "process", about: "about" },
+    nav: { audit: "Sample audit", findings: "Findings", notes: "Notes", services: "Services", about: "About", cta: "Book a free audit", menu: "Menu" },
+    eyebrow: { audit: "audit", findings: "findings", notes: "notes", process: "process", services: "services", about: "about" },
     hero: {
       h1a: "Your model speaks Italian.",
       h1b: "I find where it gets it ",
@@ -89,7 +89,7 @@ const T = {
     },
     audit: {
       title: "What an audit looks like",
-      lead: "Six typical errors, reconstructed to show the shape of a report. Each row is one string: what the model produced, why it fails, how severe it is, and what to do about it. A real report ranks issues by frequency and points at the cause — prompt, data or model — so the team knows what to fix first. Three findings from actual client work are below.",
+      lead: "Six typical errors, reconstructed to show the shape of a report. Each row is one string: what the model produced, why it fails, how severe it is, and what to do about it. A real report ranks issues by frequency and points at the cause (prompt, data or model), so the team knows what to fix first. Three findings from actual client work are below.",
       cols: ["Source", "Output", "Issue", "Severity", "Fix"],
       rows: [
         ["Sign in to continue.", "Firma per continuare.", "Mistranslation: “sign” read as signature. Meaning lost.", "Critical", "Accedi per continuare."],
@@ -99,7 +99,7 @@ const T = {
         ["Hi Alex, welcome back!", "Ciao Alex, bentornato!", "Gender: masculine agreement on an unknown user.", "Major", "Ciao Alex, è bello rivederti!"],
         ["Learn more", "Impara di più", "Calque; “imparare” is to study. Standard UI term exists.", "Minor", "Scopri di più"],
       ],
-      after: "Pattern across the sample: 4 of 6 issues are register or calque, not grammar. That points at the prompt, not the model — a cheaper fix than fine-tuning.",
+      after: "Pattern across the sample: 4 of 6 issues are register or calque, not grammar. That points at the prompt, not the model. A cheaper fix than fine-tuning.",
     },
     findings: {
       title: "Three findings from real work",
@@ -111,17 +111,17 @@ const T = {
           n: "01",
           h: "The threshold that disappeared",
           where: "Help-centre page on cancellation fees.",
-          body: "The German source lists two consecutive rate bands in a two-item bullet list; the higher band carries double the fee. The second Italian bullet is not a translation of the second German rule. It is a near-verbatim paraphrase of the first — one verb changed — different enough to slip past a duplicate-text check, close enough to give the copy away. The stricter band, and its higher fee, simply do not exist in Italian.",
+          body: "The German source lists two consecutive rate bands in a two-item bullet list; the higher band carries double the fee. The second Italian bullet is not a translation of the second German rule. It is a near-verbatim paraphrase of the first (one verb changed), different enough to slip past a duplicate-text check, close enough to give the copy away. The stricter band, and its higher fee, simply do not exist in Italian.",
           why: "Both Italian bullets are grammatically flawless. Reading the Italian alone tells you nothing. You see it only by aligning the German list item by item and noticing that a number is gone.",
           verified: "Read the raw HTML around the point to confirm both items sit in the same list, rather than an artefact of my alignment script.",
-          sev: "Critical — direct commercial impact on a published fee policy.",
+          sev: "Critical: direct commercial impact on a published fee policy.",
           tag: "certain",
         },
         {
           n: "02",
           h: "Two translations of the same page, never reconciled",
           where: "Regulatory page in the seller help centre.",
-          body: "Two independent Italian files existed for one German source — same title, same source date, same starting content. They do not differ by an oversight; they diverge systematically, as if produced by two people who never spoke.",
+          body: "Two independent Italian files existed for one German source: same title, same source date, same starting content. They do not differ by an oversight; they diverge systematically, as if produced by two people who never spoke.",
           table: [
             ["Procedure step", "Fase 1 / 2 / 3", "Passaggio 1 / 2 / 3"],
             ["Nationality", "mercato olandese", "mercato neerlandese"],
@@ -129,8 +129,8 @@ const T = {
             ["Take-back scheme", "ritiro 1:1", "ritiro uno contro uno"],
             ["Closing formula", "Esclusione di responsabilità", "Disclaimer"],
           ],
-          why: "One version pairs the English and Italian acronyms inside the same parenthesis, where the standard Italian term alone — RAEE — is correct and sufficient. One typo is an accident; two complete, independent translations in circulation is a process failure, and precisely what translation memories and locked glossaries exist to prevent. A reader comparing two help pages sees two legal vocabularies for one concept.",
-          sev: "High — terminology governance, not a single document.",
+          why: "One version pairs the English and Italian acronyms inside the same parenthesis, where the standard Italian term alone (RAEE) is correct and sufficient. One typo is an accident; two complete, independent translations in circulation is a process failure, and precisely what translation memories and locked glossaries exist to prevent. A reader comparing two help pages sees two legal vocabularies for one concept.",
+          sev: "Major: terminology governance, not a single document.",
           tag: "certain",
         },
         {
@@ -138,12 +138,12 @@ const T = {
           h: "The link that vanished from one market",
           where: "Published seller case study on international expansion.",
           body: "The source names two markets in the same sentence, both as live links. The Italian keeps the link on the first and drops it on the second: same string, plain text, no anchor.",
-          why: "I did not find this by reading — both versions are grammatically and semantically identical. The structural element count between source and target did not match, 24 blocks against 23, and I traced the missing element by hand. It is the only one of the three found by structural diff rather than by reading, and it needs the tooling and the patience to compare HTML element by element instead of text line by line.",
-          sev: "Low — the Italian visitor loses a shortcut, nothing more.",
+          why: "I did not find this by reading. Both versions are grammatically and semantically identical. The structural element count between source and target did not match, 24 blocks against 23, and I traced the missing element by hand. It is the only one of the three found by structural diff rather than by reading, and it needs the tooling and the patience to compare HTML element by element instead of text line by line.",
+          sev: "Minor: the Italian visitor loses a shortcut, nothing more.",
           tag: "certain",
         },
       ],
-      method: "The same pass checked and discarded several other suspects: a VAT table across eight countries, a holiday calendar across six, a fee table across twelve product categories, nine country/IBAN pairs. All correct, line by line. Two structural count mismatches on other documents remain unresolved and are recorded as open, not as findings — the time spent ruling things out is the part of an audit nobody sees, and it is what separates a check from a list of suspicions.",
+      method: "The same pass checked and discarded several other suspects: a VAT table across eight countries, a holiday calendar across six, a fee table across twelve product categories, nine country/IBAN pairs. All correct, line by line. Two structural count mismatches on other documents remain unresolved and are recorded as open, not as findings. The time spent ruling things out is the part of an audit nobody sees, and it is what separates a check from a list of suspicions.",
     },
     notes: {
       title: "Notes on how models fail in Italian",
@@ -157,9 +157,35 @@ const T = {
       title: "How it works",
       steps: [
         { h: "Free audit, 30 minutes", p: "You send 20–50 strings of Italian output. I return the top issues and say whether they look systematic." },
-        { h: "Report", p: "Error taxonomy with severity, likely root cause and fixes your team can act on." },
+        { h: "Report", p: "Error taxonomy with severity, likely root cause, and concrete fixes." },
         { h: "Retainer", p: "Monthly review on a cadence, so regressions surface before release rather than in support tickets." },
       ],
+    },
+    services: {
+      title: "Services",
+      lead: "Each engagement delivers a concrete artefact: a report, a sign-off document, or a tested prompt set.",
+      items: [
+        {
+          n: "01",
+          h: "Italian Model Output Audit",
+          p: "Systematic review of your model's Italian output: error taxonomy, severity scoring, root causes and fixes. Delivered as a PDF report and corrected spreadsheet. An adversarial stress-test tier is available for high-stakes deployments.",
+        },
+        {
+          n: "02",
+          h: "Localization QA",
+          p: "Pre-release QA review of all Italian-facing copy: UI strings, onboarding flows, email, legal text. Formal sign-off with documented evidence for audit trail and compliance.",
+        },
+        {
+          n: "03",
+          h: "Prompt Localization & Testing",
+          p: "System prompt adaptation and validation so your model behaves correctly in Italian: register, terminology, and tone, tested against the interaction patterns your users will actually encounter.",
+        },
+      ],
+      retainer: {
+        label: "Retention option",
+        h: "Ongoing Monitoring Retainer",
+        p: "Monthly sampling of live output, trend analysis against a baseline, and early warning when quality drifts — before your users notice. Attaches to any core service above.",
+      },
     },
     about: {
       title: "Who's reviewing",
@@ -176,8 +202,8 @@ const T = {
     htmlLang: "it",
     metaTitle: "Alessio Di Rubbo — Linguistic QA per team AI (italiano)",
     metaDesc: "Error analysis sull'output italiano dei modelli. Scopro dove il tuo modello sbaglia in italiano prima che lo scoprano gli utenti: audit, dati di valutazione, QA di lancio.",
-    nav: { audit: "Audit di esempio", findings: "Reperti", notes: "Note", about: "Chi sono", cta: "Prenota un audit gratuito", menu: "Menu" },
-    eyebrow: { audit: "audit", findings: "reperti", notes: "note", process: "metodo", about: "chi sono" },
+    nav: { audit: "Audit di esempio", findings: "Reperti", notes: "Note", services: "Servizi", about: "Chi sono", cta: "Prenota un audit gratuito", menu: "Menu" },
+    eyebrow: { audit: "audit", findings: "reperti", notes: "note", process: "metodo", services: "servizi", about: "chi sono" },
     hero: {
       h1a: "Il tuo modello parla italiano.",
       h1b: "Io trovo dove ",
@@ -204,7 +230,7 @@ const T = {
     },
     audit: {
       title: "Com'è fatto un audit",
-      lead: "Sei errori tipici, ricostruiti per mostrare la forma di un report. Ogni riga è una stringa: cosa ha prodotto il modello, perché non va, quanto è grave, cosa fare. Un report reale ordina i problemi per frequenza e indica la causa — prompt, dati o modello — così il team sa cosa correggere per primo. Qui sotto tre reperti da lavoro reale.",
+      lead: "Sei errori tipici, ricostruiti per mostrare la forma di un report. Ogni riga è una stringa: cosa ha prodotto il modello, perché non va, quanto è grave, cosa fare. Un report reale ordina i problemi per frequenza e indica la causa (prompt, dati o modello), così il team sa cosa correggere per primo. Qui sotto tre reperti da lavoro reale.",
       cols: ["Sorgente", "Output", "Problema", "Gravità", "Correzione"],
       rows: [
         ["Sign in to continue.", "Firma per continuare.", "Errore di senso: “sign” letto come firma.", "Critico", "Accedi per continuare."],
@@ -226,10 +252,10 @@ const T = {
           n: "01",
           h: "La soglia che sparisce",
           where: "Pagina del centro assistenza sulle commissioni per annullamento.",
-          body: "La sorgente tedesca definisce due fasce consecutive in un elenco puntato di due voci; la fascia superiore comporta una commissione doppia. La seconda voce italiana non è la traduzione della seconda regola tedesca: è una parafrasi quasi letterale della prima, con un solo verbo cambiato — abbastanza diversa da non far scattare un controllo automatico di duplicazione, abbastanza uguale da tradire la copia. La fascia più severa, e la sua commissione più alta, in italiano non esistono.",
+          body: "La sorgente tedesca definisce due fasce consecutive in un elenco puntato di due voci; la fascia superiore comporta una commissione doppia. La seconda voce italiana non è la traduzione della seconda regola tedesca: è una parafrasi quasi letterale della prima, con un solo verbo cambiato, abbastanza diversa da non far scattare un controllo automatico di duplicazione, abbastanza uguale da tradire la copia. La fascia più severa, e la sua commissione più alta, in italiano non esistono.",
           why: "Entrambe le voci italiane sono grammaticalmente perfette. Rileggere l'italiano da solo non rivela niente. Lo si vede solo allineando l'elenco tedesco voce per voce e accorgendosi che una soglia è scomparsa.",
           verified: "Ho letto l'HTML grezzo attorno al punto per confermare che le due voci appartengono allo stesso elenco e non sono un artefatto del mio script di allineamento.",
-          sev: "Critica — impatto commerciale diretto su una politica tariffaria pubblicata.",
+          sev: "Critica: impatto commerciale diretto su una politica tariffaria pubblicata.",
           tag: "certain",
         },
         {
@@ -244,8 +270,8 @@ const T = {
             ["Ritiro usato-per-nuovo", "ritiro 1:1", "ritiro uno contro uno"],
             ["Formula di chiusura", "Esclusione di responsabilità", "Disclaimer"],
           ],
-          why: "Una delle due versioni affianca l'acronimo inglese e quello italiano nella stessa parentesi, dove la sigla italiana normativa — RAEE — da sola è corretta e sufficiente. Un refuso è un incidente; due traduzioni complete e indipendenti in circolazione è un problema di processo, ed è esattamente lo scenario contro cui esistono le memorie di traduzione e i glossari vincolati. Chi confronta due pagine di assistenza vede due terminologie legali per lo stesso concetto.",
-          sev: "Alta — governance terminologica, non singolo documento.",
+          why: "Una delle due versioni affianca l'acronimo inglese e quello italiano nella stessa parentesi, dove la sigla italiana normativa (RAEE) da sola è corretta e sufficiente. Un refuso è un incidente; due traduzioni complete e indipendenti in circolazione è un problema di processo, ed è esattamente lo scenario contro cui esistono le memorie di traduzione e i glossari vincolati. Chi confronta due pagine di assistenza vede due terminologie legali per lo stesso concetto.",
+          sev: "Grave: governance terminologica, non singolo documento.",
           tag: "certain",
         },
         {
@@ -253,12 +279,12 @@ const T = {
           h: "Il collegamento che sparisce da un solo mercato",
           where: "Case study pubblicata su un rivenditore e la sua espansione internazionale.",
           body: "La sorgente cita due mercati nella stessa frase, entrambi come collegamenti attivi. L'italiano mantiene il link sul primo e lo perde sul secondo: stessa stringa, testo semplice, nessun tag.",
-          why: "Non l'ho trovato leggendo: le due versioni sono grammaticalmente e semanticamente identiche. Il conteggio degli elementi strutturali tra sorgente e target non tornava — 24 blocchi contro 23 — e sono risalito a mano all'elemento mancante. È l'unico dei tre trovato per differenza strutturale invece che per lettura, e richiede gli strumenti e la pazienza per confrontare l'HTML elemento per elemento anziché il testo riga per riga.",
-          sev: "Bassa — il visitatore italiano perde una scorciatoia, nulla di più.",
+          why: "Non l'ho trovato leggendo: le due versioni sono grammaticalmente e semanticamente identiche. Il conteggio degli elementi strutturali tra sorgente e target non tornava (24 blocchi contro 23), e sono risalito a mano all'elemento mancante. È l'unico dei tre trovato per differenza strutturale invece che per lettura, e richiede gli strumenti e la pazienza per confrontare l'HTML elemento per elemento anziché il testo riga per riga.",
+          sev: "Lieve: il visitatore italiano perde una scorciatoia, nulla di più.",
           tag: "certain",
         },
       ],
-      method: "La stessa passata ha verificato e scartato diversi altri sospetti: una tabella IVA su otto paesi, un calendario festività su sei, una tabella tariffaria su dodici categorie merceologiche, nove coppie paese/IBAN. Tutti corretti, riga per riga. Due scarti di conteggio strutturale su altri documenti restano irrisolti e sono registrati come aperti, non come reperti — il tempo speso a escludere è la parte di un audit che non si vede, ed è ciò che separa un controllo vero da un elenco di sospetti.",
+      method: "La stessa passata ha verificato e scartato diversi altri sospetti: una tabella IVA su otto paesi, un calendario festività su sei, una tabella tariffaria su dodici categorie merceologiche, nove coppie paese/IBAN. Tutti corretti, riga per riga. Due scarti di conteggio strutturale su altri documenti restano irrisolti e sono registrati come aperti, non come reperti. Il tempo speso a escludere è la parte di un audit che non si vede, ed è ciò che separa un controllo vero da un elenco di sospetti.",
     },
     notes: {
       title: "Note su come i modelli sbagliano in italiano",
@@ -272,14 +298,40 @@ const T = {
       title: "Come funziona",
       steps: [
         { h: "Audit gratuito, 30 minuti", p: "Mi mandi 20–50 stringhe di output italiano. Ti restituisco i problemi principali e ti dico se sembrano sistematici." },
-        { h: "Report", p: "Tassonomia degli errori con gravità, causa probabile e correzioni su cui il team può agire." },
+        { h: "Report", p: "Tassonomia degli errori con gravità, causa probabile e correzioni concrete." },
         { h: "Retainer", p: "Revisione mensile a cadenza fissa, così le regressioni emergono prima del rilascio e non nei ticket di supporto." },
       ],
+    },
+    services: {
+      title: "Servizi",
+      lead: "Ogni collaborazione ha un output concreto: un report, un documento di approvazione, o un set di prompt testati.",
+      items: [
+        {
+          n: "01",
+          h: "Italian Model Output Audit",
+          p: "Revisione sistematica dell'output italiano del tuo modello: tassonomia degli errori, scoring per gravità, cause e correzioni. Consegnato come report PDF e foglio di calcolo corretto. Fascia stress-test avversariale disponibile per deployment ad alto rischio.",
+        },
+        {
+          n: "02",
+          h: "Localization QA",
+          p: "QA pre-rilascio su tutto il copy in italiano: stringhe UI, flussi di onboarding, email, testi legali. Approvazione formale con evidenze documentate per audit trail e compliance.",
+        },
+        {
+          n: "03",
+          h: "Prompt Localization & Testing",
+          p: "Adattamento e validazione del system prompt perché il modello si comporti correttamente in italiano: registro, terminologia e tono, testati sui pattern di interazione che i tuoi utenti incontreranno effettivamente.",
+        },
+      ],
+      retainer: {
+        label: "Opzione di continuità",
+        h: "Ongoing Monitoring Retainer",
+        p: "Campionamento mensile dell'output live, analisi del trend rispetto alla baseline e segnalazione precoce quando la qualità deriva — prima che lo notino i tuoi utenti. Si aggiunge a qualunque servizio principale.",
+      },
     },
     about: {
       title: "Chi revisiona",
       p1: "Alessio Di Rubbo. Madrelingua italiano, MA in Applied Linguistics all'Università di Vienna, lavoro da Vienna in tedesco e inglese.",
-      p2: "Dal 2016 faccio post-editing e valutazione di output automatico per brand globali, incluso lavoro RLHF e SFT su modelli di traduzione in produzione per Translated e valutazione di NMT adattiva sul progetto ModernMT. Ho seguito il lancio italiano end-to-end del marketplace Kaufland. A un certo punto il lavoro è passato dal correggere errori allo spiegare perché succedono.",
+      p2: "Dal 2016 faccio post-editing e valutazione di output automatico per brand globali, tra cui attività di RLHF e SFT su modelli di traduzione in produzione per Translated e valutazione di NMT adattiva sul progetto ModernMT. Ho seguito il lancio italiano end-to-end del marketplace Kaufland. A un certo punto il lavoro è passato dal correggere errori allo spiegare perché succedono.",
       clients: "Output italiano validato per Amazon, NVIDIA, Stellantis, Kaufland e Translated.",
       photoAlt: "Alessio Di Rubbo",
     },
@@ -291,8 +343,8 @@ const T = {
     htmlLang: "de",
     metaTitle: "Alessio Di Rubbo — Linguistic QA für KI-Teams (Italienisch)",
     metaDesc: "Fehleranalyse für italienischen Modell-Output. Ich finde, wo Ihr Modell auf Italienisch danebenliegt, bevor Ihre Nutzer es merken: Audits, Evaluationsdaten, Launch-QA.",
-    nav: { audit: "Beispiel-Audit", findings: "Befunde", notes: "Notizen", about: "Über mich", cta: "Kostenloses Audit buchen", menu: "Menü" },
-    eyebrow: { audit: "audit", findings: "befunde", notes: "notizen", process: "ablauf", about: "über mich" },
+    nav: { audit: "Beispiel-Audit", findings: "Befunde", notes: "Notizen", services: "Leistungen", about: "Über mich", cta: "Kostenloses Audit buchen", menu: "Menü" },
+    eyebrow: { audit: "audit", findings: "befunde", notes: "notizen", process: "ablauf", services: "leistungen", about: "über mich" },
     hero: {
       h1a: "Ihr Modell spricht Italienisch.",
       h1b: "Ich finde, wo es ",
@@ -319,7 +371,7 @@ const T = {
     },
     audit: {
       title: "So sieht ein Audit aus",
-      lead: "Sechs typische Fehler, rekonstruiert, um die Form eines Reports zu zeigen. Jede Zeile ist ein String: was das Modell produziert hat, warum es scheitert, wie schwer, und was zu tun ist. Ein echter Report ordnet Probleme nach Häufigkeit und benennt die Ursache — Prompt, Daten oder Modell. Darunter drei Befunde aus echter Arbeit.",
+      lead: "Sechs typische Fehler, rekonstruiert, um die Form eines Reports zu zeigen. Jede Zeile ist ein String: was das Modell produziert hat, warum es scheitert, wie schwer, und was zu tun ist. Ein echter Report ordnet Probleme nach Häufigkeit und benennt die Ursache (Prompt, Daten oder Modell). Darunter drei Befunde aus echter Arbeit.",
       cols: ["Quelle", "Output", "Problem", "Schweregrad", "Korrektur"],
       rows: [
         ["Sign in to continue.", "Firma per continuare.", "Sinnfehler: „sign“ als Unterschrift gelesen.", "Kritisch", "Accedi per continuare."],
@@ -329,7 +381,7 @@ const T = {
         ["Hi Alex, welcome back!", "Ciao Alex, bentornato!", "Genus: maskuline Kongruenz bei unbekanntem Nutzer.", "Schwer", "Ciao Alex, è bello rivederti!"],
         ["Learn more", "Impara di più", "Lehnübersetzung; „imparare“ heißt lernen. Standard-UI-Begriff existiert.", "Leicht", "Scopri di più"],
       ],
-      after: "Muster in der Stichprobe: 4 von 6 Problemen sind Register oder Lehnübersetzung, nicht Grammatik. Das zeigt auf den Prompt, nicht auf das Modell — eine günstigere Korrektur als Fine-Tuning.",
+      after: "Muster in der Stichprobe: 4 von 6 Problemen sind Register oder Lehnübersetzung, nicht Grammatik. Das zeigt auf den Prompt, nicht auf das Modell. Eine günstigere Korrektur als Fine-Tuning.",
     },
     findings: {
       title: "Drei Befunde aus echter Arbeit",
@@ -341,17 +393,17 @@ const T = {
           n: "01",
           h: "Die Schwelle, die verschwindet",
           where: "Hilfecenter-Seite zu Stornogebühren.",
-          body: "Die deutsche Quelle nennt zwei aufeinanderfolgende Staffeln in einer zweigliedrigen Aufzählung; die höhere Staffel kostet doppelt. Der zweite italienische Punkt ist keine Übersetzung der zweiten deutschen Regel, sondern eine fast wörtliche Paraphrase des ersten — ein Verb geändert: verschieden genug, um einer automatischen Dublettenprüfung zu entgehen, ähnlich genug, um die Kopie zu verraten. Die strengere Staffel und ihre höhere Gebühr existieren im Italienischen schlicht nicht.",
+          body: "Die deutsche Quelle nennt zwei aufeinanderfolgende Staffeln in einer zweigliedrigen Aufzählung; die höhere Staffel kostet doppelt. Der zweite italienische Punkt ist keine Übersetzung der zweiten deutschen Regel, sondern eine fast wörtliche Paraphrase des ersten (ein Verb geändert), verschieden genug, um einer automatischen Dublettenprüfung zu entgehen, ähnlich genug, um die Kopie zu verraten. Die strengere Staffel und ihre höhere Gebühr existieren im Italienischen schlicht nicht.",
           why: "Beide italienischen Punkte sind grammatisch einwandfrei. Das Italienische allein zu lesen verrät nichts. Man sieht es nur, wenn man die deutsche Liste Punkt für Punkt abgleicht und bemerkt, dass eine Zahl fehlt.",
           verified: "Ich habe das rohe HTML rund um die Stelle gelesen, um zu bestätigen, dass beide Punkte in derselben Liste stehen und es kein Artefakt meines Alignment-Skripts ist.",
-          sev: "Kritisch — direkte kommerzielle Auswirkung auf eine veröffentlichte Gebührenordnung.",
+          sev: "Kritisch: direkte kommerzielle Auswirkung auf eine veröffentlichte Gebührenordnung.",
           tag: "certain",
         },
         {
           n: "02",
           h: "Zwei Übersetzungen derselben Seite, nie abgeglichen",
           where: "Regulatorische Seite im Händler-Hilfecenter.",
-          body: "Für eine deutsche Quelle existierten zwei unabhängige italienische Dateien: gleicher Titel, gleiches Änderungsdatum, gleicher Ausgangstext. Sie unterscheiden sich nicht durch ein Versehen, sondern systematisch — als stammten sie von zwei Personen, die nie miteinander gesprochen haben.",
+          body: "Für eine deutsche Quelle existierten zwei unabhängige italienische Dateien: gleicher Titel, gleiches Änderungsdatum, gleicher Ausgangstext. Sie unterscheiden sich nicht durch ein Versehen, sondern systematisch, als stammten sie von zwei Personen, die nie miteinander gesprochen haben.",
           table: [
             ["Verfahrensschritt", "Fase 1 / 2 / 3", "Passaggio 1 / 2 / 3"],
             ["Nationalitätsadjektiv", "mercato olandese", "mercato neerlandese"],
@@ -359,8 +411,8 @@ const T = {
             ["Rücknahmeverfahren", "ritiro 1:1", "ritiro uno contro uno"],
             ["Schlussformel", "Esclusione di responsabilità", "Disclaimer"],
           ],
-          why: "Eine der Versionen stellt das englische und das italienische Akronym in dieselbe Klammer, wo die italienische Normbezeichnung — RAEE — allein korrekt und ausreichend ist. Ein Tippfehler ist ein Unfall; zwei vollständige, unabhängige Übersetzungen im Umlauf sind ein Prozessfehler, und genau dagegen existieren Translation Memories und verbindliche Glossare. Wer zwei Hilfeseiten vergleicht, sieht zwei Rechtsterminologien für denselben Begriff.",
-          sev: "Hoch — Terminologie-Governance, nicht ein einzelnes Dokument.",
+          why: "Eine der Versionen stellt das englische und das italienische Akronym in dieselbe Klammer, wo die italienische Normbezeichnung (RAEE) allein korrekt und ausreichend ist. Ein Tippfehler ist ein Unfall; zwei vollständige, unabhängige Übersetzungen im Umlauf sind ein Prozessfehler, und genau dagegen existieren Translation Memories und verbindliche Glossare. Wer zwei Hilfeseiten vergleicht, sieht zwei Rechtsterminologien für denselben Begriff.",
+          sev: "Schwer: Terminologie-Governance, nicht ein einzelnes Dokument.",
           tag: "certain",
         },
         {
@@ -368,12 +420,12 @@ const T = {
           h: "Der Link, der aus einem Markt verschwindet",
           where: "Veröffentlichte Händler-Case-Study zur internationalen Expansion.",
           body: "Die Quelle nennt zwei Märkte im selben Satz, beide als aktive Links. Das Italienische behält den Link beim ersten und verliert ihn beim zweiten: gleiche Zeichenfolge, reiner Text, kein Anchor.",
-          why: "Gefunden habe ich das nicht durch Lesen — beide Fassungen sind grammatisch und semantisch identisch. Die Zahl der Strukturelemente stimmte zwischen Quelle und Ziel nicht überein, 24 Blöcke gegen 23, und ich habe das fehlende Element von Hand zurückverfolgt. Es ist der einzige der drei Befunde, der über einen strukturellen Abgleich statt über Lesen gefunden wurde.",
-          sev: "Gering — der italienische Besucher verliert nur eine Abkürzung.",
+          why: "Gefunden habe ich das nicht durch Lesen. Beide Fassungen sind grammatisch und semantisch identisch. Die Zahl der Strukturelemente stimmte zwischen Quelle und Ziel nicht überein, 24 Blöcke gegen 23, und ich habe das fehlende Element von Hand zurückverfolgt. Es ist der einzige der drei Befunde, der über einen strukturellen Abgleich statt über Lesen gefunden wurde.",
+          sev: "Leicht: der italienische Besucher verliert nur eine Abkürzung.",
           tag: "certain",
         },
       ],
-      method: "Derselbe Durchgang hat mehrere weitere Verdachtsfälle geprüft und verworfen: eine Mehrwertsteuertabelle über acht Länder, ein Feiertagskalender über sechs, eine Gebührentabelle über zwölf Produktkategorien, neun Land/IBAN-Paare. Alle korrekt, Zeile für Zeile. Zwei strukturelle Zähldifferenzen in anderen Dokumenten sind ungeklärt und als offen vermerkt, nicht als Befund — die Zeit, die man mit dem Ausschließen verbringt, ist der Teil eines Audits, den niemand sieht.",
+      method: "Derselbe Durchgang hat mehrere weitere Verdachtsfälle geprüft und verworfen: eine Mehrwertsteuertabelle über acht Länder, ein Feiertagskalender über sechs, eine Gebührentabelle über zwölf Produktkategorien, neun Land/IBAN-Paare. Alle korrekt, Zeile für Zeile. Zwei strukturelle Zähldifferenzen in anderen Dokumenten sind ungeklärt und als offen vermerkt, nicht als Befund. Die Zeit, die man mit dem Ausschließen verbringt, ist der Teil eines Audits, den niemand sieht.",
     },
     notes: {
       title: "Notizen dazu, wie Modelle auf Italienisch scheitern",
@@ -387,9 +439,35 @@ const T = {
       title: "So läuft es ab",
       steps: [
         { h: "Kostenloses Audit, 30 Minuten", p: "Sie schicken 20–50 Strings italienischen Outputs. Ich melde die wichtigsten Probleme zurück und sage, ob sie systematisch wirken." },
-        { h: "Report", p: "Fehlertaxonomie mit Schweregrad, wahrscheinlicher Ursache und Korrekturen, mit denen Ihr Team arbeiten kann." },
+        { h: "Report", p: "Fehlertaxonomie mit Schweregrad, wahrscheinlicher Ursache und konkreten Korrekturen." },
         { h: "Retainer", p: "Monatliche Review im festen Rhythmus, damit Regressionen vor dem Release auffallen und nicht im Support." },
       ],
+    },
+    services: {
+      title: "Leistungen",
+      lead: "Drei Leistungen, jede mit einem konkreten Ergebnis, mit dem Ihr Team direkt arbeiten kann.",
+      items: [
+        {
+          n: "01",
+          h: "Italian Model Output Audit",
+          p: "Systematische Prüfung des italienischen Outputs Ihres Modells: Fehlertaxonomie, Schweregrad-Scoring, Ursachen und Korrekturen. Als PDF-Report und korrigierte Tabelle geliefert. Adversariales Stress-Test-Tier für hochkritische Deployments verfügbar.",
+        },
+        {
+          n: "02",
+          h: "Localization QA",
+          p: "Pre-Release-QA für alle italienischsprachigen Texte: UI-Strings, Onboarding-Flows, E-Mails, Rechtstexte. Formale Freigabe mit dokumentierten Nachweisen für Audit Trail und Compliance.",
+        },
+        {
+          n: "03",
+          h: "Prompt Localization & Testing",
+          p: "Anpassung und Validierung des System-Prompts, damit Ihr Modell auf Italienisch korrekt agiert: Register, Terminologie und Ton, validiert anhand der Interaktionsmuster, die Ihre Nutzer tatsächlich verwenden.",
+        },
+      ],
+      retainer: {
+        label: "Kontinuitätsoption",
+        h: "Ongoing Monitoring Retainer",
+        p: "Monatliches Sampling des Live-Outputs, Trendanalyse gegen eine Baseline und Frühwarnung bei Qualitätsdrift — bevor Ihre Nutzer es bemerken. Kombinierbar mit jeder der Kernleistungen.",
+      },
     },
     about: {
       title: "Wer prüft",
@@ -795,6 +873,7 @@ export default function App() {
             <a href="#audit" className="nav">{t.nav.audit}</a>
             <a href="#findings" className="nav">{t.nav.findings}</a>
             <a href="#notes" className="nav">{t.nav.notes}</a>
+            <a href="#services" className="nav">{t.nav.services}</a>
             <a href="#about" className="nav">{t.nav.about}</a>
           </div>
           <div className="flex items-center gap-5 ml-auto">
@@ -808,6 +887,7 @@ export default function App() {
               <a href="#audit" onClick={() => setMenuOpen(false)}>{t.nav.audit}</a>
               <a href="#findings" onClick={() => setMenuOpen(false)}>{t.nav.findings}</a>
               <a href="#notes" onClick={() => setMenuOpen(false)}>{t.nav.notes}</a>
+              <a href="#services" onClick={() => setMenuOpen(false)}>{t.nav.services}</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>{t.nav.about}</a>
               <a href={CALENDLY_URL || `mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>{t.nav.cta}</a>
             </div>
@@ -902,6 +982,34 @@ export default function App() {
           </div>
         </section>
 
+        {/* Services */}
+        <section id="services" className="border-t rule">
+          <div className={`${wrap} py-16 md:py-24`} style={page}>
+            {THEME_ID === "grottesca2" && <div className="cap-label mb-3">05 / {t.eyebrow.services}</div>}
+            <h2 className="h2">{t.services.title}</h2>
+            <p className="mt-4 ink2" style={text}>{t.services.lead}</p>
+            <div className="mt-12" style={{ maxWidth: 1040 }}>
+              <div className="grid md:grid-cols-3">
+                {t.services.items.map((s, i) => (
+                  <article key={i} className="border-t rule pt-8 pb-8 md:pr-12">
+                    <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--pen)", textTransform: "uppercase", fontWeight: 500 }}>{s.n}</div>
+                    <h3 className="h3 mt-3" style={{ fontWeight: 600 }}>{s.h}</h3>
+                    <p className="mt-4 ink2" style={{ fontSize: "1rem", lineHeight: 1.62 }}>{s.p}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="border-t rule pt-8 pb-2 flex gap-5">
+                <span className="mono" style={{ fontSize: "1rem", color: "var(--ink-2)", fontWeight: 500, flexShrink: 0, lineHeight: 1.6 }}>→</span>
+                <div>
+                  <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 500 }}>{t.services.retainer.label}</div>
+                  <h3 className="h3 mt-2" style={{ fontWeight: 500 }}>{t.services.retainer.h}</h3>
+                  <p className="mt-3 ink2" style={{ fontSize: "1rem", lineHeight: 1.62, maxWidth: 640 }}>{t.services.retainer.p}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* About */}
         <section id="about" className="border-t rule">
           <div className={`${wrap} py-16 md:py-24 grid md:grid-cols-12 gap-10 items-start`} style={page}>
@@ -912,7 +1020,7 @@ export default function App() {
             )}
             {/* Without a photo the text takes the full width; no placeholder is shown. */}
             <div className={PHOTO_SRC ? "md:col-span-8 lg:col-span-7" : "md:col-span-9"}>
-              {THEME_ID === "grottesca2" && <div className="cap-label mb-3">05 / {t.eyebrow.about}</div>}
+              {THEME_ID === "grottesca2" && <div className="cap-label mb-3">06 / {t.eyebrow.about}</div>}
               <h2 className="h2">{t.about.title}</h2>
               <p className="mt-6">{t.about.p1}</p>
               <p className="mt-4 ink2">{t.about.p2}</p>
