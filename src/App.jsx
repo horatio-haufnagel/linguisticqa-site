@@ -166,6 +166,7 @@ const T = {
       lead: "Each engagement delivers a concrete artefact: a report, a sign-off document, or a tested prompt set.",
       more: "Process & deliverables",
       close: "Close",
+      headIdealFor: "Ideal for",
       headDeliverables: "What you receive",
       headProcess: "How a typical engagement works",
       headTimeline: "Typical timeline",
@@ -175,6 +176,11 @@ const T = {
           h: "Italian Model Output Audit",
           p: "Systematic review of your model's Italian output: error taxonomy, severity scoring, root causes and fixes. Delivered as a PDF report and corrected spreadsheet. An adversarial stress-test tier is available for high-stakes deployments.",
           detail: {
+            idealFor: [
+              "ML/NLP engineers who need precise diagnostics on Italian model quality before investing in fine-tuning",
+              "Product managers at e-commerce or SaaS companies launching in Italy who need a report that justifies the decision to management",
+              "Tech leads in fintech and marketplaces with compliance requirements who want documented evidence of review",
+            ],
             what: [
               "PDF report: executive summary, findings by error category, root cause analysis, prioritization matrix",
               "CSV of all flagged strings: severity, issue type, suggested fix",
@@ -194,6 +200,11 @@ const T = {
           h: "Localization QA",
           p: "Pre-release QA review of all Italian-facing copy: UI strings, onboarding flows, email, legal text. Formal sign-off with documented evidence for audit trail and compliance.",
           detail: {
+            idealFor: [
+              "Product teams preparing the Italian launch of a consumer app who need documented sign-off before go-live",
+              "Legal and compliance teams in fintech, insurance or e-commerce who need formal evidence of Italian text review for audit or certification",
+              "Localization managers who received a translated file and want an independent review with evidence — not just a 'looks right'",
+            ],
             what: [
               "QA report with findings by tier and severity",
               "Corrected strings in Excel: original, issue, fix, rationale",
@@ -214,6 +225,11 @@ const T = {
           h: "Prompt Localization & Testing",
           p: "System prompt adaptation and validation so your model behaves correctly in Italian: register, terminology, and tone, tested against the interaction patterns your users will actually encounter.",
           detail: {
+            idealFor: [
+              "Product teams who built an English-first assistant or chatbot and need it to work correctly in Italian — not just translate it",
+              "ML engineers integrating an LLM into an Italian product who see behaviour shift unexpectedly between EN and IT",
+              "Conversational AI companies deploying an Italian customer service bot and need the system prompt validated against real interaction patterns",
+            ],
             what: [
               "Tested prompt in final form",
               "Persona and tone guide: register, vocabulary scope, escalation rules",
@@ -235,6 +251,10 @@ const T = {
         h: "Ongoing Monitoring Retainer",
         p: "Monthly sampling of live output, trend analysis against a baseline, and early warning when quality drifts — before your users notice. Attaches to any core service above.",
         detail: {
+          idealFor: [
+            "Any team that completed a core service and has continuous deployment or frequent releases — and does not want to wait for the next audit cycle to discover a regression",
+            "Heads of AI or CTOs who want a systematic early warning on Italian quality before support tickets arrive",
+          ],
           what: [
             "75 conversations sampled per month",
             "Monthly report against the Month 0 baseline",
@@ -369,6 +389,7 @@ const T = {
       lead: "Ogni collaborazione ha un output concreto: un report, un documento di approvazione, o un set di prompt testati.",
       more: "Processo e deliverable",
       close: "Chiudi",
+      headIdealFor: "Ideale per",
       headDeliverables: "Cosa ricevi",
       headProcess: "Come funziona un incarico tipico",
       headTimeline: "Tempi indicativi",
@@ -378,6 +399,11 @@ const T = {
           h: "Italian Model Output Audit",
           p: "Revisione sistematica dell'output italiano del tuo modello: tassonomia degli errori, scoring per gravità, cause e correzioni. Consegnato come report PDF e foglio di calcolo corretto. Fascia stress-test avversariale disponibile per deployment ad alto rischio.",
           detail: {
+            idealFor: [
+              "ML/NLP engineer che cercano diagnostica puntuale sulla qualità del modello italiano prima di investire in fine-tuning",
+              "Product manager di e-commerce o SaaS che lanciano in Italia e hanno bisogno di un report che giustifichi la decisione al management",
+              "Leader tech in fintech e marketplace con vincoli di compliance che vogliono documentazione formale della revisione",
+            ],
             what: [
               "Report PDF: executive summary, reperti per categoria d'errore, analisi delle cause, matrice di prioritizzazione",
               "CSV con tutte le stringhe segnalate: gravità, tipo di problema, correzione proposta",
@@ -397,6 +423,11 @@ const T = {
           h: "Localization QA",
           p: "QA pre-rilascio su tutto il copy in italiano: stringhe UI, flussi di onboarding, email, testi legali. Approvazione formale con evidenze documentate per audit trail e compliance.",
           detail: {
+            idealFor: [
+              "Team di prodotto che preparano il lancio italiano di un'app consumer e hanno bisogno di un'approvazione documentata prima del go-live",
+              "Team legale o compliance in fintech, assicurazioni o e-commerce che devono dimostrare revisione formale dei testi italiani per audit o certificazioni",
+              "Localization manager che hanno ricevuto il file tradotto e vogliono una revisione indipendente con evidenze — non solo un 'sembra giusto'",
+            ],
             what: [
               "Report QA con reperti per fascia e gravità",
               "Stringhe corrette in Excel: originale, problema, correzione, motivazione",
@@ -417,6 +448,11 @@ const T = {
           h: "Prompt Localization & Testing",
           p: "Adattamento e validazione del system prompt perché il modello si comporti correttamente in italiano: registro, terminologia e tono, testati sui pattern di interazione che i tuoi utenti incontreranno effettivamente.",
           detail: {
+            idealFor: [
+              "Team di prodotto che hanno costruito un assistente o chatbot in inglese e devono farlo funzionare correttamente in italiano — non solo tradurlo",
+              "ML engineer che integrano un LLM in un prodotto italiano e vedono il comportamento cambiare in modo non controllato tra EN e IT",
+              "Aziende di AI conversazionale che deployano un bot italiano per customer service e hanno bisogno del system prompt validato sui pattern reali",
+            ],
             what: [
               "Prompt testato nella forma definitiva",
               "Guida alla persona e al tono: registro, vocabolario, regole di escalation",
@@ -438,6 +474,10 @@ const T = {
         h: "Ongoing Monitoring Retainer",
         p: "Campionamento mensile dell'output live, analisi del trend rispetto alla baseline e segnalazione precoce quando la qualità deriva — prima che lo notino i tuoi utenti. Si aggiunge a qualunque servizio principale.",
         detail: {
+          idealFor: [
+            "Qualunque team uscito da un servizio principale con continuous deployment o rilasci frequenti, che non vuole aspettare il prossimo ciclo di audit per scoprire una regressione",
+            "Head of AI o CTO che vuole un early warning sistematico sulla qualità italiana prima che arrivino i ticket di supporto",
+          ],
           what: [
             "75 conversazioni campionate al mese",
             "Report mensile rispetto alla baseline del Mese 0",
@@ -572,6 +612,7 @@ const T = {
       lead: "Drei Leistungen, jede mit einem konkreten Ergebnis, mit dem Ihr Team direkt arbeiten kann.",
       more: "Ablauf und Ergebnis",
       close: "Schließen",
+      headIdealFor: "Geeignet für",
       headDeliverables: "Was Sie erhalten",
       headProcess: "Wie ein typischer Auftrag abläuft",
       headTimeline: "Richtzeitraum",
@@ -581,6 +622,11 @@ const T = {
           h: "Italian Model Output Audit",
           p: "Systematische Prüfung des italienischen Outputs Ihres Modells: Fehlertaxonomie, Schweregrad-Scoring, Ursachen und Korrekturen. Als PDF-Report und korrigierte Tabelle geliefert. Adversariales Stress-Test-Tier für hochkritische Deployments verfügbar.",
           detail: {
+            idealFor: [
+              "ML/NLP-Engineers, die eine präzise Diagnose der Qualität ihres italienischen Modells suchen, bevor sie in Fine-Tuning investieren",
+              "Product Manager in E-Commerce oder SaaS, die in Italien launchen und einen Report brauchen, der die Entscheidung gegenüber dem Management belegt",
+              "Tech-Leads in Fintech und auf Marktplätzen mit Compliance-Anforderungen, die dokumentierte Belege der Prüfung benötigen",
+            ],
             what: [
               "PDF-Report: Executive Summary, Befunde nach Fehlerkategorie, Ursachenanalyse, Priorisierungsmatrix",
               "CSV aller markierten Strings: Schweregrad, Fehlertyp, Korrekturvorschlag",
@@ -600,6 +646,11 @@ const T = {
           h: "Localization QA",
           p: "Pre-Release-QA für alle italienischsprachigen Texte: UI-Strings, Onboarding-Flows, E-Mails, Rechtstexte. Formale Freigabe mit dokumentierten Nachweisen für Audit Trail und Compliance.",
           detail: {
+            idealFor: [
+              "Produktteams, die den italienischen Launch einer Consumer-App vorbereiten und vor Go-Live eine dokumentierte Freigabe benötigen",
+              "Rechts- und Compliance-Teams in Fintech, Versicherungen oder E-Commerce, die formale Nachweise der Prüfung italienischer Texte für Audit oder Zertifizierung brauchen",
+              "Lokalisierungsmanager, die eine übersetzte Datei erhalten haben und eine unabhängige Prüfung mit Belegen wollen — nicht nur ein 'klingt richtig'",
+            ],
             what: [
               "QA-Report mit Befunden nach Stufe und Schweregrad",
               "Korrigierte Strings in Excel: Original, Problem, Korrektur, Begründung",
@@ -620,6 +671,11 @@ const T = {
           h: "Prompt Localization & Testing",
           p: "Anpassung und Validierung des System-Prompts, damit Ihr Modell auf Italienisch korrekt agiert: Register, Terminologie und Ton, validiert anhand der Interaktionsmuster, die Ihre Nutzer tatsächlich verwenden.",
           detail: {
+            idealFor: [
+              "Produktteams, die einen englischsprachigen Assistenten oder Chatbot gebaut haben und ihn auf Italienisch korrekt zum Laufen bringen müssen — nicht nur übersetzen",
+              "ML-Engineers, die ein LLM in ein italienisches Produkt integrieren und unkontrollierte Verhaltensänderungen zwischen EN und IT beobachten",
+              "Conversational-AI-Unternehmen, die einen italienischen Kundenservice-Bot deployen und den System-Prompt gegen reale Interaktionsmuster validieren müssen",
+            ],
             what: [
               "Getesteter Prompt in Endfassung",
               "Persona- und Tonleitfaden: Register, Vokabular, Eskalationsregeln",
@@ -641,6 +697,10 @@ const T = {
         h: "Ongoing Monitoring Retainer",
         p: "Monatliches Sampling des Live-Outputs, Trendanalyse gegen eine Baseline und Frühwarnung bei Qualitätsdrift — bevor Ihre Nutzer es bemerken. Kombinierbar mit jeder der Kernleistungen.",
         detail: {
+          idealFor: [
+            "Jedes Team nach einem Kernauftrag mit Continuous Deployment oder häufigen Releases, das nicht bis zum nächsten Audit-Zyklus warten will, um eine Regression zu entdecken",
+            "Heads of AI oder CTOs, die ein systematisches Frühwarnsystem für die italienische Qualität wollen, bevor Support-Tickets eintreffen",
+          ],
           what: [
             "75 Konversationen pro Monat gesampelt",
             "Monatsbericht gegen die Baseline aus Monat 0",
@@ -999,6 +1059,15 @@ function ServiceDetail({ svc, t }) {
   const d = svc.detail;
   const monoLabel = { fontSize: ".72rem", letterSpacing: ".12em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 500, marginBottom: ".75rem" };
   return (
+    <div>
+      {d.idealFor && (
+        <div style={{ marginBottom: "1.8rem" }}>
+          <div className="mono" style={monoLabel}>{t.headIdealFor}</div>
+          <ul className="svc-what-list">
+            {d.idealFor.map((item, i) => <li key={i}>{item}</li>)}
+          </ul>
+        </div>
+      )}
     <div className="grid md:grid-cols-5 gap-8 md:gap-12">
       <div className="md:col-span-2">
         <div className="mono" style={monoLabel}>{t.headDeliverables}</div>
@@ -1027,6 +1096,7 @@ function ServiceDetail({ svc, t }) {
           ))}
         </ol>
       </div>
+    </div>
     </div>
   );
 }
