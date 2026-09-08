@@ -164,27 +164,89 @@ const T = {
     services: {
       title: "Services",
       lead: "Each engagement delivers a concrete artefact: a report, a sign-off document, or a tested prompt set.",
+      more: "Process & deliverables",
+      close: "Close",
+      headDeliverables: "What you receive",
+      headProcess: "How a typical engagement works",
+      headTimeline: "Typical timeline",
       items: [
         {
           n: "01",
           h: "Italian Model Output Audit",
           p: "Systematic review of your model's Italian output: error taxonomy, severity scoring, root causes and fixes. Delivered as a PDF report and corrected spreadsheet. An adversarial stress-test tier is available for high-stakes deployments.",
+          detail: {
+            what: [
+              "PDF report: executive summary, findings by error category, root cause analysis, prioritization matrix",
+              "CSV of all flagged strings: severity, issue type, suggested fix",
+            ],
+            steps: [
+              { h: "Sampling and rubric", p: "You share 100 conversations or strings. I stratify the input and align the rubric to your use case: support, onboarding, legal copy, and so on." },
+              { h: "Manual analysis", p: "Each item is reviewed on the rubric: register, terminology, gender default, cultural fit, UX clarity, compliance." },
+              { h: "Pattern aggregation", p: "Findings are grouped by category and severity. Frequency counts show which error types are systemic and which are isolated." },
+              { h: "Root cause and prioritisation", p: "Each pattern is traced to its likely source: prompt, training data, or model behaviour. The report tells your team where to fix, not only what is broken." },
+            ],
+            timeline: "Typically 12–13 working days from input delivery.",
+            note: "Adversarial tier: adds targeted stress-testing of edge cases and safety-critical strings.",
+          },
         },
         {
           n: "02",
           h: "Localization QA",
           p: "Pre-release QA review of all Italian-facing copy: UI strings, onboarding flows, email, legal text. Formal sign-off with documented evidence for audit trail and compliance.",
+          detail: {
+            what: [
+              "QA report with findings by tier and severity",
+              "Corrected strings in Excel: original, issue, fix, rationale",
+              "Compliance note for legal and regulatory strings",
+              "Formal sign-off document with documented evidence",
+            ],
+            steps: [
+              { h: "Triage and deduplication", p: "Your file is cleaned and stratified. Identical or near-identical strings are grouped; a typical batch of 650 strings becomes ~480 unique review items." },
+              { h: "Tiered review", p: "T1 (critical: payment, legal, destructive actions) is reviewed first, in full. T2 (errors, onboarding, account) follows. T3-4 strings are scanned for systematic patterns." },
+              { h: "Findings and corrections", p: "Each issue is documented with severity, a concrete fix, and a rationale your team can use in future." },
+              { h: "Sign-off", p: "A formal document records what was reviewed, what was found, and confirms the copy is cleared for release." },
+            ],
+            timeline: "Typically 15 working days from input delivery.",
+          },
         },
         {
           n: "03",
           h: "Prompt Localization & Testing",
           p: "System prompt adaptation and validation so your model behaves correctly in Italian: register, terminology, and tone, tested against the interaction patterns your users will actually encounter.",
+          detail: {
+            what: [
+              "Tested prompt in final form",
+              "Persona and tone guide: register, vocabulary scope, escalation rules",
+              "Testing report with round-by-round results",
+              "Monitoring checklist for ongoing quality checks",
+            ],
+            steps: [
+              { h: "Comparative analysis", p: "The English source prompt is analysed instructionally, not translated word-for-word. Constructions that work in English often misfire in Italian; the goal is equivalent behaviour, not equivalent text." },
+              { h: "Three versions", p: "V1 is a minimal adaptation. V2 adds tone calibration. V3 is the full version with conversation flow, persona rules and vocabulary constraints." },
+              { h: "Testing rounds", p: "You run each version against a structured checklist. Up to three rounds of feedback are included; each round refines the prompt based on observed model behaviour." },
+              { h: "Handover", p: "Final tested prompt, persona guide, and a monitoring checklist so your team can catch future drift without a full re-engagement." },
+            ],
+            timeline: "Typically 13 working days from input delivery.",
+          },
         },
       ],
       retainer: {
         label: "Retention option",
         h: "Ongoing Monitoring Retainer",
         p: "Monthly sampling of live output, trend analysis against a baseline, and early warning when quality drifts — before your users notice. Attaches to any core service above.",
+        detail: {
+          what: [
+            "75 conversations sampled per month",
+            "Monthly report against the Month 0 baseline",
+            "Drift alerts when a category drops or a new pattern emerges",
+          ],
+          steps: [
+            { h: "Baseline", p: "Month 0 of any core service establishes the baseline. Every subsequent month is measured against it." },
+            { h: "Monthly sampling", p: "75 conversations are drawn from live output and reviewed against the same rubric used in the original audit." },
+            { h: "Trend report", p: "A short monthly report shows where quality is stable, where it is drifting, and what the likely cause is." },
+          ],
+          note: "Available only as an add-on to a completed core service, not as a standalone engagement.",
+        },
       },
     },
     about: {
@@ -305,27 +367,89 @@ const T = {
     services: {
       title: "Servizi",
       lead: "Ogni collaborazione ha un output concreto: un report, un documento di approvazione, o un set di prompt testati.",
+      more: "Processo e deliverable",
+      close: "Chiudi",
+      headDeliverables: "Cosa ricevi",
+      headProcess: "Come funziona un incarico tipico",
+      headTimeline: "Tempi indicativi",
       items: [
         {
           n: "01",
           h: "Italian Model Output Audit",
           p: "Revisione sistematica dell'output italiano del tuo modello: tassonomia degli errori, scoring per gravità, cause e correzioni. Consegnato come report PDF e foglio di calcolo corretto. Fascia stress-test avversariale disponibile per deployment ad alto rischio.",
+          detail: {
+            what: [
+              "Report PDF: executive summary, reperti per categoria d'errore, analisi delle cause, matrice di prioritizzazione",
+              "CSV con tutte le stringhe segnalate: gravità, tipo di problema, correzione proposta",
+            ],
+            steps: [
+              { h: "Campionamento e rubrica", p: "Condividi 100 conversazioni o stringhe. Stratifichiamo l'input e allineiamo la rubrica al tuo caso d'uso: assistenza clienti, onboarding, testi legali, e così via." },
+              { h: "Analisi manuale", p: "Ogni voce è esaminata sulla rubrica: registro, terminologia, maschile per default, adeguatezza culturale, chiarezza UX e compliance." },
+              { h: "Aggregazione dei pattern", p: "I reperti sono raggruppati per categoria e gravità. Il conteggio per frequenza mostra quali tipi di errore sono sistematici e quali isolati." },
+              { h: "Cause e prioritizzazione", p: "Ogni pattern è ricondotto alla sua origine probabile: prompt, dati di addestramento o comportamento del modello. Il report dice al team dove intervenire, non solo cosa è rotto." },
+            ],
+            timeline: "Indicativamente 12–13 giorni lavorativi dalla consegna dell'input.",
+            note: "Fascia avversariale: aggiunge stress-test mirati su casi limite e stringhe a rischio elevato.",
+          },
         },
         {
           n: "02",
           h: "Localization QA",
           p: "QA pre-rilascio su tutto il copy in italiano: stringhe UI, flussi di onboarding, email, testi legali. Approvazione formale con evidenze documentate per audit trail e compliance.",
+          detail: {
+            what: [
+              "Report QA con reperti per fascia e gravità",
+              "Stringhe corrette in Excel: originale, problema, correzione, motivazione",
+              "Nota di compliance per stringhe legali e normative",
+              "Documento di approvazione formale con evidenze documentate",
+            ],
+            steps: [
+              { h: "Triage e deduplicazione", p: "Il file viene normalizzato e stratificato. Le stringhe identiche o quasi vengono raggruppate; un batch tipico di 650 stringhe diventa ~480 voci uniche da revisionare." },
+              { h: "Revisione per fascia", p: "T1 (critica: pagamento, testi legali, azioni distruttive) viene revisionata per prima, integralmente. Segue T2 (errori, onboarding, gestione account). Le stringhe T3-4 vengono scansionate per pattern sistematici." },
+              { h: "Reperti e correzioni", p: "Ogni problema è documentato con gravità, correzione concreta e motivazione riutilizzabile dal team in futuro." },
+              { h: "Approvazione", p: "Un documento formale registra cosa è stato revisionato, cosa è stato trovato, e certifica che il copy è pronto per il rilascio." },
+            ],
+            timeline: "Indicativamente 15 giorni lavorativi dalla consegna dell'input.",
+          },
         },
         {
           n: "03",
           h: "Prompt Localization & Testing",
           p: "Adattamento e validazione del system prompt perché il modello si comporti correttamente in italiano: registro, terminologia e tono, testati sui pattern di interazione che i tuoi utenti incontreranno effettivamente.",
+          detail: {
+            what: [
+              "Prompt testato nella forma definitiva",
+              "Guida alla persona e al tono: registro, vocabolario, regole di escalation",
+              "Report di test con i risultati per ogni ciclo",
+              "Checklist di monitoraggio per controlli continuativi",
+            ],
+            steps: [
+              { h: "Analisi comparativa", p: "Il prompt sorgente in inglese è analizzato sul piano istruzionale, non tradotto parola per parola. Costruzioni che funzionano in inglese spesso non reggono in italiano; l'obiettivo è un comportamento equivalente, non un testo equivalente." },
+              { h: "Tre versioni", p: "V1 è un adattamento minimale. V2 aggiunge la calibrazione del tono. V3 è la versione completa con flusso conversazionale, regole di persona e vincoli di vocabolario." },
+              { h: "Cicli di test", p: "Ogni versione viene testata su una checklist strutturata. Sono inclusi fino a tre cicli di feedback; ogni ciclo affina il prompt sulla base del comportamento osservato nel modello." },
+              { h: "Consegna", p: "Prompt definitivo testato, guida alla persona e checklist di monitoraggio, perché il tuo team possa rilevare derive future senza riaprire un incarico completo." },
+            ],
+            timeline: "Indicativamente 13 giorni lavorativi dalla consegna dell'input.",
+          },
         },
       ],
       retainer: {
         label: "Opzione di continuità",
         h: "Ongoing Monitoring Retainer",
         p: "Campionamento mensile dell'output live, analisi del trend rispetto alla baseline e segnalazione precoce quando la qualità deriva — prima che lo notino i tuoi utenti. Si aggiunge a qualunque servizio principale.",
+        detail: {
+          what: [
+            "75 conversazioni campionate al mese",
+            "Report mensile rispetto alla baseline del Mese 0",
+            "Alert di deriva quando una categoria scende o emerge un nuovo pattern",
+          ],
+          steps: [
+            { h: "Baseline", p: "Il Mese 0 di qualunque servizio principale stabilisce la baseline. Ogni mese successivo è misurato su di essa." },
+            { h: "Campionamento mensile", p: "75 conversazioni vengono estratte dall'output live e revisionate con la stessa rubrica usata nell'audit originale." },
+            { h: "Report di trend", p: "Un report mensile sintetico mostra dove la qualità è stabile, dove sta derivando e qual è la causa più probabile." },
+          ],
+          note: "Disponibile solo come aggiunta a un servizio principale completato, non come incarico autonomo.",
+        },
       },
     },
     about: {
@@ -446,27 +570,89 @@ const T = {
     services: {
       title: "Leistungen",
       lead: "Drei Leistungen, jede mit einem konkreten Ergebnis, mit dem Ihr Team direkt arbeiten kann.",
+      more: "Ablauf und Ergebnis",
+      close: "Schließen",
+      headDeliverables: "Was Sie erhalten",
+      headProcess: "Wie ein typischer Auftrag abläuft",
+      headTimeline: "Richtzeitraum",
       items: [
         {
           n: "01",
           h: "Italian Model Output Audit",
           p: "Systematische Prüfung des italienischen Outputs Ihres Modells: Fehlertaxonomie, Schweregrad-Scoring, Ursachen und Korrekturen. Als PDF-Report und korrigierte Tabelle geliefert. Adversariales Stress-Test-Tier für hochkritische Deployments verfügbar.",
+          detail: {
+            what: [
+              "PDF-Report: Executive Summary, Befunde nach Fehlerkategorie, Ursachenanalyse, Priorisierungsmatrix",
+              "CSV aller markierten Strings: Schweregrad, Fehlertyp, Korrekturvorschlag",
+            ],
+            steps: [
+              { h: "Sampling und Rubrik", p: "Sie übermitteln 100 Konversationen oder Strings. Der Input wird stratifiziert und die Rubrik auf Ihren Anwendungsfall abgestimmt: Support, Onboarding, Rechtstexte usw." },
+              { h: "Manuelle Analyse", p: "Jede Einheit wird auf der Rubrik geprüft: Register, Terminologie, maskuliner Default, kulturelle Passung, UX-Klarheit und Compliance." },
+              { h: "Musteraggregation", p: "Befunde werden nach Kategorie und Schweregrad gruppiert. Häufigkeitszählungen zeigen, welche Fehlertypen systematisch sind und welche vereinzelt auftreten." },
+              { h: "Ursachen und Priorisierung", p: "Jedes Muster wird seiner wahrscheinlichen Quelle zugeordnet: Prompt, Trainingsdaten oder Modellverhalten. Der Report sagt Ihrem Team, wo zu beheben ist, nicht nur was defekt ist." },
+            ],
+            timeline: "In der Regel 12–13 Arbeitstage ab Eingang des Inputs.",
+            note: "Adversariales Tier: gezielte Stresstests für Grenzfälle und sicherheitskritische Strings.",
+          },
         },
         {
           n: "02",
           h: "Localization QA",
           p: "Pre-Release-QA für alle italienischsprachigen Texte: UI-Strings, Onboarding-Flows, E-Mails, Rechtstexte. Formale Freigabe mit dokumentierten Nachweisen für Audit Trail und Compliance.",
+          detail: {
+            what: [
+              "QA-Report mit Befunden nach Stufe und Schweregrad",
+              "Korrigierte Strings in Excel: Original, Problem, Korrektur, Begründung",
+              "Compliance-Notiz für rechtliche und regulatorische Strings",
+              "Formales Freigabedokument mit dokumentierten Nachweisen",
+            ],
+            steps: [
+              { h: "Triage und Deduplizierung", p: "Ihre Datei wird bereinigt und stratifiziert. Identische oder nahezu identische Strings werden gebündelt; ein typisches Batch von 650 Strings ergibt ~480 eindeutige Prüfeinheiten." },
+              { h: "Stufenweise Prüfung", p: "T1 (kritisch: Zahlung, Rechtstexte, destruktive Aktionen) wird vollständig zuerst geprüft. T2 (Fehler, Onboarding, Konto) folgt. T3-4-Strings werden auf systematische Muster gescannt." },
+              { h: "Befunde und Korrekturen", p: "Jedes Problem wird mit Schweregrad, konkreter Korrektur und einer Begründung dokumentiert, die Ihr Team künftig wiederverwenden kann." },
+              { h: "Freigabe", p: "Ein formales Dokument hält fest, was geprüft wurde, was gefunden wurde, und bestätigt, dass der Text freigegeben ist." },
+            ],
+            timeline: "In der Regel 15 Arbeitstage ab Eingang des Inputs.",
+          },
         },
         {
           n: "03",
           h: "Prompt Localization & Testing",
           p: "Anpassung und Validierung des System-Prompts, damit Ihr Modell auf Italienisch korrekt agiert: Register, Terminologie und Ton, validiert anhand der Interaktionsmuster, die Ihre Nutzer tatsächlich verwenden.",
+          detail: {
+            what: [
+              "Getesteter Prompt in Endfassung",
+              "Persona- und Tonleitfaden: Register, Vokabular, Eskalationsregeln",
+              "Testbericht mit Ergebnissen je Runde",
+              "Monitoring-Checkliste für laufende Qualitätsprüfungen",
+            ],
+            steps: [
+              { h: "Komparative Analyse", p: "Der englische Quell-Prompt wird instruktional analysiert, nicht wörtlich übersetzt. Konstruktionen, die auf Englisch funktionieren, verfehlen auf Italienisch oft ihr Ziel; gefragt ist äquivalentes Verhalten, nicht äquivalenter Text." },
+              { h: "Drei Versionen", p: "V1 ist eine minimale Anpassung. V2 fügt Tonkalibrierung hinzu. V3 ist die vollständige Fassung mit Konversationsfluss, Persona-Regeln und Vokabularvorgaben." },
+              { h: "Testrunden", p: "Jede Version wird anhand einer strukturierten Checkliste getestet. Bis zu drei Feedbackrunden sind enthalten; jede Runde verfeinert den Prompt auf Basis des beobachteten Modellverhaltens." },
+              { h: "Übergabe", p: "Finaler getesteter Prompt, Persona-Leitfaden und Monitoring-Checkliste, damit Ihr Team künftige Drift erkennt, ohne eine vollständige Beauftragung neu zu starten." },
+            ],
+            timeline: "In der Regel 13 Arbeitstage ab Eingang des Inputs.",
+          },
         },
       ],
       retainer: {
         label: "Kontinuitätsoption",
         h: "Ongoing Monitoring Retainer",
         p: "Monatliches Sampling des Live-Outputs, Trendanalyse gegen eine Baseline und Frühwarnung bei Qualitätsdrift — bevor Ihre Nutzer es bemerken. Kombinierbar mit jeder der Kernleistungen.",
+        detail: {
+          what: [
+            "75 Konversationen pro Monat gesampelt",
+            "Monatsbericht gegen die Baseline aus Monat 0",
+            "Drift-Alerts bei Kategorieabfall oder neuen Mustern",
+          ],
+          steps: [
+            { h: "Baseline", p: "Monat 0 einer beliebigen Kernleistung legt die Baseline fest. Jeder Folgemonat wird daran gemessen." },
+            { h: "Monatliches Sampling", p: "75 Konversationen werden aus dem Live-Output gezogen und mit derselben Rubrik des ursprünglichen Audits geprüft." },
+            { h: "Trendbericht", p: "Ein kurzer Monatsbericht zeigt, wo die Qualität stabil ist, wo sie driftet und was die wahrscheinliche Ursache ist." },
+          ],
+          note: "Nur als Ergänzung zu einer abgeschlossenen Kernleistung buchbar, nicht als eigenständiger Auftrag.",
+        },
       },
     },
     about: {
@@ -665,7 +851,27 @@ const CSS = `
   .lang button[aria-current="true"]{background:var(--ink);color:#fff}
   .photo{aspect-ratio:1/1;background:#EDEBE4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--ink-2);font-size:.9rem;text-align:center;padding:1rem}
   .step-n{font-family:var(--mono);font-size:1rem;color:var(--pen);font-weight:500;padding-top:.35rem;min-width:2ch}
+
+  /* service cards: expand toggle and detail panel */
+  .svc-toggle{display:inline-flex;align-items:center;gap:.35em;margin-top:1.1rem;font-family:var(--mono);
+       font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--ink-2);
+       background:transparent;border:0;padding:0;cursor:pointer;border-bottom:1px solid var(--rule)}
+  .svc-toggle:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  article.svc-open{border-top-color:var(--pen)}
+  article.svc-open .svc-toggle{color:var(--pen);border-bottom-color:var(--pen)}
+  .svc-panel{padding-top:2rem;padding-bottom:2rem}
+  .svc-what-list{list-style:none;padding:0;margin:0}
+  .svc-what-list li{padding:.4rem 0 .4rem 1.3em;border-bottom:1px solid var(--rule);font-size:.92rem;
+       line-height:1.55;color:var(--ink-2);position:relative}
+  .svc-what-list li::before{content:"→";position:absolute;left:0;color:var(--pen);font-family:var(--mono);font-size:.85em}
+  .svc-steps{list-style:none;padding:0;margin:0}
+  .svc-steps li{display:flex;gap:.9rem;align-items:flex-start;padding-bottom:1rem;
+       border-bottom:1px solid var(--rule);margin-bottom:1rem}
+  .svc-steps li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+  .svc-detail-note{margin-top:1.2rem;font-size:.82rem;font-family:var(--mono);color:var(--ink-2);
+       border-left:2px solid var(--rule);padding-left:.75rem;line-height:1.5}
 `;
+
 
 /* ---------- components ----------------------------------------------------- */
 function LangPicker({ lang, setLang, label }) {
@@ -789,6 +995,42 @@ function Finding({ f, t }) {
   );
 }
 
+function ServiceDetail({ svc, t }) {
+  const d = svc.detail;
+  const monoLabel = { fontSize: ".72rem", letterSpacing: ".12em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 500, marginBottom: ".75rem" };
+  return (
+    <div className="grid md:grid-cols-5 gap-8 md:gap-12">
+      <div className="md:col-span-2">
+        <div className="mono" style={monoLabel}>{t.headDeliverables}</div>
+        <ul className="svc-what-list">
+          {d.what.map((w, i) => <li key={i}>{w}</li>)}
+        </ul>
+        {d.timeline && (
+          <div style={{ marginTop: "1.4rem" }}>
+            <div className="mono" style={{ ...monoLabel, marginBottom: ".5rem" }}>{t.headTimeline}</div>
+            <p className="mono" style={{ fontSize: ".88rem", lineHeight: 1.5 }}>{d.timeline}</p>
+          </div>
+        )}
+        {d.note && <p className="svc-detail-note">{d.note}</p>}
+      </div>
+      <div className="md:col-span-3">
+        <div className="mono" style={monoLabel}>{t.headProcess}</div>
+        <ol className="svc-steps">
+          {d.steps.map((s, i) => (
+            <li key={i}>
+              <span className="step-n" aria-hidden="true" style={{ paddingTop: 0, minWidth: "1.5ch" }}>{i + 1}</span>
+              <div>
+                <div style={{ fontWeight: 500, lineHeight: 1.3, marginBottom: ".25rem" }}>{s.h}</div>
+                <p className="ink2" style={{ fontSize: ".95rem", lineHeight: 1.6, margin: 0 }}>{s.p}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- app ------------------------------------------------------------ */
 /** Header shrinks after the first screenful, so it stays reachable without dominating. */
 function useSlimHeader() {
@@ -806,6 +1048,8 @@ export default function App() {
   const [lang, setLangState] = useState(detectLang);
   const slim = useSlimHeader();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedSvc, setSelectedSvc] = useState(null);
+  const [selectedRetainer, setSelectedRetainer] = useState(false);
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
@@ -989,21 +1233,52 @@ export default function App() {
             <h2 className="h2">{t.services.title}</h2>
             <p className="mt-4 ink2" style={text}>{t.services.lead}</p>
             <div className="mt-12" style={{ maxWidth: 1040 }}>
-              <div className="grid md:grid-cols-3">
+              <div className="grid md:grid-cols-3 items-start">
                 {t.services.items.map((s, i) => (
-                  <article key={i} className="border-t rule pt-8 pb-8 md:pr-12">
+                  <article key={i} className={`border-t rule pt-8 pb-8 md:pr-12 ${selectedSvc === i ? "svc-open" : ""}`}>
                     <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--pen)", textTransform: "uppercase", fontWeight: 500 }}>{s.n}</div>
                     <h3 className="h3 mt-3" style={{ fontWeight: 600 }}>{s.h}</h3>
                     <p className="mt-4 ink2" style={{ fontSize: "1rem", lineHeight: 1.62 }}>{s.p}</p>
+                    <button
+                      type="button"
+                      className="svc-toggle"
+                      aria-expanded={selectedSvc === i}
+                      aria-controls="svc-detail-panel"
+                      onClick={() => setSelectedSvc(selectedSvc === i ? null : i)}
+                    >
+                      {selectedSvc === i ? t.services.close : t.services.more} {selectedSvc === i ? "↑" : "↓"}
+                    </button>
                   </article>
                 ))}
               </div>
-              <div className="border-t rule pt-8 pb-2 flex gap-5">
+              {selectedSvc !== null && (
+                <div id="svc-detail-panel" className="svc-panel border-t rule" role="region" aria-label={t.services.items[selectedSvc].h}>
+                  <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--pen)", textTransform: "uppercase", fontWeight: 500, marginBottom: "1rem" }}>
+                    {t.services.items[selectedSvc].n} / {t.services.items[selectedSvc].h}
+                  </div>
+                  <ServiceDetail svc={t.services.items[selectedSvc]} t={t.services} />
+                </div>
+              )}
+              <div className="border-t rule pt-8 pb-2 flex gap-5 flex-wrap">
                 <span className="mono" style={{ fontSize: "1rem", color: "var(--ink-2)", fontWeight: 500, flexShrink: 0, lineHeight: 1.6 }}>→</span>
-                <div>
+                <div style={{ flex: 1 }}>
                   <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--ink-2)", textTransform: "uppercase", fontWeight: 500 }}>{t.services.retainer.label}</div>
                   <h3 className="h3 mt-2" style={{ fontWeight: 500 }}>{t.services.retainer.h}</h3>
                   <p className="mt-3 ink2" style={{ fontSize: "1rem", lineHeight: 1.62, maxWidth: 640 }}>{t.services.retainer.p}</p>
+                  <button
+                    type="button"
+                    className="svc-toggle"
+                    aria-expanded={selectedRetainer}
+                    aria-controls="retainer-detail-panel"
+                    onClick={() => setSelectedRetainer(v => !v)}
+                  >
+                    {selectedRetainer ? t.services.close : t.services.more} {selectedRetainer ? "↑" : "↓"}
+                  </button>
+                  {selectedRetainer && (
+                    <div id="retainer-detail-panel" className="mt-6" role="region" aria-label={t.services.retainer.h}>
+                      <ServiceDetail svc={t.services.retainer} t={t.services} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
