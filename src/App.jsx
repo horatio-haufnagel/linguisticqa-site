@@ -16,7 +16,7 @@ import { useState, useEffect, useMemo } from "react";
 
 const CALENDLY_URL = ""; // TODO
 const SITE_URL = "https://tradotext.com"; // TODO: confirm canonical domain
-const PHOTO_SRC = "";    // TODO: e.g. "/alessio.jpg"
+const PHOTO_SRC = "/alessio.jpg";    // TODO: e.g. "/alessio.jpg"
 const LOGO_SRC  = "";    // TODO: header logo, e.g. "/logo.svg" (SVG or 2x PNG, ~28px tall).
                          // Empty = no mark; the navigation moves left to keep the bar balanced.
 const EMAIL = "alessio.drb@gmail.com";
