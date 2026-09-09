@@ -1217,15 +1217,11 @@ function ServiceForm({ svcKey, formName, ctaLabel, t }) {
 
   if (!open) {
     return (
-      <div className="svc-form-cta flex flex-wrap items-center gap-5">
+      <div className="svc-form-cta">
         <button type="button" className="btn" style={{ padding: ".65rem 1.2rem", fontSize: ".95rem" }}
                 onClick={() => setOpen(true)}>
           {ctaLabel}
         </button>
-        <span className="cap ink2">
-          {f.ctaCalendly}{" "}
-          <a href={CALENDLY_URL} className="u" target="_blank" rel="noopener noreferrer">Calendly</a>
-        </span>
       </div>
     );
   }
