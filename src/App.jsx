@@ -1017,7 +1017,9 @@ const CSS = `
        font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--ink-2);
        background:transparent;border:0;padding:0;cursor:pointer;border-bottom:1px solid var(--rule)}
   .svc-toggle:hover{color:var(--ink);border-bottom-color:var(--ink)}
-  article.svc-open{border-top-color:var(--pen)}
+  .svc-card{border:1px solid var(--mark);transition:box-shadow .15s}
+  .svc-card:hover{box-shadow:0 4px 18px rgba(14,21,18,.09)}
+  article.svc-open{border-color:var(--pen)}
   article.svc-open .svc-toggle{color:var(--pen);border-bottom-color:var(--pen)}
   .svc-panel{padding-top:2rem;padding-bottom:2rem}
   .svc-what-list{list-style:none;padding:0;margin:0}
@@ -1520,9 +1522,9 @@ export default function App() {
             <h2 className="h2">{t.services.title}</h2>
             <p className="mt-4 ink2" style={text}>{t.services.lead}</p>
             <div className="mt-12" style={{ maxWidth: 1040 }}>
-              <div className="grid md:grid-cols-3 items-start">
+              <div className="grid md:grid-cols-3 items-start gap-6">
                 {t.services.items.map((s, i) => (
-                  <article key={i} className={`border-t rule pt-8 pb-8 md:pr-12 ${selectedSvc === i ? "svc-open" : ""}`}>
+                  <article key={i} className={`svc-card p-6 md:p-8 ${selectedSvc === i ? "svc-open" : ""}`}>
                     <div className="mono" style={{ fontSize: ".72rem", letterSpacing: ".12em", color: "var(--pen)", textTransform: "uppercase", fontWeight: 500 }}>{s.n}</div>
                     <h3 className="h3 mt-3" style={{ fontWeight: 600 }}>{s.h}</h3>
                     <p className="mt-4 ink2" style={{ fontSize: "1rem", lineHeight: 1.62 }}>{s.p}</p>
