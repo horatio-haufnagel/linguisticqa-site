@@ -829,6 +829,9 @@ const T = {
 
 /* ---------- helpers -------------------------------------------------------- */
 function detectLang() {
+  const seg = window.location.pathname.split("/")[1];
+  if (seg === "it") return "it";
+  if (seg === "de") return "de";
   try { const s = window.localStorage.getItem(STORAGE_KEY); if (LANGS.includes(s)) return s; } catch (_) {}
   const nav = (typeof navigator !== "undefined" && navigator.language) || "en";
   const short = nav.slice(0, 2).toLowerCase();
@@ -852,7 +855,7 @@ function useHead(lang, t) {
     setMeta("og:title", t.metaTitle, "property");
     setMeta("og:description", t.metaDesc, "property");
     setMeta("og:type", "website", "property");
-    setMeta("og:url", SITE_URL, "property");
+    setMeta("og:url", SITE_URL + (lang === "en" ? "" : "/" + lang), "property");
     setMeta("og:image", `${SITE_URL}/og.jpg`, "property");
     setMeta("twitter:card", "summary_large_image");
     const ld = {
@@ -1356,7 +1359,16 @@ export default function App() {
   const t = useMemo(() => T[lang], [lang]);
   useFonts();
   useHead(lang, t);
-  const setLang = (l) => { setLangState(l); persistLang(l); };
+  const setLang = (l) => {
+    setLangState(l);
+    persistLang(l);
+    window.history.pushState({}, "", l === "en" ? "/" : "/" + l);
+  };
+  useEffect(() => {
+    const onPop = () => setLangState(detectLang());
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   const wrap = "mx-auto px-6 sm:px-12";
   const page = { maxWidth: 1120 };
