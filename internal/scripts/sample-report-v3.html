@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italian QA Evaluation Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 40px; }
+        h1 { color: #333; margin-bottom: 30px; border-bottom: 3px solid #007bff; padding-bottom: 15px; }
+        h2 { color: #555; margin-top: 30px; margin-bottom: 15px; font-size: 18px; }
+        .summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .stat { padding: 20px; background: #f9f9f9; border-radius: 6px; text-align: center; border-left: 4px solid #007bff; }
+        .stat-value { font-size: 32px; font-weight: bold; color: #007bff; }
+        .stat-label { color: #777; font-size: 13px; margin-top: 5px; }
+        .grade { display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .grade.excellent { background: #d4edda; color: #155724; }
+        .grade.good { background: #cfe2ff; color: #084298; }
+        .grade.acceptable { background: #fff3cd; color: #664d03; }
+        .grade.poor { background: #f8d7da; color: #842029; }
+        .errors { margin-top: 20px; }
+        .error-item { padding: 15px; margin-bottom: 12px; background: #fff8f0; border-left: 4px solid #dc3545; border-radius: 4px; }
+        .error-severity { display: inline-block; padding: 4px 10px; border-radius: 3px; font-size: 12px; font-weight: bold; margin-bottom: 8px; }
+        .critical { background: #dc3545; color: white; }
+        .major { background: #fd7e14; color: white; }
+        .minor { background: #17a2b8; color: white; }
+        .error-text { color: #666; font-size: 13px; margin-top: 8px; }
+        .suggestion { margin-top: 8px; padding: 8px; background: #e7f3ff; border-radius: 3px; color: #004085; font-size: 13px; }
+        .strengths, .actions { margin-top: 20px; }
+        .strength-item, .action-item { padding: 10px; margin-bottom: 8px; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 3px; color: #2e7d32; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #999; font-size: 12px; }
+        .cta-box { margin-top: 40px; padding: 28px 32px; background: #f0f7ff; border: 2px solid #007bff; border-radius: 8px; text-align: center; }
+        .cta-box h3 { color: #004099; margin-bottom: 10px; font-size: 18px; }
+        .cta-box p { color: #555; margin-bottom: 18px; line-height: 1.6; }
+        .cta-btn { display: inline-block; padding: 12px 28px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 15px; }
+        .cta-btn:hover { background: #0056b3; }
+        .signature { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 13px; color: #555; }
+        .signature a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Italian Linguistic QA Evaluation Report</h1>
+        
+        <div class="summary">
+            <div class="stat">
+                <div class="stat-value">91</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Texts Evaluated</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">sample_evaluation_01</div>
+                <div class="stat-label">Batch ID</div>
+            </div>
+        </div>
+
+        <h2>📄 sample_evaluation_01_0</h2>
+        <div style="margin-bottom: 20px;">
+            <span class="grade good">Good (86/100)</span>
+        </div>
+        
+        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Breve CTA e-commerce comprensibile e con registro informale corretto per il B2C italiano, ma la collocazione non segue lo standard di settore ('Aggiungi al carrello') e l'avverbio finale 'adesso' tradisce una resa letterale dall'inglese. Nessun problema culturale o di coerenza di registro. Servono ritocchi minori prima della pubblicazione.</p>
+<div class="errors"><h3>Errors Found</h3>
+            <div class="error-item">
+                <span class="error-severity major">MAJOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> La CTA standard del settore e-commerce italiano è 'Aggiungi al carrello'. L'espansione 'il prodotto' e la preposizione 'nel' si discostano dal termine glossario consolidato, creando potenziale incoerenza con gli altri elementi UI.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Aggiungi al carrello</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity major">MAJOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Collocazione non idiomatica: in italiano si 'aggiunge qualcosa a' (aggiungere al carrello), non 'in'. La resa ricalca la struttura inglese 'add ... into the cart'.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> al carrello</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Avverbio in posizione finale con effetto 'tradotto' dall'inglese 'now'. In italiano la CTA risulta più incisiva senza avverbio o con 'ora' anteposto.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Aggiungi ora al carrello (oppure omettere l'avverbio)</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Tono & Voice</strong>
+                <div class="error-text"><strong>Issue:</strong> Il tono imperativo è corretto ma la CTA è troppo lunga e poco 'punchy' per un pulsante: la verbosità riduce l'efficacia conversionale tipica delle microcopy italiane.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Accorciare a 2-3 parole per uso su pulsante</div>
+            </div>
+</div><div class="strengths"><h3>Strengths</h3><div class="strength-item">✓ Registro informale con imperativo alla seconda persona singolare ('Aggiungi'), pienamente coerente con le convenzioni e-commerce B2C italiane</div><div class="strength-item">✓ Coerenza formale/informale impeccabile: nessuna oscillazione tu/Lei</div><div class="strength-item">✓ Terminologia di dominio corretta: 'carrello' è il traducente standard di 'cart', non un calco come 'cesto'</div><div class="strength-item">✓ Nessun problema di adattamento culturale: assenza di riferimenti, valute, date o unità di misura non localizzati</div><div class="strength-item">✓ Testo grammaticalmente corretto e immediatamente comprensibile per l'utente finale</div></div><div class="actions"><h3>Recommended Actions</h3><div class="action-item">→ Sostituire la stringa con la CTA standard 'Aggiungi al carrello' e allinearla al glossario UI del progetto</div><div class="action-item">→ Se il senso di urgenza è richiesto dal brief marketing, usare 'Aggiungi ora al carrello' anziché posporre 'adesso'</div><div class="action-item">→ Verificare la coerenza della stessa CTA su tutte le superfici (pulsante, pagina prodotto, listing, e-mail di carrello abbandonato)</div><div class="action-item">→ Applicare il vincolo di lunghezza per microcopy su pulsante (max ~25 caratteri) in fase di QA linguistica</div><div class="action-item">→ Aggiungere 'aggiungere al carrello' (con preposizione corretta) come voce di glossario per prevenire il calco 'nel carrello' in futuri contenuti</div></div>
+        <h2>📄 sample_evaluation_01_1</h2>
+        <div style="margin-bottom: 20px;">
+            <span class="grade excellent">Excellent (92/100)</span>
+        </div>
+        
+        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Micro-copy CTA breve, grammaticalmente corretta e immediatamente comprensibile. Il registro informale (2ª persona singolare) è coerente e adatto a un contesto e-commerce B2C italiano, e non si rilevano calchi grammaticali dall'inglese. Restano solo margini di ottimizzazione stilistica: 'Clicca qui' è un pattern generico e poco descrittivo (sconsigliato dalle linee guida UX/accessibilità italiane) e la coppia 'Clicca qui per procedere' risulta leggermente ridondante rispetto a formule più asciutte come 'Procedi al pagamento' o 'Vai alla cassa'. Testo pubblicabile con eventuale rifinitura.</p>
+<div class="errors"><h3>Errors Found</h3>
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Tono & Voice</strong>
+                <div class="error-text"><strong>Issue:</strong> Formula CTA generica e datata; 'Clicca qui' non descrive l'azione e nei testi italiani moderni suona meno naturale e meno orientato all'azione.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Procedi al pagamento / Vai al pagamento</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Leggera ridondanza verbale (clicca + procedere): la microcopy italiana predilige CTA sintetiche con un solo verbo d'azione.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Procedi al pagamento</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Resa accettabile di 'checkout', ma molti glossari e-commerce italiani prevedono 'cassa' o mantengono 'checkout' come termine di interfaccia; verificare il glossario cliente per la coerenza con le altre stringhe del flusso d'acquisto.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Vai alla cassa / Vai al checkout (secondo glossario)</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> In alcuni style guide (es. Microsoft) la forma preferita per l'interazione con il mouse è 'Fai clic su'; 'clicca' è però accettato e comune nei contesti consumer.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Fai clic su... (solo se richiesto dallo style guide)</div>
+            </div>
+</div><div class="strengths"><h3>Strengths</h3><div class="strength-item">✓ Grammatica e sintassi italiane corrette, nessun calco strutturale dall'inglese</div><div class="strength-item">✓ Registro informale ('tu') coerente e appropriato per un pubblico B2C</div><div class="strength-item">✓ Terminologia di dominio comprensibile e allineata alle convenzioni e-commerce italiane</div><div class="strength-item">✓ Lunghezza adeguata per un pulsante/link: nessun problema di troncamento in UI</div><div class="strength-item">✓ Nessun elemento culturalmente inadeguato: non richiede adattamenti di valuta, formati o riferimenti locali</div></div><div class="actions"><h3>Recommended Actions</h3><div class="action-item">→ Sostituire la CTA con una formula descrittiva e orientata all'azione: 'Procedi al pagamento' o 'Vai alla cassa'.</div><div class="action-item">→ Verificare nel glossario cliente il termine ufficiale per 'checkout' (pagamento / cassa / checkout) e allineare tutte le stringhe del funnel d'acquisto.</div><div class="action-item">→ Evitare link non descrittivi tipo 'Clicca qui' per conformità alle linee guida di accessibilità (WCAG, testo del link significativo).</div><div class="action-item">→ Confermare il mantenimento del 'tu' in tutto il flusso di checkout per garantire coerenza di registro.</div><div class="action-item">→ Se disponibile, testare A/B la variante 'Procedi al pagamento' rispetto all'attuale per misurare l'impatto sulla conversione.</div></div>
+        <h2>📄 sample_evaluation_01_2</h2>
+        <div style="margin-bottom: 20px;">
+            <span class="grade excellent">Excellent (96/100)</span>
+        </div>
+        
+        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Microcopy e-commerce breve, corretta e idiomatica. Registro informale (tu) coerente con l'imperativo 'Conferma', terminologia standard del settore ('ordine', 'acquisto') e struttura scopo-azione tipicamente italiana, senza calchi dall'inglese. Unico rilievo: lieve ridondanza semantica tra 'ordine' e 'acquisto' nella stessa frase; verificare inoltre l'allineamento con il glossario cliente (es. 'ordine' vs 'acquisto' vs 'checkout') e con lo stile dei CTA adiacenti.</p>
+<div class="errors"><h3>Errors Found</h3>
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Uso di due termini diversi ('ordine' e 'acquisto') per riferirsi alla stessa transazione; in assenza di glossario può creare incoerenza con le altre stringhe del flusso di checkout.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Uniformare al termine previsto dal glossario, es. 'Conferma l'ordine per completare l'acquisto' → 'Conferma l'ordine per concludere l'acquisto' oppure 'Conferma per completare l'ordine'.</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Formulazione corretta ma leggermente ridondante e generica per un pulsante/CTA; in italiano 'concludere l'acquisto' o 'completare l'ordine' suonano più naturali nel contesto e-commerce.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> 'Conferma l'ordine per concludere l'acquisto' oppure, per un CTA più asciutto, 'Conferma e concludi l'acquisto'.</div>
+            </div>
+</div><div class="strengths"><h3>Strengths</h3><div class="strength-item">✓ Grammatica e sintassi impeccabili, nessun calco strutturale dall'inglese</div><div class="strength-item">✓ Registro informale con 'tu' coerente e adeguato a un contesto B2C e-commerce</div><div class="strength-item">✓ Imperativo diretto e orientato all'azione, in linea con le best practice dei CTA italiani</div><div class="strength-item">✓ Terminologia di dominio standard e immediatamente comprensibile all'utente italiano</div><div class="strength-item">✓ Lunghezza contenuta, adatta a pulsanti e microcopy senza rischi di troncamento in UI</div></div><div class="actions"><h3>Recommended Actions</h3><div class="action-item">→ Verificare nel glossario cliente il termine preferito tra 'ordine', 'acquisto' e 'checkout' e applicarlo in modo uniforme a tutto il flusso</div><div class="action-item">→ Controllare la coerenza del registro informale (tu) con le stringhe adiacenti del percorso di pagamento</div><div class="action-item">→ Valutare una versione più breve per il pulsante (es. 'Conferma ordine') mantenendo la frase estesa come testo di supporto</div><div class="action-item">→ Eseguire un controllo in-context (screenshot/UI) per accertare la resa visiva e l'assenza di troncamenti</div></div>
+        <div class="cta-box">
+            <h3>Want a professional Italian linguistic QA review?</h3>
+            <p>Book a free discovery call to discuss how we can help you deliver flawless Italian content — from UI copy to long-form translation.</p>
+            <a class="cta-btn" href="https://linguisticqa.com" target="_blank">Visit linguisticqa.com</a>
+        </div>
+
+        <div class="signature">
+            <p><strong>Alessio Di Rubbo</strong> — Italian Linguistic QA Specialist<br>
+            <a href="mailto:alessio.drb@gmail.com">alessio.drb@gmail.com</a> &nbsp;|&nbsp;
+            <a href="https://linguisticqa.com" target="_blank">linguisticqa.com</a> &nbsp;|&nbsp;
+            <a href="https://linkedin.com/in/alessiodirubbo" target="_blank">LinkedIn</a></p>
+        </div>
+
+        <div class="footer">
+            <p>Generated by Italian Linguistic QA Agent</p>
+        </div>
+    </div>
+</body>
+</html>

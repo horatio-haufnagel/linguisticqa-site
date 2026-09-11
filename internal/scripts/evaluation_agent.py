@@ -31,29 +31,57 @@ class ItalianEvaluationAgent:
 
 Respond ONLY with valid JSON."""
         
-        response = self.client.messages.create(
-            model=self.model,
-            max_tokens=2000,
-            system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
-        )
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=4000,
+                system=system_prompt,
+                messages=[{"role": "user", "content": user_message}]
+            )
+        except Exception as e:
+            return {
+                'document_id': document_id,
+                'error': f"API call failed: {str(e)}",
+                'score': None,
+                'grade': 'Error',
+                'summary': f"API error: {str(e)}"
+            }
+        
+        text_content = None
+        for block in response.content:
+            if hasattr(block, 'text'):
+                text_content = block.text
+                break
+        
+        if not text_content:
+            return {
+                'document_id': document_id,
+                'error': "No text block found in response (only thinking blocks returned)",
+                'score': None,
+                'grade': 'Error',
+                'summary': "Evaluation failed: Claude returned no usable text output."
+            }
+        
+        cleaned = text_content.strip()
+        if cleaned.startswith('```'):
+            cleaned = cleaned.split('```')[1]
+            if cleaned.startswith('json'):
+                cleaned = cleaned[4:]
+        cleaned = cleaned.strip()
         
         try:
-            # Find the text block (skip thinking blocks)
-            text_content = None
-            for block in response.content:
-                if hasattr(block, 'text'):
-                    text_content = block.text
-                    break
-            
-            if not text_content:
-                raise ValueError("No text response from Claude")
-            
-            result = json.loads(text_content)
+            result = json.loads(cleaned)
             result['document_id'] = document_id
             return result
         except json.JSONDecodeError as e:
-            return {'document_id': document_id, 'error': str(e), 'raw': text_content if text_content else 'No text'}
+            return {
+                'document_id': document_id,
+                'error': f"JSON parse failed: {str(e)}",
+                'raw': text_content,
+                'score': None,
+                'grade': 'Error',
+                'summary': f"Evaluation completed but response could not be parsed as JSON. Raw output logged."
+            }
     
     def _build_system_prompt(self, context: dict) -> str:
         return f"""You are an expert Italian linguist. Evaluate the Italian text according to this rubric and output ONLY valid JSON with score (0-100), grade, summary, errors, strengths, recommended_actions.

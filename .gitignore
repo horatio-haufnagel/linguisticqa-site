@@ -5,3 +5,11 @@ dist/
 .DS_Store
 *.log
 .vite/
+
+# Local Netlify folder
+.netlify
+
+# Prospect reports — contain third-party data, must not be committed
+internal/reports/*.html
+internal/reports/*.json
+internal/scripts/__pycache__/

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italian QA Evaluation Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 40px; }
+        h1 { color: #333; margin-bottom: 30px; border-bottom: 3px solid #007bff; padding-bottom: 15px; }
+        h2 { color: #555; margin-top: 30px; margin-bottom: 15px; font-size: 18px; }
+        .summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .stat { padding: 20px; background: #f9f9f9; border-radius: 6px; text-align: center; border-left: 4px solid #007bff; }
+        .stat-value { font-size: 32px; font-weight: bold; color: #007bff; }
+        .stat-label { color: #777; font-size: 13px; margin-top: 5px; }
+        .grade { display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        .grade.excellent { background: #d4edda; color: #155724; }
+        .grade.good { background: #cfe2ff; color: #084298; }
+        .grade.acceptable { background: #fff3cd; color: #664d03; }
+        .grade.poor { background: #f8d7da; color: #842029; }
+        .errors { margin-top: 20px; }
+        .error-item { padding: 15px; margin-bottom: 12px; background: #fff8f0; border-left: 4px solid #dc3545; border-radius: 4px; }
+        .error-severity { display: inline-block; padding: 4px 10px; border-radius: 3px; font-size: 12px; font-weight: bold; margin-bottom: 8px; }
+        .critical { background: #dc3545; color: white; }
+        .major { background: #fd7e14; color: white; }
+        .minor { background: #17a2b8; color: white; }
+        .error-text { color: #666; font-size: 13px; margin-top: 8px; }
+        .suggestion { margin-top: 8px; padding: 8px; background: #e7f3ff; border-radius: 3px; color: #004085; font-size: 13px; }
+        .strengths, .actions { margin-top: 20px; }
+        .strength-item, .action-item { padding: 10px; margin-bottom: 8px; background: #e8f5e9; border-left: 4px solid #4caf50; border-radius: 3px; color: #2e7d32; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #999; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Italian Linguistic QA Evaluation Report</h1>
+        
+        <div class="summary">
+            <div class="stat">
+                <div class="stat-value">92</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Texts Evaluated</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">sample_evaluation_01</div>
+                <div class="stat-label">Batch ID</div>
+            </div>
+        </div>
+
+        <h2>📄 sample_evaluation_01_0</h2>
+        <div style="margin-bottom: 20px;">
+            <span class="grade good">Good (89/100)</span>
+        </div>
+        
+        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Stringa e-commerce comprensibile e con registro informale corretto per un pubblico B2C italiano, ma non allineata alla convenzione UI consolidata 'Aggiungi al carrello'. La resa tradisce una struttura calcata sull'inglese ('Add the product to your cart now'): preposizione errata nella collocazione fissa, oggetto ridondante e avverbio temporale posposto. Nessun problema di coerenza di registro né di adattamento culturale. Sono sufficienti correzioni minori prima della pubblicazione.</p>
+<div class="errors"><h3>Errors Found</h3>
+            <div class="error-item">
+                <span class="error-severity major">MAJOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> La collocazione idiomatica italiana per l'azione di e-commerce è 'aggiungere AL carrello'. 'Aggiungi ... nel carrello' suona come traduzione letterale e non è la forma naturale/attesa dall'utente.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Aggiungi al carrello</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> L'avverbio 'adesso' in posizione finale ricalca l'ordine delle parole inglese ('...to your cart now') e risulta appiccicato alla frase.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Se l'urgenza è necessaria: 'Aggiungi subito al carrello' oppure 'Aggiungi ora al carrello'.</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Deviazione dalla stringa UI standard del settore e-commerce italiano ('Aggiungi al carrello'), con rischio di incoerenza rispetto ad altri punti dell'interfaccia. 'il prodotto' è ridondante perché il contesto è già la scheda prodotto.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Uniformare alla stringa di glossario 'Aggiungi al carrello' su tutti i touchpoint.</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Tono & Voice</strong>
+                <div class="error-text"><strong>Issue:</strong> L'esortazione finale conferisce un tono leggermente insistente/pubblicitario poco tipico delle CTA italiane, che privilegiano concisione e neutralità.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Rimuovere 'adesso' nella CTA principale e riservare l'urgenza a badge o microcopy dedicati (es. 'Ultimi pezzi disponibili').</div>
+            </div>
+</div><div class="strengths"><h3>Strengths</h3><div class="strength-item">✓ Terminologia di dominio corretta: 'carrello' è il traducente standard per 'cart' nell'e-commerce italiano (nessun calco tipo 'cesto della spesa').</div><div class="strength-item">✓ Registro informale con imperativo alla seconda persona singolare ('Aggiungi'), pienamente appropriato per un contesto B2C.</div><div class="strength-item">✓ Coerenza formale/informale impeccabile: nessuna oscillazione tu/Lei all'interno della stringa.</div><div class="strength-item">✓ Nessun problema di adattamento culturale: assenza di valute, formati data o riferimenti culturali non localizzati.</div><div class="strength-item">✓ Frase breve, grammaticalmente corretta e immediatamente comprensibile.</div></div><div class="actions"><h3>Recommended Actions</h3><div class="action-item">→ Sostituire la stringa con la CTA canonica: 'Aggiungi al carrello'.</div><div class="action-item">→ Inserire 'Aggiungi al carrello' nel glossario come termine bloccato (locked term) per garantire coerenza su sito, app e email transazionali.</div><div class="action-item">→ Eliminare l'oggetto ridondante 'il prodotto' e l'avverbio 'adesso' dai pulsanti; gestire l'urgenza con microcopy separato.</div><div class="action-item">→ Verificare le stringhe correlate ('Rimuovi dal carrello', 'Vai al carrello', 'Il tuo carrello') per allineamento delle preposizioni.</div><div class="action-item">→ Eseguire un controllo QA sui calchi preposizionali dall'inglese nell'intero set di stringhe UI.</div></div>
+        <h2>📄 sample_evaluation_01_1</h2>
+        <div style="margin-bottom: 20px;">
+            <span class="grade excellent">Excellent (92/100)</span>
+        </div>
+        
+        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Stringa UI breve, corretta e immediatamente comprensibile. Il registro informale (tu) è appropriato per un contesto e-commerce B2C italiano e la formula 'procedere al pagamento' è la resa idiomatica standard di 'checkout'. Restano solo margini di miglioramento stilistici: 'Clicca qui' è una CTA generica e poco accessibile, e in alcune guide di stile (es. Microsoft) 'Fai clic su' è la forma preferita rispetto a 'Clicca'.</p>
+<div class="errors"><h3>Errors Found</h3>
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> CTA generica e device-centrica ('qui' non descrive la destinazione); ricalca il pattern inglese 'Click here', sconsigliato anche per accessibilità e SEO.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Procedi al pagamento / Vai al pagamento</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> 'Clicca' è accettato nell'uso web, ma diversi glossari e style guide IT preferiscono 'Fai clic su' in interfacce software; possibile incoerenza se il resto del progetto usa la forma preferita.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Fai clic su... (se previsto dal glossario di progetto)</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Tono & Voice</strong>
+                <div class="error-text"><strong>Issue:</strong> Formulazione corretta ma leggermente prolissa e passiva per un pulsante: le CTA italiane più efficaci sono brevi e orientate all'azione.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Procedi al pagamento (2-3 parole, più incisivo)</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Formale/Informale Consistency</strong>
+                <div class="error-text"><strong>Issue:</strong> Il registro 'tu' è coerente in sé, ma su una singola stringa non è verificabile l'allineamento con il resto del flusso di checkout: rischio di mismatch se altrove si usa il 'Lei' o forme impersonali.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Verificare l'allineamento con il resto del percorso di acquisto (tu vs Lei vs impersonale)</div>
+            </div>
+</div><div class="strengths"><h3>Strengths</h3><div class="strength-item">✓ Grammatica e ortografia impeccabili; nessun calco sintattico dall'inglese nella struttura della frase</div><div class="strength-item">✓ 'Procedere al pagamento' è la resa terminologica corretta e consolidata per 'checkout' nell'e-commerce italiano</div><div class="strength-item">✓ Registro informale (tu) adeguato al pubblico consumer B2C italiano</div><div class="strength-item">✓ Testo conciso, chiaro e privo di ambiguità per l'utente finale</div><div class="strength-item">✓ Nessun problema di adattamento culturale: assenza di riferimenti, valute, date o unità di misura da localizzare</div></div><div class="actions"><h3>Recommended Actions</h3><div class="action-item">→ Sostituire la CTA con una formula più breve e descrittiva: 'Procedi al pagamento' o 'Vai al pagamento'.</div><div class="action-item">→ Eliminare il pattern 'Clicca qui' da tutte le CTA per migliorare accessibilità (screen reader) e coerenza UX.</div><div class="action-item">→ Verificare nel glossario/style guide di progetto se la forma preferita è 'Clicca su' o 'Fai clic su' e uniformare tutte le stringhe.</div><div class="action-item">→ Controllare che l'intero flusso di checkout mantenga il registro 'tu' senza slittamenti verso il 'Lei' o forme impersonali.</div><div class="action-item">→ Se la stringa è un'etichetta di pulsante, valutare un limite di 2-3 parole per coerenza con gli altri elementi dell'interfaccia.</div></div>
+        <h2>📄 sample_evaluation_01_2</h2>
+        <div style="margin-bottom: 20px;">
+            <span class="grade excellent">Excellent (96/100)</span>
+        </div>
+        
+        <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Stringa UI breve e di alta qualità: italiano naturale, idiomatico e grammaticalmente corretto. Registro informale (tu) coerente con le convenzioni e-commerce B2C italiane, terminologia standard di settore ('conferma', 'ordine', 'acquisto'). Nessun calco dall'inglese, nessun elemento culturale o di formattazione da localizzare. Pronta per la pubblicazione; solo micro-ottimizzazioni stilistiche possibili.</p>
+<div class="errors"><h3>Errors Found</h3>
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Terminologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Leggera ridondanza semantica tra 'ordine' e 'acquisto': i due termini coprono lo stesso concetto nel medesimo micro-testo.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Semplificare in 'Conferma l'ordine per concludere' oppure 'Conferma per completare l'acquisto', a seconda del termine preferito dal glossario del cliente.</div>
+            </div>
+
+            <div class="error-item">
+                <span class="error-severity minor">MINOR</span>
+                <strong>Fluidità & Fraseologia</strong>
+                <div class="error-text"><strong>Issue:</strong> Formulazione corretta ma neutra/impersonale per una CTA di checkout; molti brand italiani usano il possessivo o un verbo più orientato all'azione per aumentare il coinvolgimento.</div>
+                <div class="suggestion"><strong>Suggestion:</strong> Valutare 'Conferma il tuo ordine per completare l'acquisto' o 'Concludi l'ordine e completa l'acquisto' se il tone of voice del brand è più caldo/promozionale.</div>
+            </div>
+</div><div class="strengths"><h3>Strengths</h3><div class="strength-item">✓ Sintassi italiana corretta e scorrevole, senza traduzione letterale dall'inglese (nessun 'Conferma il tuo ordine per completare il tuo acquisto' con possessivi ridondanti tipici del calco).</div><div class="strength-item">✓ Uso dell'imperativo alla seconda persona singolare, standard per CTA e-commerce rivolte al consumatore italiano.</div><div class="strength-item">✓ Registro informale (tu) coerente e mantenuto per l'intera stringa, senza slittamenti verso il 'Lei'.</div><div class="strength-item">✓ Terminologia di dominio appropriata e allineata alle convenzioni del settore e-commerce ('ordine', 'acquisto', 'conferma').</div><div class="strength-item">✓ Lunghezza contenuta e adatta a un pulsante o a un messaggio di checkout, senza rischi di troncamento nell'interfaccia.</div><div class="strength-item">✓ Assenza di riferimenti culturali, valute, date o unità di misura problematici: nessun intervento di adattamento richiesto.</div></div><div class="actions"><h3>Recommended Actions</h3><div class="action-item">→ Verificare nel glossario del cliente il termine preferito tra 'ordine' e 'acquisto' ed eliminare l'eventuale ridondanza per uniformare tutte le stringhe di checkout.</div><div class="action-item">→ Confermare che l'intero flusso di acquisto mantenga il registro informale 'tu' usato in questa stringa.</div><div class="action-item">→ Se la stringa è un pulsante, controllare i limiti di caratteri dell'interfaccia e valutare una variante più breve (es. 'Conferma ordine').</div><div class="action-item">→ Considerare l'allineamento al tone of voice del brand: mantenere la versione neutra attuale oppure adottare una formulazione più coinvolgente con possessivo.</div><div class="action-item">→ Nessuna rilavorazione necessaria: approvare per la pubblicazione dopo la verifica terminologica.</div><div class="action-item">→ Testare la resa in contesto (screenshot o ambiente di staging) per confermare coerenza con le stringhe adiacenti del carrello.</div></div>
+        <div class="footer">
+            <p>Generated by Italian Linguistic QA Agent | Powered by Claude Opus 5</p>
+        </div>
+    </div>
+</body>
+</html>
