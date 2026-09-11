@@ -855,7 +855,8 @@ function useHead(lang, t) {
     setMeta("og:title", t.metaTitle, "property");
     setMeta("og:description", t.metaDesc, "property");
     setMeta("og:type", "website", "property");
-    setMeta("og:url", SITE_URL + (lang === "en" ? "" : "/" + lang), "property");
+    setMeta("og:url", SITE_URL + (lang === "en" ? "/" : "/" + lang + "/"), "property");
+    setMeta("og:locale", lang === "it" ? "it_IT" : lang === "de" ? "de_DE" : "en_US", "property");
     setMeta("og:image", `${SITE_URL}/og.jpg`, "property");
     setMeta("twitter:card", "summary_large_image");
     const ld = {
