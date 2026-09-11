@@ -132,7 +132,7 @@ Non esiste alternativa zero-dependency praticabile: SSR richiederebbe di riscriv
 ### Implicazioni
 * `npx playwright install chromium` va eseguito una tantum dopo `npm install` (scarica il browser headless, ~130MB)
 * Il tempo di build aumenta di circa 15–30 secondi per il render headless delle tre lingue
-* In ambienti CI (Netlify) va verificato che Chromium possa girare; di norma sì, ma potrebbe servire un flag `--no-sandbox`
+* In ambienti CI (Netlify) Chromium non è presente di default: il primo deploy preview è fallito con "Executable doesn't exist at /opt/buildhome/.cache/ms-playwright/...". Risolto aggiungendo `"postinstall": "playwright install --with-deps chromium"` in package.json, così il browser viene scaricato automaticamente dopo ogni `npm install`, sia in locale che su Netlify
 
 ### Reversibile?
 ✅ Sì. Rimuovere `playwright` da devDependencies, eliminare `scripts/prerender.mjs`, ripristinare `"build": "vite build"` in package.json. Le sottocartelle `dist/it/` e `dist/de/` tornano a non esistere.
