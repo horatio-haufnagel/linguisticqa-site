@@ -1362,7 +1362,7 @@ export default function App() {
   const setLang = (l) => {
     setLangState(l);
     persistLang(l);
-    window.history.pushState({}, "", l === "en" ? "/" : "/" + l);
+    window.history.pushState({}, "", l === "en" ? "/" : "/" + l + "/");
   };
   useEffect(() => {
     const onPop = () => setLangState(detectLang());
