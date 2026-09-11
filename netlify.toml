@@ -7,6 +7,16 @@
   port = 3000
 
 [[redirects]]
+  from = "/it"
+  to = "/it/"
+  status = 301
+
+[[redirects]]
+  from = "/de"
+  to = "/de/"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
