@@ -5,9 +5,7 @@ dist/
 .DS_Store
 *.log
 .vite/
-
-# Local Netlify folder
-.netlify
+.netlify/
 
 # Prospect reports — contain third-party data, must not be committed
 internal/reports/*.html
