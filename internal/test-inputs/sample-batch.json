@@ -1,0 +1,13 @@
+{
+  "document_id": "sample_evaluation_01",
+  "texts": [
+    "Aggiungi il prodotto nel carrello adesso",
+    "Clicca qui per procedere al pagamento",
+    "Conferma l'ordine per completare l'acquisto"
+  ],
+  "context": {
+    "domain": "ecommerce",
+    "audience": "B2C",
+    "brand_voice": "casual"
+  }
+}

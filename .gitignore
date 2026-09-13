@@ -6,4 +6,8 @@ dist/
 *.log
 .vite/
 .netlify/
-internal/
+
+# Prospect reports — contain third-party data, must not be committed
+internal/reports/*.html
+internal/reports/*.json
+internal/scripts/__pycache__/

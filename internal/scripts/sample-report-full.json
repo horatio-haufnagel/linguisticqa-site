@@ -1,0 +1,145 @@
+{
+  "batch_id": "sample_evaluation_01",
+  "num_texts": 3,
+  "context": {
+    "domain": "ecommerce",
+    "audience": "B2C",
+    "brand_voice": "casual"
+  },
+  "results": [
+    {
+      "score": 89,
+      "grade": "Good",
+      "summary": "Stringa e-commerce (CTA) breve e comprensibile, con registro informale 'tu' corretto per un pubblico B2C italiano. Il testo però tradisce una resa letterale dall'inglese ('Add the product to the cart now'): la collocazione standard italiana è 'Aggiungi al carrello', mentre 'nel carrello', l'oggetto esplicito 'il prodotto' e l'avverbio finale 'adesso' appesantiscono la microcopy. Nessun errore grammaticale grave, nessun problema di coerenza di registro o di adattamento culturale. Servono solo ritocchi minori prima della pubblicazione.",
+      "errors": [
+        {
+          "id": 1,
+          "category": "Fluidità & Fraseologia",
+          "severity": "Major",
+          "deduction": 5,
+          "segment": "nel carrello",
+          "issue": "Collocazione errata: in italiano e-commerce si usa 'aggiungere AL carrello', non 'nel carrello'. La preposizione 'in' ricalca una lettura spaziale dell'inglese 'in/into the cart' e suona non idiomatica in ambito UI.",
+          "suggestion": "al carrello"
+        },
+        {
+          "id": 2,
+          "category": "Terminologia",
+          "severity": "Minor",
+          "deduction": 2,
+          "segment": "il prodotto",
+          "issue": "Oggetto esplicito ridondante: nelle CTA di e-commerce italiano la stringa convenzionale è 'Aggiungi al carrello', dove l'oggetto è implicito nel contesto della scheda prodotto. L'esplicitazione allunga il pulsante e riduce la scansionabilità.",
+          "suggestion": "Aggiungi al carrello"
+        },
+        {
+          "id": 3,
+          "category": "Tono & Voice",
+          "severity": "Minor",
+          "deduction": 2,
+          "segment": "adesso",
+          "issue": "Avverbio di urgenza in posizione finale, calco di 'now' inglese. In italiano risulta posticcio e leggermente insistente per una CTA transazionale; se serve enfatizzare l'immediatezza è preferibile 'ora' in posizione mediana.",
+          "suggestion": "Aggiungi ora al carrello (solo se l'urgenza è richiesta dal brief; altrimenti omettere)"
+        },
+        {
+          "id": 4,
+          "category": "Fluidità & Fraseologia",
+          "severity": "Minor",
+          "deduction": 2,
+          "segment": "Aggiungi il prodotto nel carrello adesso",
+          "issue": "L'ordine degli elementi replica parola per parola la struttura inglese (verbo + oggetto + complemento + avverbio), producendo un 'translated English feel' tipico della microcopy non adattata.",
+          "suggestion": "Riformulare come stringa UI nativa: 'Aggiungi al carrello'"
+        }
+      ],
+      "strengths": [
+        "Registro informale con imperativo alla seconda persona singolare ('Aggiungi'), coerente e appropriato per un pubblico B2C italiano: nessuna oscillazione tu/Lei.",
+        "Terminologia di dominio corretta: 'carrello' è il traducente standard di 'cart' nell'e-commerce italiano (evitato il calco 'cesto/cestino').",
+        "Grammatica e ortografia impeccabili; frase pienamente comprensibile al primo colpo d'occhio.",
+        "Nessun problema di adattamento culturale: assenza di riferimenti, valute, formati data o unità di misura non localizzati.",
+        "Lunghezza contenuta e adatta ai vincoli di spazio di un pulsante, pur con margini di sintesi."
+      ],
+      "recommended_actions": [
+        "Sostituire la stringa con la forma canonica 'Aggiungi al carrello', in linea con lo standard di mercato italiano e con le principali piattaforme e-commerce.",
+        "Correggere in ogni caso la preposizione: 'nel carrello' → 'al carrello' (verificare eventuali altre occorrenze nel progetto).",
+        "Valutare con il team di marketing se l'urgenza di 'adesso' è intenzionale: in tal caso usare 'Aggiungi ora al carrello'; in caso contrario eliminare l'avverbio.",
+        "Aggiungere 'Aggiungi al carrello' al glossario/termbase come stringa UI bloccata, per garantire coerenza su tutte le schede prodotto.",
+        "Effettuare un controllo di coerenza sull'intero set di CTA (es. 'Vai al carrello', 'Procedi all'ordine', 'Acquista ora') per uniformare registro informale e struttura sintattica."
+      ],
+      "document_id": "sample_evaluation_01_0"
+    },
+    {
+      "score": 94,
+      "grade": "Excellent",
+      "summary": "Stringa UI breve, grammaticalmente corretta, registro informale (tu) coerente e comprensibile per un pubblico B2C italiano. La resa è pubblicabile, ma 'Clicca qui' resta un calco dall'inglese 'Click here' e come etichetta di link è poco descrittiva: l'italiano dei principali e-commerce preferisce una call-to-action orientata all'azione ('Procedi al pagamento', 'Vai alla cassa'). Nessun problema terminologico grave, culturale o di coerenza di registro.",
+      "errors": [
+        {
+          "category": "Fluidità & Fraseologia",
+          "severity": "minor",
+          "deduction": 2,
+          "segment": "Clicca qui",
+          "issue": "Calco dell'inglese 'Click here'; formula generica e non descrittiva, sconsigliata anche per accessibilità (screen reader) e per le linee guida UX italiane.",
+          "suggestion": "Eliminare il riferimento al gesto e usare l'azione come etichetta: 'Procedi al pagamento' oppure 'Vai al pagamento'."
+        },
+        {
+          "category": "Tono & Voice",
+          "severity": "minor",
+          "deduction": 2,
+          "segment": "Clicca qui per procedere al pagamento",
+          "issue": "Tono corretto (informale, coerente con e-commerce B2C) ma leggermente prolisso e 'tradotto' per una CTA: le CTA italiane sono più brevi e dirette.",
+          "suggestion": "Accorciare a 2-4 parole: 'Procedi al pagamento' / 'Completa l'ordine'."
+        },
+        {
+          "category": "Terminologia",
+          "severity": "minor",
+          "deduction": 2,
+          "segment": "pagamento",
+          "issue": "Se la stringa sorgente è 'checkout', 'pagamento' è accettabile ma copre solo la fase di pagamento e non l'intero flusso di conferma ordine; verificare il termine preferito nel glossario del cliente ('cassa', 'checkout', 'ordine').",
+          "suggestion": "Allineare al glossario: 'Vai alla cassa' se il riferimento è al checkout completo; mantenere 'pagamento' se la schermata è solo di pagamento."
+        }
+      ],
+      "strengths": [
+        "Grammatica e sintassi impeccabili, nessun errore ortografico.",
+        "Registro informale con 'tu' coerente e appropriato per interfacce consumer italiane.",
+        "Struttura imperativo + finalità chiara e immediatamente comprensibile all'utente.",
+        "Nessun problema di adattamento culturale (nessuna valuta, data o riferimento locale da convertire).",
+        "Coerenza formale/informale mantenuta al 100% nel segmento."
+      ],
+      "recommended_actions": [
+        "Sostituire 'Clicca qui per procedere al pagamento' con una CTA azione-oriented: 'Procedi al pagamento'.",
+        "Verificare nel glossario/TB del cliente il termine ufficiale per 'checkout' (pagamento / cassa / checkout) e applicarlo in modo uniforme in tutta l'interfaccia.",
+        "Applicare come regola di stile l'eliminazione dei riferimenti al gesto ('clicca qui', 'clicca sul pulsante') nelle etichette di link e pulsanti.",
+        "Confermare che l'intero flusso di checkout usi il 'tu' in modo coerente, evitando slittamenti verso il 'Lei'.",
+        "Controllare il limite di caratteri del pulsante nell'UI dopo l'accorciamento della stringa."
+      ],
+      "document_id": "sample_evaluation_01_1"
+    },
+    {
+      "score": 98,
+      "grade": "Excellent",
+      "summary": "Stringa e-commerce breve, grammaticalmente corretta e idiomatica. Il registro informale (imperativo alla seconda persona singolare) è coerente e in linea con lo standard del mercato italiano B2C. Unico rilievo minore: la coesistenza di 'ordine' e 'acquisto' nella stessa frase crea una lieve ridondanza concettuale. Valutazione effettuata senza testo sorgente, glossario o brief di progetto: eventuali vincoli terminologici del cliente potrebbero modificare il giudizio.",
+      "errors": [
+        {
+          "category": "Terminologia",
+          "severity": "Minor",
+          "deduction": 2,
+          "segment": "Conferma l'ordine per completare l'acquisto",
+          "issue": "Uso di due termini diversi ('ordine' e 'acquisto') che nel flusso di checkout indicano di fatto la stessa entità: la ridondanza è tollerabile ma può risultare imprecisa se il glossario prevede un termine unico.",
+          "suggestion": "Conferma l'ordine per completare il pagamento — oppure — Conferma l'ordine per concludere l'acquisto (in base al termine preferito dal glossario)."
+        }
+      ],
+      "strengths": [
+        "Sintassi corretta e naturale, priva di calchi dall'inglese (nessun 'Conferma il tuo ordine' con possessivo sovrabbondante).",
+        "Registro informale con 'tu' coerente, appropriato per interfacce e-commerce consumer italiane.",
+        "Terminologia di dominio standard e riconoscibile ('ordine', 'acquisto', 'confermare').",
+        "Lunghezza contenuta e adatta a pulsanti o messaggi di conferma UI, senza problemi di espansione testuale.",
+        "Nessun elemento culturalmente inadeguato: assenza di valute, formati data o riferimenti locali da adattare."
+      ],
+      "recommended_actions": [
+        "Verificare nel glossario di progetto il termine preferito tra 'ordine' e 'acquisto' e uniformare la microcopy dell'intero flusso di checkout.",
+        "Confermare che l'intera UI adotti il 'tu' come registro di riferimento, evitando slittamenti verso il 'Lei' in messaggi di errore o email transazionali.",
+        "Controllare la coerenza con le stringhe adiacenti (es. etichetta del pulsante 'Conferma ordine' o 'Paga ora') per evitare duplicazioni di significato nella stessa schermata.",
+        "Se la stringa è un pulsante, valutare una forma più breve e orientata all'azione (es. 'Conferma ordine') per rispettare i limiti di caratteri."
+      ],
+      "document_id": "sample_evaluation_01_2"
+    }
+  ],
+  "avg_score": 93.66666666666667
+}

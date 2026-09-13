@@ -1,0 +1,12 @@
+{
+  "document_id": "nome-prospect-o-azienda",
+  "texts": [
+    "Incolla qui il primo testo italiano da valutare",
+    "Incolla qui il secondo testo italiano da valutare"
+  ],
+  "context": {
+    "domain": "ecommerce",
+    "audience": "B2C",
+    "brand_voice": "casual"
+  }
+}
