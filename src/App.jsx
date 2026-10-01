@@ -61,7 +61,7 @@ const T = {
     htmlLang: "en",
     metaTitle: "Alessio Di Rubbo | Italian localization, SEO and GEO for DACH brands",
     metaDesc: "Italian localization, Italian SEO and GEO, and linguistic QA for brands and agencies in Austria, Germany and Switzerland selling to Italy. Native Italian, based in Vienna.",
-    nav: { audit: "Sample review", findings: "Findings", notes: "Notes", services: "Services", about: "About", cta: "Book a free review", menu: "Menu" },
+    nav: { audit: "Sample review", findings: "Findings", notes: "Notes", services: "Services", resources: "Resources", about: "About", cta: "Book a free review", menu: "Menu" },
     eyebrow: { audit: "review", findings: "findings", notes: "notes", process: "process", services: "services", about: "about" },
     hero: {
       h1a: "Your brand already speaks Italian.",
@@ -317,7 +317,7 @@ const T = {
     htmlLang: "it",
     metaTitle: "Alessio Di Rubbo | Localizzazione italiana, SEO e GEO per brand DACH",
     metaDesc: "Localizzazione in italiano, SEO e GEO in italiano e linguistic QA per brand e agenzie di Austria, Germania e Svizzera che vendono in Italia. Madrelingua italiano, con sede a Vienna.",
-    nav: { audit: "Revisione di esempio", findings: "Reperti", notes: "Note", services: "Servizi", about: "Chi sono", cta: "Prenota una revisione gratuita", menu: "Menu" },
+    nav: { audit: "Revisione di esempio", findings: "Reperti", notes: "Note", services: "Servizi", resources: "Risorse", about: "Chi sono", cta: "Prenota una revisione gratuita", menu: "Menu" },
     eyebrow: { audit: "revisione", findings: "reperti", notes: "note", process: "metodo", services: "servizi", about: "chi sono" },
     hero: {
       h1a: "Il tuo brand parla già italiano.",
@@ -573,7 +573,7 @@ const T = {
     htmlLang: "de",
     metaTitle: "Alessio Di Rubbo | Italienische Lokalisierung, SEO und GEO für DACH-Marken",
     metaDesc: "Lokalisierung ins Italienische, italienisches SEO und GEO sowie Linguistic QA für Marken und Agenturen in Österreich, Deutschland und der Schweiz, die nach Italien verkaufen. Italienischer Muttersprachler mit Sitz in Wien.",
-    nav: { audit: "Beispiel-Review", findings: "Befunde", notes: "Notizen", services: "Leistungen", about: "Über mich", cta: "Kostenlose Prüfung buchen", menu: "Menü" },
+    nav: { audit: "Beispiel-Review", findings: "Befunde", notes: "Notizen", services: "Leistungen", resources: "Ressourcen", about: "Über mich", cta: "Kostenlose Prüfung buchen", menu: "Menü" },
     eyebrow: { audit: "review", findings: "befunde", notes: "notizen", process: "ablauf", services: "leistungen", about: "über mich" },
     hero: {
       h1a: "Ihre Marke spricht schon Italienisch.",
@@ -1419,6 +1419,7 @@ export default function App() {
             <a href="#findings" className="nav">{t.nav.findings}</a>
             <a href="#notes" className="nav">{t.nav.notes}</a>
             <a href="#services" className="nav">{t.nav.services}</a>
+            <a href="/risorse/" hrefLang="it" className="nav">{t.nav.resources}</a>
             <a href="#about" className="nav">{t.nav.about}</a>
           </div>
           <div className="flex items-center gap-5 ml-auto">
@@ -1433,6 +1434,7 @@ export default function App() {
               <a href="#findings" onClick={() => setMenuOpen(false)}>{t.nav.findings}</a>
               <a href="#notes" onClick={() => setMenuOpen(false)}>{t.nav.notes}</a>
               <a href="#services" onClick={() => setMenuOpen(false)}>{t.nav.services}</a>
+              <a href="/risorse/" hrefLang="it">{t.nav.resources}</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>{t.nav.about}</a>
               <a href={CALENDLY_URL || `mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>{t.nav.cta}</a>
             </div>
