@@ -174,6 +174,31 @@ Eccezioni documentate alle regole di CLAUDE.md, limitate a questa sezione:
 
 ---
 
+## Pagine tedesche in /de/ressourcen/ come eccezione al «solo italiano» di /risorse/
+
+**Data:** 2026-10-01
+**Chi:** Alessio Di Rubbo
+**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+
+### Cosa è stato deciso?
+Il generatore di `/risorse/` accetta due campi opzionali nel frontmatter: `lang` (`it` predefinito, oppure `de`) e `translation` (slug della versione nell'altra lingua). Le pagine con `lang: de` escono in `/de/ressourcen/<slug>/` con un proprio indice, testi di interfaccia in tedesco (forma Sie) e link `hreflang` reciproci verso la versione italiana. Sitemap e `llms.txt` includono le pagine tedesche. Nel menu del sito, la voce Ressourcen della versione tedesca punta a `/de/ressourcen/`.
+
+Primo articolo bilingue: `fonti-ai-italiano-tedesco` / `ki-quellen-italienisch-deutsch` (lingua della query e fonti citate dai sistemi di AI).
+
+### Perché?
+* Alcuni articoli si rivolgono direttamente alle aziende DACH che vendono in Italia: in tedesco raggiungono chi decide, in italiano chi lavora sul mercato
+* L'eccezione è per singola pagina: le risorse restano italiane per impostazione predefinita, e nessuna pagina deve per forza avere una traduzione
+
+### Implicazioni
+* Le pagine italiane senza `lang` escono identiche a prima (verificato confrontando i file generati)
+* Aggiunte regole CSS per le tabelle nel template (prima nessuna pagina ne usava)
+* Redirect `/de/ressourcen` → `/de/ressourcen/` in `netlify.toml`
+
+### Reversibile?
+✅ Sì. Eliminare i file con `lang: de` da `content/risorse/`: senza pagine tedesche il generatore non crea `/de/ressourcen/`.
+
+---
+
 ## Pagina 404 vera al posto del catch-all SPA
 
 **Data:** 2026-10-01
