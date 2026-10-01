@@ -143,7 +143,7 @@ Non esiste alternativa zero-dependency praticabile: SSR richiederebbe di riscriv
 
 **Data:** 2026-10-01
 **Chi:** Alessio Di Rubbo
-**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+**Status:** ✅ Implementato
 
 ### Cosa è stato deciso?
 La sezione editoriale (glossario GEO, metodologie, rapporti dati, caso studio) vive in `content/risorse/*.md` e viene trasformata in HTML statico da `scripts/build-risorse.mjs`, eseguito alla fine di `npm run build`. Output in `dist/risorse/<slug>/index.html`, più indice, voci in sitemap e `llms.txt`. Contenuti solo in italiano.
@@ -178,7 +178,7 @@ Eccezioni documentate alle regole di CLAUDE.md, limitate a questa sezione:
 
 **Data:** 2026-10-01
 **Chi:** Alessio Di Rubbo
-**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+**Status:** ✅ Implementato
 
 ### Cosa è stato deciso?
 Il generatore di `/risorse/` accetta due campi opzionali nel frontmatter: `lang` (`it` predefinito, oppure `de`) e `translation` (slug della versione nell'altra lingua). Le pagine con `lang: de` escono in `/de/ressourcen/<slug>/` con un proprio indice, testi di interfaccia in tedesco (forma Sie) e link `hreflang` reciproci verso la versione italiana. Sitemap e `llms.txt` includono le pagine tedesche. Nel menu del sito, la voce Ressourcen della versione tedesca punta a `/de/ressourcen/`.
@@ -203,7 +203,7 @@ Primo articolo bilingue: `fonti-ai-italiano-tedesco` / `ki-quellen-italienisch-d
 
 **Data:** 2026-10-01
 **Chi:** Alessio Di Rubbo
-**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+**Status:** ✅ Implementato
 
 ### Cosa è stato deciso?
 Rimossa da `netlify.toml` la regola `/* → /index.html (200)`. Aggiunto `public/404.html`, che Netlify serve con stato 404 per ogni indirizzo inesistente.
@@ -224,7 +224,7 @@ Con il catch-all, qualsiasi URL inventato rispondeva 200 con la home (soft 404).
 
 **Data:** 2026-10-01
 **Chi:** Alessio Di Rubbo
-**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+**Status:** ✅ Implementato
 
 ### Cosa è stato deciso?
 `NODE_VERSION = "22"` in `[build.environment]`, al posto di `NODE_VERSION = "20"` nel solo contesto di produzione.
