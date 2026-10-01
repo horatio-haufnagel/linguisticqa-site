@@ -4,11 +4,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/build-risorse.mjs",
     "preview": "vite preview",
     "postinstall": "playwright install chromium"
   },
   "dependencies": {
+    "marked": "^18.0.14",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "terser": "^5.51.2"

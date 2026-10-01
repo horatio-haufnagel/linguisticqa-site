@@ -2,6 +2,9 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "22"
+
 [dev]
   command = "npm run dev"
   port = 3000
@@ -17,9 +20,10 @@
   status = 301
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  from = "/risorse"
+  to = "/risorse/"
+  status = 301
 
-[context.production]
-  environment = { NODE_VERSION = "20" }
+# Nessun catch-all verso /index.html: le uniche rotte del sito sono /, /it/, /de/ e /risorse/,
+# tutte file statici. Gli indirizzi inesistenti ricevono dist/404.html con stato 404
+# (vedi DECISIONS.md, "Pagina 404 vera al posto del catch-all SPA").

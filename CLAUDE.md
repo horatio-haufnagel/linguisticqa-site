@@ -11,7 +11,7 @@ npm run preview   # preview built site
 netlify dev       # local dev WITH Netlify Functions at http://localhost:8888
 ```
 
-Use `netlify dev` (not `npm run dev`) when working on or testing `netlify/functions/evaluate-italian.js`. The function becomes available at `http://localhost:8888/.netlify/functions/evaluate-italian`.
+Note (2026-10-01): the evaluator function is NOT deployed. Its source lives in `tool-dev-wip/netlify/functions/evaluate-italian.js`, outside Netlify's default functions directory, and `src/App.jsx` does not call it. `netlify dev` is only needed if the function is moved back to `netlify/functions/`.
 
 Requires a `.env` file in the repo root with `GEMINI_API_KEY=...` for local function testing.
 
@@ -19,11 +19,13 @@ Deploy: `git push origin main` triggers an automatic Netlify build (~12 seconds)
 
 ## Architecture
 
-Everything lives in three files:
+Everything lives in these files:
 
 - **`src/App.jsx`** (~1638 lines) — the entire app: all React components (defined as inline functions), all custom CSS (as a single `CSS` string injected via a `<style>` tag), all i18n content (the `T` object with `en`/`it`/`de` keys), and all configuration constants at the top.
 - **`src/index.jsx`** — React entry point, minimal boilerplate.
-- **`netlify/functions/evaluate-italian.js`** — serverless function that calls the Gemini API (OpenAI-compatible endpoint) to evaluate Italian model output. Input: `POST { text: string }`. Output: `{ score, summary, errors[] }`.
+- **`tool-dev-wip/netlify/functions/evaluate-italian.js`** (not deployed, see note above) — serverless function that calls the Gemini API (OpenAI-compatible endpoint) to evaluate Italian model output. Input: `POST { text: string }`. Output: `{ score, summary, errors[] }`.
+- **`scripts/build-risorse.mjs`** + **`content/risorse/*.md`** — static generator for the /risorse/ section (see the dedicated section below).
+- **`public/404.html`** — static 404 page served by Netlify for any unknown URL.
 
 Tailwind is loaded from the CDN at runtime (`index.html`). There is no `tailwind.config.js`, no PostCSS build, and no compiled Tailwind CSS in `dist/`. `index.css` only contains Tailwind directives and a handful of global resets.
 
@@ -59,7 +61,7 @@ Adding any colour as decoration (rather than as a semantic signal) breaks the de
 
 `THEME_ID` selects the active theme from `THEMES`. `HEADER_STYLE` and `BTN_STYLE` control header and CTA variants.
 
-## Netlify Function — evaluate-italian.js
+## Netlify Function — evaluate-italian.js (currently not deployed)
 
 Calls Gemini via `https://generativelanguage.googleapis.com/v1beta/openai/chat/completions` with model `gemini-2.5-flash`. The system prompt is defined in `tool-dev/CONTEXT.md` (section 6). If JSON parsing of the response fails, retry once with an explicit instruction. `GEMINI_API_KEY` must be set in Netlify dashboard (production) and in `.env` (local).
 
@@ -69,9 +71,15 @@ Calls Gemini via `https://generativelanguage.googleapis.com/v1beta/openai/chat/c
 - DNS: Hostinger — nameservers stay on Hostinger (`solar/lunar.dns-parking.com`). The apex uses an ALIAS record pointing to `linguisticqa.netlify.app`; `www` does a 301 redirect to the apex. If the site stops updating, check the `server:` response header — it must say Netlify, not `hcdn`.
 - No analytics, no cookie banner, no backend beyond Netlify Functions.
 
+## Sezione /risorse/ (eccezione alle regole sopra)
+
+Le pagine editoriali sono in `content/risorse/*.md` e vengono generate da `scripts/build-risorse.mjs` (ultimo passo di `npm run build`). Non vanno spostate in `App.jsx`. Per questa sezione sono ammessi: la dipendenza `marked`, CSS inline nel template dello script, testi solo in italiano. Vedi `DECISIONS.md`, "Sezione /risorse/ come generatore statico". Frontmatter richiesto: `title`, `description`, `type` (glossario | metodo | dati | caso), `published` (YYYY-MM-DD); opzionali `modified`, `version`, `slug`, `draft: true`. Prova locale: `INCLUDE_DRAFTS=1 npm run build`.
+
 ## Known limitations
 
 - Language routing via URL path (`/`, `/it/`, `/de/`) and post-build prerendering (`scripts/prerender.mjs`, Playwright) are in place since 2026-09-11: each locale gets its own static HTML with canonical and hreflang.
+- No SPA catch-all redirect since 2026-10-01: unknown URLs return `404.html` with status 404. Adding a new client-side route requires a static file or an explicit redirect in `netlify.toml`.
+- Node version for all Netlify contexts is set in `[build.environment]` (`NODE_VERSION = "22"`).
 - Tailwind CDN dependency: if the CDN is unreachable, the site loses all styling.
 - Accessibility: WCAG AA compliance has not been tested.
 

@@ -136,3 +136,76 @@ Non esiste alternativa zero-dependency praticabile: SSR richiederebbe di riscriv
 
 ### Reversibile?
 ✅ Sì. Rimuovere `playwright` da devDependencies, eliminare `scripts/prerender.mjs`, ripristinare `"build": "vite build"` in package.json. Le sottocartelle `dist/it/` e `dist/de/` tornano a non esistere.
+
+---
+
+## Sezione /risorse/ come generatore statico separato dall'app React
+
+**Data:** 2026-10-01
+**Chi:** Alessio Di Rubbo
+**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+
+### Cosa è stato deciso?
+La sezione editoriale (glossario GEO, metodologie, rapporti dati, caso studio) vive in `content/risorse/*.md` e viene trasformata in HTML statico da `scripts/build-risorse.mjs`, eseguito alla fine di `npm run build`. Output in `dist/risorse/<slug>/index.html`, più indice, voci in sitemap e `llms.txt`. Contenuti solo in italiano.
+
+Eccezioni documentate alle regole di CLAUDE.md, limitate a questa sezione:
+* Nuova dipendenza `marked` (conversione Markdown in HTML), usata solo nello script di build, mai nel bundle servito al browser
+* CSS inline nel template dello script invece che nella stringa `CSS` di `src/App.jsx`
+* Stringhe solo in italiano, fuori dall'oggetto `T`
+
+### Perché?
+* Gli articoli devono essere leggibili dai crawler senza eseguire JavaScript e senza dipendere dal CDN di Tailwind (debito tecnico noto)
+* Inserirli in `App.jsx` (oltre 1600 righe) li legherebbe al prerender con Chromium, che oggi gestisce solo tre rotte, e obbligherebbe a tradurre ogni articolo in EN/DE, contro il posizionamento «solo italiano»
+* La sezione serve a costruire autorevolezza e a fare da fonte di riferimento: ogni pagina ha URL stabile, versione, data di aggiornamento, JSON-LD (Article, DefinedTermSet per il glossario) e blocco «Come citare»
+
+### Alternative Considerate
+* Articoli come componenti React in `App.jsx`: scartato per i motivi sopra
+* Estendere `prerender.mjs` a nuove rotte: stessa dipendenza da Chromium sul server di build, fragile per contenuti che crescono
+* Framework statico (Astro, Eleventy): troppo per ora, richiede una seconda toolchain
+
+### Implicazioni
+* Le pagine con `draft: true` non vengono pubblicate (salvo `INCLUDE_DRAFTS=1` in locale). Se non ci sono pagine pubblicate, la sezione non viene generata e non compare in sitemap
+* Un errore di frontmatter fa fallire la build: Netlify tiene online il deploy precedente
+* `DIST_DIR=<cartella>` permette di provare lo script su una copia di `dist/`
+* Il menu del sito (desktop e mobile) rimanda a `/risorse/` con `hrefLang="it"`; l'etichetta è tradotta in `T` (Resources / Risorse / Ressourcen), i contenuti restano solo in italiano
+
+### Reversibile?
+✅ Sì. Rimuovere lo script dal comando `build`, eliminare `scripts/build-risorse.mjs`, `content/risorse/` e la dipendenza `marked`.
+
+---
+
+## Pagina 404 vera al posto del catch-all SPA
+
+**Data:** 2026-10-01
+**Chi:** Alessio Di Rubbo
+**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+
+### Cosa è stato deciso?
+Rimossa da `netlify.toml` la regola `/* → /index.html (200)`. Aggiunto `public/404.html`, che Netlify serve con stato 404 per ogni indirizzo inesistente.
+
+### Perché?
+Con il catch-all, qualsiasi URL inventato rispondeva 200 con la home (soft 404). Per Google è un segnale di bassa qualità, e con la sezione `/risorse/` un link sbagliato a un articolo avrebbe mostrato la home invece di un errore. Il sito non ha rotte lato client: le uniche pagine sono `/`, `/it/`, `/de/` e `/risorse/`, tutte file statici.
+
+### Implicazioni
+* Una nuova rotta gestita da React richiede un file statico (prerender) o un redirect esplicito in `netlify.toml`
+* I link con ancora (`#services`) e il cambio lingua (`pushState` verso `/`, `/it/`, `/de/`) non sono toccati
+
+### Reversibile?
+✅ Sì. Ripristinare la regola `/* → /index.html` con `status = 200`.
+
+---
+
+## Node 22 per tutti i contesti Netlify
+
+**Data:** 2026-10-01
+**Chi:** Alessio Di Rubbo
+**Status:** 🟡 Implementato su branch `feat/risorse`, non ancora in produzione
+
+### Cosa è stato deciso?
+`NODE_VERSION = "22"` in `[build.environment]`, al posto di `NODE_VERSION = "20"` nel solo contesto di produzione.
+
+### Perché?
+Node 20 non riceve più aggiornamenti da aprile 2026. Inoltre la versione valeva solo per la produzione: deploy preview e branch deploy usavano la versione predefinita di Netlify, quindi potevano comportarsi diversamente dalla produzione.
+
+### Reversibile?
+✅ Sì, una riga in `netlify.toml`.
