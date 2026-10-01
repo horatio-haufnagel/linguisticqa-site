@@ -71,6 +71,30 @@ Calls Gemini via `https://generativelanguage.googleapis.com/v1beta/openai/chat/c
 
 ## Known limitations
 
-- All three languages share one URL. No `hreflang` tags and no `/it/` or `/de/` paths — search engines index only the EN version.
+- Language routing via URL path (`/`, `/it/`, `/de/`) and post-build prerendering (`scripts/prerender.mjs`, Playwright) are in place since 2026-09-11: each locale gets its own static HTML with canonical and hreflang.
 - Tailwind CDN dependency: if the CDN is unreachable, the site loses all styling.
 - Accessibility: WCAG AA compliance has not been tested.
+
+## Log dei Progressi - 2026-10-01
+
+**Modifiche strutturali o al codice:** nessuna. In questa sessione non sono stati toccati `src/App.jsx`, la funzione Netlify, il design system né l'infrastruttura. L'unico file modificato nel repository è questo CLAUDE.md.
+
+**Lavoro completato (solo testi su LinkedIn, in forma di bozza, non verificati come pubblicati):**
+- Posizionamento ridefinito: localizzazione italiana, SEO e GEO per brand DACH e agenzie (anche in white-label). Linguistic QA resta come servizio, solo per l'italiano. RLHF/SFT esce dall'offerta.
+- Titolo LinkedIn: proposte di tre varianti, tutte senza sede e con «Italian» esplicito davanti a Linguistic QA. Scelta finale non ancora confermata.
+- Sezione About: riscritta sul nuovo posizionamento, senza nomi di clienti e con «extensive experience» al posto degli anni di SEO.
+- Sezione Servizi: proposta di rimuovere Digital Marketing, SEM, Content Marketing e Writing, e di aggiungere Localization e Proofreading/Quality Assurance se presenti nell'elenco predefinito di LinkedIn.
+- Descrizione dei servizi: versione finale da circa 470 caratteri, con l'italiano come unica lingua di arrivo.
+
+**Punto aperto che riguarda il sito:** `src/App.jsx` e i contenuti `T` sono ancora posizionati su AI/NLP linguistic QA (RLHF, LLM evaluation). Non sono coerenti con il nuovo posizionamento. Nessuna modifica è stata fatta o decisa: prima va stabilito se il sito resta com'è o viene riposizionato, e fino ad allora il profilo LinkedIn rimanda a tradotext.com e non a questo sito.
+
+## Log dei Progressi - 2026-10-01 (riposizionamento del sito)
+
+**Modifiche:** `src/App.jsx` (oggetto `T` riscritto in EN/IT/DE, JSON-LD, nomi dei moduli, separatore della demo), `index.html` (meta, OG, JSON-LD, moduli Netlify nascosti), `public/og.jpg` (nuova immagine di anteprima).
+
+- Posizionamento allineato al profilo LinkedIn: localizzazione in italiano, SEO e GEO in italiano, Linguistic QA solo per l'italiano, white-label per agenzie. RLHF/SFT, LLM evaluation e prompt localization rimossi.
+- Servizi: 01 Localizzazione in italiano, 02 SEO e GEO in italiano, 03 Linguistic QA in italiano, piu il blocco «White-label per agenzie» al posto del retainer di monitoraggio.
+- Demo e revisione di esempio riconvertite su testi e-commerce DE/EN→IT. I tre reperti Kaufland restano invariati.
+- Moduli Netlify rinominati: `localization-brief`, `seo-geo-brief`, `linguistic-qa-brief`, `agency-brief`. I vecchi moduli restano nel pannello Netlify ma non ricevono piu richieste.
+- Revisione gratuita: call Calendly di 30 minuti, pagina da inviare almeno tre giorni lavorativi prima.
+- Tedesco: forma Sie, doppia forma per i nomi di persona («Kundinnen und Kunden»).
