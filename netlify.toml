@@ -29,6 +29,26 @@
   to = "/de/ressourcen/"
   status = 301
 
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy/"
+  status = 301
+
+[[redirects]]
+  from = "/it/privacy"
+  to = "/it/privacy/"
+  status = 301
+
+[[redirects]]
+  from = "/de/datenschutz"
+  to = "/de/datenschutz/"
+  status = 301
+
+[[redirects]]
+  from = "/impressum"
+  to = "/impressum/"
+  status = 301
+
 # Nessun catch-all verso /index.html: le uniche rotte del sito sono /, /it/, /de/, /risorse/ e /de/ressourcen/,
 # tutte file statici. Gli indirizzi inesistenti ricevono dist/404.html con stato 404
 # (vedi DECISIONS.md, "Pagina 404 vera al posto del catch-all SPA").

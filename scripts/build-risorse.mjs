@@ -258,7 +258,8 @@ ${jsonLd(ld)}
 <main><div class="wrap">
 ${bodyHtml}
 </div></main>
-<footer><div class="wrap">${s.footer}</div></footer>
+<footer><div class="wrap">${s.footer} · <a href="/impressum/">Impressum</a></div></footer>
+<script src="/consent-banner.js"></script>
 </body>
 </html>
 `;

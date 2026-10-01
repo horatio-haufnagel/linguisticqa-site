@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 /* =========================================================================
    Alessio Di Rubbo: Italian localization, SEO/GEO and linguistic QA
@@ -11,7 +11,7 @@ import { useState, useEffect, useMemo } from "react";
      - PHOTO_SRC     → headshot, square, ≥800px (public/alessio.jpg)
      - AUDIT rows    → replace with anonymised rows from a real audit
      - NOTES         → review the three notes; they are drafts in your voice
-   No analytics on purpose: no cookie banner. Count Calendly bookings instead.
+   GA4 with load-after-consent: gtag.js loads only after explicit acceptance. See DECISIONS.md.
    ========================================================================= */
 
 const CALENDLY_URL = "https://calendly.com/d/d2nc-6w9-njv"; // TODO
@@ -21,6 +21,10 @@ const LOGO_SRC  = "";    // TODO: header logo, e.g. "/logo.svg" (SVG or 2x PNG, 
                          // Empty = no mark; the navigation moves left to keep the bar balanced.
 const EMAIL = "alessio.drb@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/alessiodirubbo";
+// GA4 Measurement ID. Reading from window.__GA_ID__ at runtime defeats Vite's
+// constant folding so the consent/banner code paths survive tree-shaking; it also
+// lets tests inject a sentinel ID without touching the file.
+const GA_MEASUREMENT_ID = (typeof window !== "undefined" && window.__GA_ID__) || "G-2QWBPF1GG1";
 
 
 /* ---------- theme (font + palette). Switch THEME_ID to compare. ---------- */
@@ -310,7 +314,14 @@ const T = {
       photoAlt: "Alessio Di Rubbo",
     },
     cta: { title: "Send me one Italian page. I'll tell you what a native reader notices.", button: "Book a free review", or: "or write to" },
-    footer: { rights: "Alessio Di Rubbo · Vienna, Austria", lang: "Language" },
+    consent: {
+      label: "Cookie consent",
+      text: "This site uses analytics cookies (Google Analytics 4) to understand how it is used.",
+      accept: "Accept",
+      reject: "Decline",
+      privacy: "Privacy policy",
+    },
+    footer: { rights: "Alessio Di Rubbo · Vienna, Austria", lang: "Language", privacy: "Privacy", impressum: "Impressum", cookieSettings: "Cookie settings" },
   },
 
   it: {
@@ -566,7 +577,14 @@ const T = {
       photoAlt: "Alessio Di Rubbo",
     },
     cta: { title: "Mandami una pagina in italiano. Ti dico cosa nota un lettore madrelingua.", button: "Prenota una revisione gratuita", or: "oppure scrivi a" },
-    footer: { rights: "Alessio Di Rubbo · Vienna, Austria", lang: "Lingua" },
+    consent: {
+      label: "Consenso cookie",
+      text: "Questo sito usa cookie analitici (Google Analytics 4) per capire come viene usato.",
+      accept: "Accetta",
+      reject: "Rifiuta",
+      privacy: "Informativa sulla privacy",
+    },
+    footer: { rights: "Alessio Di Rubbo · Vienna, Austria", lang: "Lingua", privacy: "Privacy", impressum: "Impressum", cookieSettings: "Impostazioni cookie" },
   },
 
   de: {
@@ -822,9 +840,62 @@ const T = {
       photoAlt: "Alessio Di Rubbo",
     },
     cta: { title: "Schicken Sie mir eine italienische Seite. Ich sage Ihnen, was muttersprachliche Leserinnen und Leser bemerken.", button: "Kostenlose Prüfung buchen", or: "oder schreiben Sie an" },
-    footer: { rights: "Alessio Di Rubbo · Wien, Österreich", lang: "Sprache" },
+    consent: {
+      label: "Cookie-Einwilligung",
+      text: "Diese Website verwendet Analyse-Cookies (Google Analytics 4), um zu verstehen, wie sie genutzt wird.",
+      accept: "Akzeptieren",
+      reject: "Ablehnen",
+      privacy: "Datenschutzerklärung",
+    },
+    footer: { rights: "Alessio Di Rubbo · Wien, Österreich", lang: "Sprache", privacy: "Datenschutz", impressum: "Impressum", cookieSettings: "Cookie-Einstellungen" },
   },
 };
+
+/* ---------- consent + GA4 ------------------------------------------------- */
+const CONSENT_KEY = "adr_consent";
+const CONSENT_TTL = 15552000000; // 6 months in ms
+
+function readConsent() {
+  try {
+    const raw = localStorage.getItem(CONSENT_KEY);
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    if (!d?.ts || Date.now() - d.ts > CONSENT_TTL) { localStorage.removeItem(CONSENT_KEY); return null; }
+    return d.choice;
+  } catch (_) { return null; }
+}
+
+function writeConsent(choice) {
+  try { localStorage.setItem(CONSENT_KEY, JSON.stringify({ choice, ts: Date.now() })); } catch (_) {}
+}
+
+function loadGA(id) {
+  if (!id || id === "G-XXXXXXXXXX") return;
+  if (document.getElementById("ga-script")) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", id);
+  const s = document.createElement("script");
+  s.id = "ga-script";
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+  document.head.appendChild(s);
+}
+
+function revokeGA() {
+  if (typeof window.gtag === "function") {
+    window.gtag("consent", "update", { analytics_storage: "denied", ad_storage: "denied" });
+  }
+  const d = "." + location.hostname.replace(/^www\./, "");
+  ["_ga", "_gid", "_gat"].forEach(n => {
+    document.cookie = `${n}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${d}`;
+  });
+}
+
+function gaEvent(name, params) {
+  if (typeof window.gtag === "function") window.gtag("event", name, params || {});
+}
 
 /* ---------- helpers -------------------------------------------------------- */
 function detectLang() {
@@ -1056,6 +1127,14 @@ const CSS = `
   .svc-form-success{font-family:var(--mono);font-size:.88rem;color:var(--ok);
        border-left:2px solid var(--ok);padding-left:.75rem;line-height:1.5}
   .svc-form-error{font-size:.88rem;color:var(--pen);margin-top:.75rem}
+
+  /* consent banner buttons: equal visual weight, no color hierarchy */
+  .cb-btn{display:inline-flex;align-items:center;padding:.45rem 1rem;
+       border:1px solid var(--ink-2);background:transparent;color:var(--ink);
+       font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;
+       font-weight:500;cursor:pointer;border-radius:2px;white-space:nowrap;min-height:36px}
+  .cb-btn:hover{background:var(--rule);border-color:var(--ink)}
+  .cb-btn:focus-visible{outline:2px solid var(--pen);outline-offset:2px}
 `;
 
 
@@ -1080,7 +1159,8 @@ function CtaButton({ label, light = false, compact = false }) {
   const marked = BTN_STYLE === "kgreen" && !compact;
   return (
     <a className={`btn ${marked ? "marktext" : ""}`} style={style} href={href}
-       target={CALENDLY_URL ? "_blank" : undefined} rel={CALENDLY_URL ? "noopener noreferrer" : undefined}>
+       target={CALENDLY_URL ? "_blank" : undefined} rel={CALENDLY_URL ? "noopener noreferrer" : undefined}
+       onClick={() => CALENDLY_URL && gaEvent("calendly_click", { source: "cta_button" })}>
       {marked ? <span>{label}</span> : label}
     </a>
   );
@@ -1208,7 +1288,7 @@ function ServiceForm({ svcKey, formName, ctaLabel, t }) {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": formName, ...values }),
     })
-      .then(() => setStatus("success"))
+      .then(() => { setStatus("success"); gaEvent("form_submit", { form_name: formName }); })
       .catch(() => setStatus("error"));
   };
 
@@ -1323,6 +1403,38 @@ function ServiceDetail({ svc, t, svcKey, formName, ctaLabel }) {
   );
 }
 
+function ConsentBanner({ lang, onConsent, t }) {
+  const rejectRef = useRef(null);
+  useEffect(() => { if (rejectRef.current) rejectRef.current.focus(); }, []);
+  const privacyUrl = lang === "de" ? "/de/datenschutz/" : lang === "it" ? "/it/privacy/" : "/privacy/";
+  return (
+    <div
+      role="dialog"
+      aria-label={t.consent.label}
+      style={{
+        position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 9999,
+        background: "var(--paper)", borderTop: "1px solid var(--rule)",
+        padding: ".85rem 1.25rem",
+      }}
+    >
+      <div style={{ maxWidth: 1120, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: ".75rem 1.5rem" }}>
+        <p style={{ flex: 1, minWidth: 200, margin: 0, fontSize: ".9rem" }}>
+          {t.consent.text}{" "}
+          <a href={privacyUrl} className="u">{t.consent.privacy}</a>
+        </p>
+        <div style={{ display: "flex", gap: ".6rem", flexShrink: 0 }}>
+          <button ref={rejectRef} type="button" className="cb-btn" onClick={() => onConsent("denied")}>
+            {t.consent.reject}
+          </button>
+          <button type="button" className="cb-btn" onClick={() => onConsent("granted")}>
+            {t.consent.accept}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- app ------------------------------------------------------------ */
 /** Header shrinks after the first screenful, so it stays reachable without dominating. */
 function useSlimHeader() {
@@ -1369,6 +1481,26 @@ export default function App() {
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
+
+  const [consent, setConsentState] = useState(readConsent);
+  const [bannerOpen, setBannerOpen] = useState(
+    () => GA_MEASUREMENT_ID !== "G-XXXXXXXXXX" && readConsent() === null
+  );
+  useEffect(() => {
+    if (GA_MEASUREMENT_ID !== "G-XXXXXXXXXX" && readConsent() === "granted") loadGA(GA_MEASUREMENT_ID);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  function handleConsent(choice) {
+    writeConsent(choice);
+    setConsentState(choice);
+    setBannerOpen(false);
+    if (choice === "granted") loadGA(GA_MEASUREMENT_ID);
+    else revokeGA();
+  }
+
+  function reopenCookieSettings() { setBannerOpen(true); }
+
+  const privacyUrl = lang === "de" ? "/de/datenschutz/" : lang === "it" ? "/it/privacy/" : "/privacy/";
 
   const wrap = "mx-auto px-6 sm:px-12";
   const page = { maxWidth: 1120 };
@@ -1424,7 +1556,8 @@ export default function App() {
           </div>
           <div className="flex items-center gap-5 ml-auto">
             <LangPicker lang={lang} setLang={setLang} label={t.footer.lang} />
-            <a href={CALENDLY_URL || `mailto:${EMAIL}`} className="cta-quiet hidden sm:inline">{t.nav.cta}</a>
+            <a href={CALENDLY_URL || `mailto:${EMAIL}`} className="cta-quiet hidden sm:inline"
+               onClick={() => CALENDLY_URL && gaEvent("calendly_click", { source: "nav" })}>{t.nav.cta}</a>
           </div>
         </nav>
         {menuOpen && (
@@ -1436,7 +1569,7 @@ export default function App() {
               <a href="#services" onClick={() => setMenuOpen(false)}>{t.nav.services}</a>
               <a href={lang === "de" ? "/de/ressourcen/" : "/risorse/"} hrefLang={lang === "de" ? "de" : "it"}>{t.nav.resources}</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>{t.nav.about}</a>
-              <a href={CALENDLY_URL || `mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>{t.nav.cta}</a>
+              <a href={CALENDLY_URL || `mailto:${EMAIL}`} onClick={() => { setMenuOpen(false); CALENDLY_URL && gaEvent("calendly_click", { source: "mobile_nav" }); }}>{t.nav.cta}</a>
             </div>
           </div>
         )}
@@ -1638,14 +1771,29 @@ export default function App() {
       </main>
 
       <footer className="border-t rule">
-        <div className={`${wrap} py-8 flex flex-wrap items-center justify-between gap-4 cap ink2`} style={page}>
-          <span>© {new Date().getFullYear()} {t.footer.rights}</span>
-          <span className="flex items-center gap-4">
-            <a href="https://linguisticqa.com" className="u">linguisticqa.com</a>
-            <a href={LINKEDIN} className="u" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </span>
+        <div className={`${wrap} py-8 cap ink2`} style={page}>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <span>© {new Date().getFullYear()} {t.footer.rights}</span>
+            <span className="flex flex-wrap items-center gap-4">
+              <a href={privacyUrl} className="u">{t.footer.privacy}</a>
+              <a href="/impressum/" className="u">{t.footer.impressum}</a>
+              <a href="https://linguisticqa.com" className="u">linguisticqa.com</a>
+              <a href={LINKEDIN} className="u" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </span>
+          </div>
+          {GA_MEASUREMENT_ID !== "G-XXXXXXXXXX" && (
+            <button
+              type="button"
+              className="u"
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 0, font: "inherit", color: "var(--ink-2)", fontSize: ".85rem", textDecoration: "underline", textUnderlineOffset: 4, marginTop: ".5rem" }}
+              onClick={reopenCookieSettings}
+            >
+              {t.footer.cookieSettings}
+            </button>
+          )}
         </div>
       </footer>
+      {bannerOpen && <ConsentBanner lang={lang} onConsent={handleConsent} t={t} />}
     </div>
   );
 }

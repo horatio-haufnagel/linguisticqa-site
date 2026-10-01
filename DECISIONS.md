@@ -234,3 +234,34 @@ Node 20 non riceve più aggiornamenti da aprile 2026. Inoltre la versione valeva
 
 ### Reversibile?
 ✅ Sì, una riga in `netlify.toml`.
+
+---
+
+## Google Analytics 4 con consenso preventivo (sostituisce "no analytics, no banner")
+
+**Data:** 2026-10-01
+**Chi:** Alessio Di Rubbo
+**Status:** ✅ Implementato
+
+### Cosa è stato deciso?
+Aggiunto Google Analytics 4 con banner di consenso GDPR. La regola "no analytics, no cookie banner" in vigore dall'inizio del progetto è soppressa. `gtag.js` viene caricato dinamicamente **solo dopo** che l'utente accetta esplicitamente. Il rifiuto non genera nessuna richiesta a Google. La scelta è memorizzata in `localStorage` con scadenza a 6 mesi (chiave `adr_consent`).
+
+Variante tecnica scelta: **caricamento posticipato** (gtag.js caricato solo dopo il consenso), al posto della variante "carica subito con analytics_storage: denied". Motivo: nessun contatto con i server Google prima del consenso è la posizione più forte per GDPR su un sito senza Google Ads; il Consent Mode v2 behavioral modeling è utile solo con campagne Google Ads attive, che qui non esistono.
+
+`GA_MEASUREMENT_ID` è una costante in `src/App.jsx` e in `public/consent-banner.js` (quest'ultimo per le pagine statiche /risorse/ e le pagine legali). Se il valore è il segnaposto `G-XXXXXXXXXX`, nessuna richiesta a Google viene effettuata.
+
+### Perché?
+Cambio di priorità: la misurazione della qualità del traffico diventa utile per capire quali lingue e quali pagine convertono, senza affidarsi esclusivamente ai booking Calendly come unico proxy.
+
+### Alternative scartate
+- **Analytics senza cookie (plausible.io, fathom.io, aggregate GA4 senza storage)**: non richiederebbe banner ma fornisce dati meno granulari; rinviato a una valutazione futura se il banner impatta negativamente il tasso di accettazione.
+- **Caricamento immediato con Consent Mode v2 (analytics_storage: denied di default)**: richiede il setup del dataLayer in `index.html` e non porta vantaggi misurabili senza Google Ads.
+
+### Conseguenze
+- Banner di consenso su tutte le pagine (/, /it/, /de/, /risorse/, /de/ressourcen/, pagine legali).
+- Dati GA4 sottostimati per i rifiuti: i visitatori che non accettano non vengono contati. Normale e atteso.
+- Pagine legali aggiunte: Privacy (EN, IT, DE/Datenschutzerklärung) e Impressum, con segnaposto `[DA COMPILARE]` per i dati del titolare da completare prima di qualsiasi comunicazione pubblica.
+- `consent-banner.js` in vanilla JS per le pagine statiche, stesso `localStorage` key della versione React.
+
+### Reversibile?
+✅ Sì. Rimuovere `GA_MEASUREMENT_ID` da `App.jsx` e `consent-banner.js`, eliminare il banner React, ripristinare il commento "No analytics" nel codice. Le pagine legali vanno mantenute indipendentemente (obbligatorie per legge una volta pubblicate).

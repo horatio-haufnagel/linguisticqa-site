@@ -69,7 +69,10 @@ Calls Gemini via `https://generativelanguage.googleapis.com/v1beta/openai/chat/c
 
 - Hosting: Netlify (auto-deploy from `main`)
 - DNS: Hostinger — nameservers stay on Hostinger (`solar/lunar.dns-parking.com`). The apex uses an ALIAS record pointing to `linguisticqa.netlify.app`; `www` does a 301 redirect to the apex. If the site stops updating, check the `server:` response header — it must say Netlify, not `hcdn`.
-- No analytics, no cookie banner, no backend beyond Netlify Functions.
+- Analytics: Google Analytics 4 with Consent Mode (load-after-consent). `GA_MEASUREMENT_ID` in `src/App.jsx` and `public/consent-banner.js`. Replace `G-XXXXXXXXXX` with the real ID. No GA loads if the value is the placeholder.
+- Cookie banner on all pages (React component in App.jsx; vanilla JS via `public/consent-banner.js` for static pages). Consent stored in `localStorage` key `adr_consent`, TTL 6 months.
+- Legal pages: `/privacy/`, `/it/privacy/`, `/de/datenschutz/`, `/impressum/` — static HTML in `public/`. Fill in all `[DA COMPILARE]` placeholders before going live.
+- No backend beyond Netlify Functions.
 
 ## Sezione /risorse/ (eccezione alle regole sopra)
 
