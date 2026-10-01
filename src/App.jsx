@@ -871,26 +871,48 @@ function writeConsent(choice) {
 
 function loadGA(id) {
   if (!id || id === "G-XXXXXXXXXX") return;
-  if (document.getElementById("ga-script")) return;
   window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-  window.gtag("js", new Date());
-  window.gtag("config", id);
-  const s = document.createElement("script");
-  s.id = "ga-script";
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
-  document.head.appendChild(s);
+  if (typeof window.gtag !== "function") {
+    window.gtag = function () { window.dataLayer.push(arguments); };
+  }
+  window.gtag("consent", "update", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
+  if (!document.getElementById("ga-script")) {
+    window.gtag("js", new Date());
+    window.gtag("config", id);
+    const s = document.createElement("script");
+    s.id = "ga-script";
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(s);
+  }
 }
 
 function revokeGA() {
+  // Enumerate every cookie that matches the GA family (pattern-based so the
+  // per-property _ga_<ID> is covered without hard-coding the measurement ID),
+  // then clear it against each plausible domain scope.
+  const names = (document.cookie || "")
+    .split(";")
+    .map((s) => s.trim().split("=")[0])
+    .filter((n) => n && (/^_ga(_.+)?$/.test(n) || n === "_gid" || n === "_gat"));
+  const host = location.hostname;
+  const apex = host.replace(/^www\./, "");
+  const domains = Array.from(new Set([host, apex, "." + apex]));
+  const expires = "Thu, 01 Jan 1970 00:00:00 GMT";
+  for (const name of names) {
+    document.cookie = `${name}=; expires=${expires}; path=/`;
+    for (const d of domains) {
+      document.cookie = `${name}=; expires=${expires}; path=/; domain=${d}`;
+    }
+  }
   if (typeof window.gtag === "function") {
     window.gtag("consent", "update", { analytics_storage: "denied", ad_storage: "denied" });
   }
-  const d = "." + location.hostname.replace(/^www\./, "");
-  ["_ga", "_gid", "_gat"].forEach(n => {
-    document.cookie = `${n}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${d}`;
-  });
 }
 
 function gaEvent(name, params) {

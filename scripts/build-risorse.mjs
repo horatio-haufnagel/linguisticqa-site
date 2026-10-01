@@ -61,6 +61,7 @@ const L = {
     indexDesc:
       'Glossari, metodologie e dati sulla visibilità nelle risposte generate dall\'AI, in italiano. Ogni pagina ha versione, data e fonte citabile.',
     listMeta: (v, mod) => `Versione ${v} · Aggiornato il ${mod}`,
+    cookieSettings: 'Impostazioni cookie',
   },
   de: {
     types: { glossario: 'Glossar', metodo: 'Methodik', dati: 'Daten und Berichte', caso: 'Fallstudie' },
@@ -81,6 +82,7 @@ const L = {
     indexDesc:
       'Analysen und Methoden zur Sichtbarkeit in KI-generierten Antworten, mit Blick auf den italienischen Markt. Jede Seite hat Version, Datum und eine zitierfähige Quelle.',
     listMeta: (v, mod) => `Version ${v} · Aktualisiert am ${mod}`,
+    cookieSettings: 'Cookie-Einstellungen',
   },
 };
 const LANGS = Object.keys(L);
@@ -218,6 +220,8 @@ table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:.95rem;line
 th,td{text-align:left;vertical-align:top;padding:.6rem .75rem .6rem 0;border-bottom:1px solid var(--rule)}
 th{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.78rem;font-weight:400;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border-bottom-color:var(--ink)}
 footer{border-top:1px solid var(--rule);padding:1.25rem 0 2rem;font-size:.9rem;color:var(--muted)}
+.cb-link{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.cb-link:hover{color:var(--ink)}
 @media (max-width:30rem){h1{font-size:1.75rem}table{font-size:.85rem}th{font-size:.7rem}}
 `;
 
@@ -258,7 +262,7 @@ ${jsonLd(ld)}
 <main><div class="wrap">
 ${bodyHtml}
 </div></main>
-<footer><div class="wrap">${s.footer} · <a href="/impressum/">Impressum</a></div></footer>
+<footer><div class="wrap">${s.footer} · <a href="/impressum/">Impressum</a> · <button type="button" class="cb-link" onclick="window.__cookieSettings__&&window.__cookieSettings__()">${s.cookieSettings}</button></div></footer>
 <script src="/consent-banner.js"></script>
 </body>
 </html>

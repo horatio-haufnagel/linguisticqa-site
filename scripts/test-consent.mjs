@@ -221,6 +221,103 @@ async function run() {
       // Drain response to let the connection close cleanly
       resp.resume();
     }
+
+    // ========================================================================
+    // Cookie-settings footer link on every page
+    // ========================================================================
+    const COOKIE_LABEL = {
+      '/':                 'Cookie settings',
+      '/it/':              'Impostazioni cookie',
+      '/de/':              'Cookie-Einstellungen',
+      '/risorse/':         'Impostazioni cookie',
+      '/de/ressourcen/':   'Cookie-Einstellungen',
+      '/privacy/':         'Cookie settings',
+      '/it/privacy/':      'Impostazioni cookie',
+      '/de/datenschutz/':  'Cookie-Einstellungen',
+      '/impressum/':       'Cookie-Einstellungen',
+    };
+
+    console.log('\n[7] Cookie settings link visible with correct localised label');
+    for (const [path, label] of Object.entries(COOKIE_LABEL)) {
+      const gaRequests = [];
+      const { context, page } = await makeContext(browser, { injectId: TEST_GA_ID, gaRequests });
+      await page.goto(`http://127.0.0.1:${PORT}${path}`);
+      await page.waitForSelector('h1');
+      await page.waitForTimeout(500);
+      const el = page.locator(`footer >> text="${label}"`).first();
+      const count = await el.count();
+      const visible = count > 0 ? await el.isVisible().catch(() => false) : false;
+      check(`${path}: footer has "${label}"`, visible, count === 0 ? 'element not found' : '');
+      await context.close();
+    }
+
+    console.log('\n[8] Click Cookie settings reopens the banner');
+    for (const [path, label] of Object.entries(COOKIE_LABEL)) {
+      const gaRequests = [];
+      const { context, page } = await makeContext(browser, { injectId: TEST_GA_ID, gaRequests });
+      await page.goto(`http://127.0.0.1:${PORT}${path}`);
+      await page.waitForSelector('h1');
+      // Dismiss the initial banner by clicking Reject
+      await page.waitForSelector('[role="dialog"], #cb', { timeout: 10000 });
+      const rejectBtn = page.locator('[role="dialog"] button, #cb button').nth(0);
+      await rejectBtn.click();
+      await page.waitForTimeout(500);
+      // Click the Cookie settings footer control
+      const link = page.locator(`footer >> text="${label}"`).first();
+      await link.click({ force: true });
+      // Banner must reappear
+      try {
+        await page.waitForSelector('[role="dialog"], #cb', { timeout: 5000 });
+        check(`${path}: click on "${label}" reopens the banner`, true);
+      } catch (_) {
+        check(`${path}: click on "${label}" reopens the banner`, false, 'no dialog after click');
+      }
+      await context.close();
+    }
+
+    console.log('\n[9] Accept → Reject via Cookie settings removes every _ga* cookie');
+    // Covers both the React side and the vanilla side. Synthetic cookies are injected
+    // after Accept so the revocation pattern is exercised deterministically even on
+    // 127.0.0.1 where gtag.js may not persist cookies.
+    const REVOKE_PAGES = ['/', '/it/', '/de/', '/risorse/', '/de/ressourcen/',
+                          '/privacy/', '/it/privacy/', '/de/datenschutz/', '/impressum/'];
+    for (const path of REVOKE_PAGES) {
+      const label = COOKIE_LABEL[path];
+      const gaRequests = [];
+      const { context, page } = await makeContext(browser, { injectId: TEST_GA_ID, gaRequests });
+      await page.goto(`http://127.0.0.1:${PORT}${path}`);
+      await page.waitForSelector('[role="dialog"], #cb', { timeout: 10000 });
+      // Accept
+      const acceptBtn = page.locator('[role="dialog"] button, #cb button').nth(1);
+      await acceptBtn.click();
+      await page.waitForTimeout(1500);
+      // Inject synthetic GA cookies that revokeGA must find and clear
+      await page.evaluate(() => {
+        document.cookie = '_ga=GA1.1.synthetic.0; path=/';
+        document.cookie = '_ga_TEST000SIM=GS1.1.synthetic; path=/';
+        document.cookie = '_gid=GA1.1.synthetic; path=/';
+      });
+      let cookies = await context.cookies();
+      const before = cookies.map((c) => c.name).filter((n) => /^_ga(_.+)?$|^_gid$|^_gat$/.test(n));
+      if (before.length === 0) {
+        check(`${path}: synthetic _ga* cookies were set before revoke`, false,
+          'injection failed (precondition)');
+        await context.close();
+        continue;
+      }
+      // Reopen the banner via the footer link
+      const link = page.locator(`footer >> text="${label}"`).first();
+      await link.click({ force: true });
+      await page.waitForSelector('[role="dialog"], #cb', { timeout: 5000 });
+      // Reject in the reopened banner
+      await page.locator('[role="dialog"] button, #cb button').nth(0).click();
+      await page.waitForTimeout(1000);
+      cookies = await context.cookies();
+      const after = cookies.map((c) => c.name).filter((n) => /^_ga(_.+)?$|^_gid$|^_gat$/.test(n));
+      check(`${path}: all _ga*/_gid/_gat cookies removed after Reject`, after.length === 0,
+        after.length ? `remaining: ${after.join(',')} (had: ${before.join(',')})` : `cleared ${before.length}`);
+      await context.close();
+    }
   } finally {
     await browser.close();
     server.close();
