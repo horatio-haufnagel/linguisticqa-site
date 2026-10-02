@@ -174,6 +174,29 @@ Eccezioni documentate alle regole di CLAUDE.md, limitate a questa sezione:
 
 ---
 
+## Redirect per lingua del browser sulla homepage
+
+**Data:** 2026-10-02
+**Chi:** Alessio Di Rubbo
+**Status:** 🟡 In attesa di push
+
+### Cosa è stato deciso?
+Chi apre `/` con browser in italiano o tedesco viene portato con un redirect 302 su `/it/` o `/de/` (regole Netlify con `conditions = {Language = [...]}` in `netlify.toml`). Prima la lingua cambiava solo lato client, restando sull'indirizzo `/`. Il selettore di lingua salva la scelta anche nel cookie `nf_lang`, che Netlify usa al posto della lingua del browser. `/en/` mostra sempre la home inglese e memorizza la scelta: è l'indirizzo usato dalle pagine `/resources/`.
+
+### Perché?
+* Ogni indirizzo mostra una sola lingua: `/` dichiarato come inglese (hreflang) non mostra più tedesco o italiano allo stesso URL
+* I link dalle pagine inglesi portavano alla home in italiano o tedesco per chi aveva quella lingua salvata o nel browser
+
+### Implicazioni
+* Googlebot non invia una lingua it/de e continua a vedere `/` in inglese
+* Netlify legge solo la prima lingua del browser
+* Nuovo cookie tecnico `nf_lang` (durata un anno): va citato nell'informativa privacy
+
+### Reversibile?
+✅ Sì. Togliere le due regole `from = "/"` con `conditions` da `netlify.toml`.
+
+---
+
 ## Pagine inglesi in /resources/ e gruppi di traduzioni
 
 **Data:** 2026-10-02

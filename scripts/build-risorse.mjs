@@ -90,8 +90,8 @@ const L = {
     dateLocale: 'en-US',
     ogLocale: 'en_US',
     base: '/resources/',
-    // "/" sceglie la lingua da preferenza salvata o browser: ?lang=en forza l'inglese
-    home: '/?lang=en',
+    // "/" segue la lingua del browser (redirect Netlify): /en/ mostra sempre l'inglese
+    home: '/en/',
     navServices: 'Services',
     navResources: 'Resources',
     footer: 'linguisticqa.com · Italian localization, SEO and GEO for brands and agencies in the DACH region',

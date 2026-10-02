@@ -9,6 +9,35 @@
   command = "npm run dev"
   port = 3000
 
+# Lingua del browser sulla homepage: chi apre / con browser in italiano o tedesco va su /it/ o /de/.
+# Netlify legge la prima lingua dell'header Accept-Language; il cookie nf_lang, impostato dal
+# selettore di lingua, ha la precedenza. Senza lingua it/de (es. Googlebot) / resta in inglese.
+# force = true serve perche' a / esiste un file (index.html prerenderizzato).
+[[redirects]]
+  from = "/"
+  to = "/it/"
+  status = 302
+  force = true
+  conditions = {Language = ["it", "it-it", "it-ch"]}
+
+[[redirects]]
+  from = "/"
+  to = "/de/"
+  status = 302
+  force = true
+  conditions = {Language = ["de", "de-de", "de-at", "de-ch", "de-li", "de-lu"]}
+
+# /en/ = inglese esplicito (link dalle pagine /resources/): serve la home inglese senza redirect
+[[redirects]]
+  from = "/en"
+  to = "/en/"
+  status = 301
+
+[[redirects]]
+  from = "/en/"
+  to = "/index.html"
+  status = 200
+
 [[redirects]]
   from = "/it"
   to = "/it/"

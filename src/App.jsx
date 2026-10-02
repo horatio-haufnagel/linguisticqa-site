@@ -924,22 +924,29 @@ function detectLang() {
   const seg = window.location.pathname.split("/")[1];
   if (seg === "it") return "it";
   if (seg === "de") return "de";
-  // Scelta esplicita da un link (es. /?lang=en dalle pagine /resources/): vince su
-  // preferenza salvata e lingua del browser, viene memorizzata e tolta dall'URL.
-  try {
-    const q = new URLSearchParams(window.location.search).get("lang");
-    if (LANGS.includes(q)) {
-      persistLang(q);
-      window.history.replaceState({}, "", (q === "en" ? "/" : "/" + q + "/") + window.location.hash);
-      return q;
-    }
-  } catch (_) {}
+  // /en/ = scelta esplicita dell'inglese (link dalle pagine /resources/, vedi netlify.toml):
+  // viene memorizzata, cosi' il redirect per lingua del browser su / non si applica piu'.
+  if (seg === "en") {
+    persistLang("en");
+    try { window.history.replaceState({}, "", "/" + window.location.hash); } catch (_) {}
+    return "en";
+  }
   try { const s = window.localStorage.getItem(STORAGE_KEY); if (LANGS.includes(s)) return s; } catch (_) {}
   const nav = (typeof navigator !== "undefined" && navigator.language) || "en";
   const short = nav.slice(0, 2).toLowerCase();
   return LANGS.includes(short) ? short : "en";
 }
-function persistLang(l) { try { window.localStorage.setItem(STORAGE_KEY, l); } catch (_) {} }
+// Salva la lingua scelta: localStorage per l'app, cookie nf_lang per il redirect di Netlify su /
+// (netlify.toml), che altrimenti seguirebbe la lingua del browser.
+function persistLang(l) {
+  try { window.localStorage.setItem(STORAGE_KEY, l); } catch (_) {}
+  try { document.cookie = `nf_lang=${l}; path=/; max-age=31536000; SameSite=Lax`; } catch (_) {}
+}
+// Chi aveva gia' scelto una lingua prima del cookie nf_lang: la riporta nel cookie una volta sola.
+try {
+  const saved = window.localStorage.getItem(STORAGE_KEY);
+  if (LANGS.includes(saved) && !/(?:^|; )nf_lang=/.test(document.cookie)) persistLang(saved);
+} catch (_) {}
 
 function setMeta(name, content, attr = "name") {
   if (!content) return;
