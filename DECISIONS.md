@@ -174,6 +174,27 @@ Eccezioni documentate alle regole di CLAUDE.md, limitate a questa sezione:
 
 ---
 
+## Pagine inglesi in /resources/ e gruppi di traduzioni
+
+**Data:** 2026-10-02
+**Chi:** Alessio Di Rubbo
+**Status:** ✅ Implementato
+
+### Cosa è stato deciso?
+Il generatore accetta anche `lang: en`: le pagine escono in `/resources/<slug>/` (l'inglese sta alla radice del sito, come la homepage), con indice proprio, testi di interfaccia in inglese americano e voce di menu Resources che punta a `/resources/`. I link `hreflang` ora valgono per tutto il gruppo di traduzioni: una pagina collegata con `translation` a un'altra, anche indirettamente (en → it ← de), riceve i link verso tutte le versioni.
+
+Prima e per ora unica pagina inglese: `ai-sources-italian-german`, traduzione di `fonti-ai-italiano-tedesco`.
+
+### Perché?
+* Secondo lo studio di Toronto citato nell'articolo, Claude cita fonti in inglese molto più di Google anche per domande in altre lingue: una pagina inglese può essere quella ripresa dalle risposte
+* Agenzie internazionali e responsabili della localizzazione leggono in inglese
+* Si parte da una sola pagina come test: si estende solo se dopo due o tre mesi Analytics o il test manuale mostrano visite o citazioni
+
+### Reversibile?
+✅ Sì. Eliminare i file con `lang: en` da `content/risorse/`: senza pagine inglesi il generatore non crea `/resources/`.
+
+---
+
 ## Pagine tedesche in /de/ressourcen/ come eccezione al «solo italiano» di /risorse/
 
 **Data:** 2026-10-01

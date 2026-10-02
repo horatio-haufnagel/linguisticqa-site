@@ -76,7 +76,7 @@ Calls Gemini via `https://generativelanguage.googleapis.com/v1beta/openai/chat/c
 
 ## Sezione /risorse/ (eccezione alle regole sopra)
 
-Le pagine editoriali sono in `content/risorse/*.md` e vengono generate da `scripts/build-risorse.mjs` (ultimo passo di `npm run build`). Non vanno spostate in `App.jsx`. Per questa sezione sono ammessi: la dipendenza `marked`, CSS inline nel template dello script, testi in italiano (pagine tedesche solo come eccezione, con `lang: de`, pubblicate in `/de/ressourcen/`). Vedi `DECISIONS.md`, "Sezione /risorse/ come generatore statico". Frontmatter richiesto: `title`, `description`, `type` (glossario | metodo | dati | caso), `published` (YYYY-MM-DD); opzionali `modified`, `version`, `slug`, `draft: true`, `lang` (it | de), `translation` (slug della versione nell'altra lingua, per i link hreflang). Prova locale: `INCLUDE_DRAFTS=1 npm run build`.
+Le pagine editoriali sono in `content/risorse/*.md` e vengono generate da `scripts/build-risorse.mjs` (ultimo passo di `npm run build`). Non vanno spostate in `App.jsx`. Per questa sezione sono ammessi: la dipendenza `marked`, CSS inline nel template dello script, testi in italiano (pagine tedesche e inglesi solo come eccezione: `lang: de` in `/de/ressourcen/`, `lang: en` in `/resources/`). Vedi `DECISIONS.md`, "Sezione /risorse/ come generatore statico". Frontmatter richiesto: `title`, `description`, `type` (glossario | metodo | dati | caso), `published` (YYYY-MM-DD); opzionali `modified`, `version`, `slug`, `draft: true`, `lang` (it | de | en), `translation` (slug di una versione in un'altra lingua; i link hreflang coprono tutto il gruppo di traduzioni). Prova locale: `INCLUDE_DRAFTS=1 npm run build`.
 
 ## Known limitations
 

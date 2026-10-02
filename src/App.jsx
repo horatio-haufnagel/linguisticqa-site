@@ -1573,7 +1573,7 @@ export default function App() {
             <a href="#findings" className="nav">{t.nav.findings}</a>
             <a href="#notes" className="nav">{t.nav.notes}</a>
             <a href="#services" className="nav">{t.nav.services}</a>
-            <a href={lang === "de" ? "/de/ressourcen/" : "/risorse/"} hrefLang={lang === "de" ? "de" : "it"} className="nav">{t.nav.resources}</a>
+            <a href={lang === "de" ? "/de/ressourcen/" : lang === "en" ? "/resources/" : "/risorse/"} hrefLang={lang} className="nav">{t.nav.resources}</a>
             <a href="#about" className="nav">{t.nav.about}</a>
           </div>
           <div className="flex items-center gap-5 ml-auto">
@@ -1589,7 +1589,7 @@ export default function App() {
               <a href="#findings" onClick={() => setMenuOpen(false)}>{t.nav.findings}</a>
               <a href="#notes" onClick={() => setMenuOpen(false)}>{t.nav.notes}</a>
               <a href="#services" onClick={() => setMenuOpen(false)}>{t.nav.services}</a>
-              <a href={lang === "de" ? "/de/ressourcen/" : "/risorse/"} hrefLang={lang === "de" ? "de" : "it"}>{t.nav.resources}</a>
+              <a href={lang === "de" ? "/de/ressourcen/" : lang === "en" ? "/resources/" : "/risorse/"} hrefLang={lang}>{t.nav.resources}</a>
               <a href="#about" onClick={() => setMenuOpen(false)}>{t.nav.about}</a>
               <a href={CALENDLY_URL || `mailto:${EMAIL}`} onClick={() => { setMenuOpen(false); CALENDLY_URL && gaEvent("calendly_click", { source: "mobile_nav" }); }}>{t.nav.cta}</a>
             </div>

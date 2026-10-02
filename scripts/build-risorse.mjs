@@ -8,8 +8,9 @@
  * Comportamento:
  * - le pagine con "draft: true" nel frontmatter sono escluse, salvo INCLUDE_DRAFTS=1
  * - se non c'e' nessuna pagina pubblicata, non viene generato nulla (niente sezione vuota)
- * - "lang: de" nel frontmatter pubblica la pagina in /de/ressourcen/ (default: italiano, /risorse/)
- * - "translation: <slug>" collega una pagina alla sua traduzione (link hreflang reciproci)
+ * - "lang: de" pubblica la pagina in /de/ressourcen/, "lang: en" in /resources/ (default: italiano, /risorse/)
+ * - "translation: <slug>" collega una pagina a una sua traduzione; tutte le pagine collegate,
+ *   anche indirettamente, formano un gruppo e ricevono link hreflang reciproci
  * - aggiunge gli URL alla sitemap e genera llms.txt
  * - DIST_DIR permette di provare la build su una copia di dist/
  */
@@ -41,7 +42,7 @@ const TYPES = {
 };
 
 // Testi e percorsi per lingua. L'italiano resta la lingua principale della sezione;
-// il tedesco serve solo le pagine con "lang: de" (vedi DECISIONS.md).
+// tedesco e inglese servono solo le pagine con "lang: de" o "lang: en" (vedi DECISIONS.md).
 const L = {
   it: {
     types: TYPES,
@@ -83,6 +84,27 @@ const L = {
       'Analysen und Methoden zur Sichtbarkeit in KI-generierten Antworten, mit Blick auf den italienischen Markt. Jede Seite hat Version, Datum und eine zitierfähige Quelle.',
     listMeta: (v, mod) => `Version ${v} · Aktualisiert am ${mod}`,
     cookieSettings: 'Cookie-Einstellungen',
+  },
+  en: {
+    types: { glossario: 'Glossary', metodo: 'Methodology', dati: 'Data and reports', caso: 'Case study' },
+    dateLocale: 'en-US',
+    ogLocale: 'en_US',
+    base: '/resources/',
+    home: '/',
+    navServices: 'Services',
+    navResources: 'Resources',
+    footer: 'linguisticqa.com · Italian localization, SEO and GEO for brands and agencies in the DACH region',
+    metaLine: (type, v, pub, mod) => `${type} · Version ${v} · Published ${pub} · Updated ${mod} · by Alessio Di Rubbo`,
+    citeHead: 'How to cite this page',
+    cite: (title, v, mod) => `Di Rubbo, Alessio. “${title}”. linguisticqa.com, version ${v}, updated ${mod}.`,
+    cta: (home) =>
+      `I work on Italian localization, SEO and GEO for brands and agencies in the DACH region. <a href="${home}">See services</a>.`,
+    indexH1: 'Resources',
+    indexTitle: 'Resources on GEO, SEO and Italian language quality',
+    indexDesc:
+      'Analysis and methods on visibility in AI-generated answers, with a focus on the Italian market. Every page has a version, a date and a citable source.',
+    listMeta: (v, mod) => `Version ${v} · Updated ${mod}`,
+    cookieSettings: 'Cookie settings',
   },
 };
 const LANGS = Object.keys(L);
@@ -269,6 +291,28 @@ ${bodyHtml}
 `;
 }
 
+// Gruppo di traduzioni: tutte le pagine raggiungibili seguendo i campi "translation"
+// in entrambe le direzioni (es. en -> it <- de). Ordine: quello di "pages".
+function translationGroup(slug, pages) {
+  const seen = new Set([slug]);
+  const queue = [slug];
+  while (queue.length) {
+    const cur = queue.shift();
+    const curPage = pages.find((p) => p.meta.slug === cur);
+    for (const q of pages) {
+      if (seen.has(q.meta.slug)) continue;
+      if (q.meta.translation === cur || (curPage && curPage.meta.translation === q.meta.slug)) {
+        seen.add(q.meta.slug);
+        queue.push(q.meta.slug);
+      }
+    }
+  }
+  const group = pages.filter((p) => seen.has(p.meta.slug));
+  const langs = group.map((p) => p.meta.lang);
+  if (new Set(langs).size !== langs.length) fail(`gruppo di traduzioni di "${slug}" con due pagine nella stessa lingua`);
+  return group;
+}
+
 function articlePage({ meta, body }, pages) {
   const s = L[meta.lang];
   const url = pageUrl({ meta });
@@ -301,10 +345,8 @@ function articlePage({ meta, body }, pages) {
     });
   }
 
-  // hreflang: la pagina stessa piu' le traduzioni collegate in una delle due direzioni
-  const linked = pages.filter(
-    (q) => q.meta.slug !== meta.slug && (q.meta.slug === meta.translation || q.meta.translation === meta.slug)
-  );
+  // hreflang: la pagina stessa piu' tutte le pagine del suo gruppo di traduzioni
+  const linked = translationGroup(meta.slug, pages).filter((q) => q.meta.slug !== meta.slug);
   const alternates = linked.length
     ? [{ lang: meta.lang, url }, ...linked.map((q) => ({ lang: q.meta.lang, url: pageUrl(q) }))]
     : [];
@@ -382,9 +424,9 @@ function updateSitemap(byLang) {
   const file = path.join(DIST, 'sitemap.xml');
   if (!fs.existsSync(file)) fail(`sitemap.xml non trovata in ${DIST}`);
   let xml = fs.readFileSync(file, 'utf8');
-  // idempotente: rimuove eventuali voci /risorse/ e /de/ressourcen/ precedenti
+  // idempotente: rimuove eventuali voci /risorse/, /de/ressourcen/ e /resources/ precedenti
   xml = xml.replace(
-    /\s*<url>\s*<loc>https:\/\/linguisticqa\.com\/(?:risorse|de\/ressourcen)\/[\s\S]*?<\/url>/g,
+    /\s*<url>\s*<loc>https:\/\/linguisticqa\.com\/(?:risorse|de\/ressourcen|resources)\/[\s\S]*?<\/url>/g,
     ''
   );
   const entries = [];
@@ -422,6 +464,14 @@ function writeLlmsTxt(byLang) {
       '## Ressourcen (Deutsch)',
       '',
       ...byLang.de.map((p) => `- [${p.meta.title}](${pageUrl(p)}): ${p.meta.description}`),
+      ''
+    );
+  }
+  if (byLang.en.length) {
+    lines.push(
+      '## Resources (English)',
+      '',
+      ...byLang.en.map((p) => `- [${p.meta.title}](${pageUrl(p)}): ${p.meta.description}`),
       ''
     );
   }
