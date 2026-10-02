@@ -924,6 +924,16 @@ function detectLang() {
   const seg = window.location.pathname.split("/")[1];
   if (seg === "it") return "it";
   if (seg === "de") return "de";
+  // Scelta esplicita da un link (es. /?lang=en dalle pagine /resources/): vince su
+  // preferenza salvata e lingua del browser, viene memorizzata e tolta dall'URL.
+  try {
+    const q = new URLSearchParams(window.location.search).get("lang");
+    if (LANGS.includes(q)) {
+      persistLang(q);
+      window.history.replaceState({}, "", (q === "en" ? "/" : "/" + q + "/") + window.location.hash);
+      return q;
+    }
+  } catch (_) {}
   try { const s = window.localStorage.getItem(STORAGE_KEY); if (LANGS.includes(s)) return s; } catch (_) {}
   const nav = (typeof navigator !== "undefined" && navigator.language) || "en";
   const short = nav.slice(0, 2).toLowerCase();
